@@ -9,15 +9,7 @@ import SwiftUI
 import NukeUI
 import Nuke
 
-struct CustomProgress : View {
-    
-    var body: some View {
-        ProgressView()
-            .frame(width: 140, height: 200)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-    }
-    
-}
+
 struct CustomImage: View {
     
     let image: Image
@@ -37,9 +29,11 @@ struct CustomImage: View {
 }
 
 
-struct ContentView: View {
-    
-    @StateObject var viewModel = MovieDiscoverViewModel()
+struct DiscoverView: View {
+    #warning("Refactor views, NavView api call double.. api call 이름 정리")
+    @ObservedObject var viewModel: MovieDiscoverViewModel
+    @ObservedObject var movieDetailsViewModel: MovieDetailsViewModel
+    @State private var hasAppeared = false
     
     var body: some View {
         
@@ -57,7 +51,7 @@ struct ContentView: View {
                             LazyHStack(spacing: 10) {
                                 ForEach(viewModel.popular) { movie in
                                     NavigationLink {
-                                        DetailView(movie: movie)
+                                        DetailView(detailsViewModel: movieDetailsViewModel, movie: movie)
                                     } label: {
                                         LazyImage(url: movie.posterURL) { state in
                                             if let image = state.image {
@@ -65,7 +59,7 @@ struct ContentView: View {
                                             } else if state.error != nil {
                                                 Text("Error")
                                             } else {
-                                                CustomProgress()
+                                                CustomProgressView()
                                             }
                                         }
                                     }
@@ -83,8 +77,7 @@ struct ContentView: View {
                             HStack(spacing: 10) {
                                 ForEach(viewModel.upcomings) { movie in
                                     NavigationLink {
-#warning("영화 정보 사이트 브라우저 띄우기")
-                                        DetailView(movie: movie)
+                                        DetailView(detailsViewModel: movieDetailsViewModel, movie: movie)
                                     } label: {
                                         LazyImage(url: movie.backdropURL) { state in
                                             if let image = state.image {
@@ -115,7 +108,7 @@ struct ContentView: View {
                                             } else if state.error != nil {
                                                 Text("Error")
                                             } else {
-                                                CustomProgress()
+                                                CustomProgressView()
                                             }
                                         }
                                     }
@@ -132,31 +125,15 @@ struct ContentView: View {
             }
             .navigationTitle("Home")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button() {
-
-                    } label: {
-                        Label("List", systemImage: "line.3.horizontal")
-                            .foregroundColor(.white)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        SearchView(viewModel: viewModel)
-                    } label: {
-                        Label("Search", systemImage: "magnifyingglass")
-                            .foregroundColor(.white)
-                    }
-                }
-                
-            }
             
         }
         .task {
+            guard !hasAppeared else { return }
+            hasAppeared = true
             await viewModel.loadPopoular()
             await viewModel.loadUpcomings()
-            
+            await viewModel.getGenreLists()
+
         }
         .preferredColorScheme(.dark)
         
@@ -167,6 +144,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        DiscoverView(viewModel: MovieDiscoverViewModel(), movieDetailsViewModel: MovieDetailsViewModel())
     }
 }

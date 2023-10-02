@@ -25,12 +25,7 @@ struct Movie: Codable, Identifiable {
     let poster_path: String?
     let release_date, title: String
     let vote_average: Double
-    
-    //    let originalTitle: String
-    //    let popularity: Double
-    //    let voteCount: Int
-    //    let genreIds: [Int]
-    //    let video: Bool
+    let genre_ids: [Int]
     
     var posterURL: URL? {
         let baseURL = URL(string: "https://image.tmdb.org/t/p/w500/")
@@ -42,6 +37,19 @@ struct Movie: Codable, Identifiable {
     
     }
     
+    var genres: String? {
+        let genrelists: GenreLists = Bundle.main.decode("Genrelists")
+        var genreNames = [String]()
+        for id in genre_ids {
+            if let genre = genrelists.genres.first(where: { $0.id == id }) {
+                let genreName = genre.name
+                genreNames.append(genreName)
+            }
+        }
+        let strGenreNames = genreNames.joined(separator: " ")
+        return strGenreNames
+    }
+ 
     static var preview: Movie {
         return Movie(adult: false,
                      backdrop_path: "/8pjWz2lt29KyVGoq1mXYu6Br7dE.jpg",
@@ -51,9 +59,23 @@ struct Movie: Codable, Identifiable {
                      poster_path: "/4m1Au3YkjqsxF8iwQy0fPYSxE0h.jpg",
                      release_date: "2023-08-02",
                      title: "Meg 2: The Trench",
-                     vote_average: 7.0
+                     vote_average: 7.0,
+                     genre_ids: [28,12]
+//                     genres: []
+                     
         )
     }
     
+}
+
+// MARK: - Genres
+struct GenreLists: Codable {
+    let genres: [Genre]
+}
+
+// MARK: - Genre
+struct Genre: Codable {
+    let id: Int
+    let name: String
 }
 

@@ -8,39 +8,12 @@
 import SwiftUI
 import NukeUI
 
-struct PosterView: View {
-    
-    let movie: Movie
-    
-    init(movie: Movie) {
-        self.movie = movie
-    }
-    var body: some View {
-        LazyImage(url: URL(string: "https://image.tmdb.org/t/p/w500/\(movie.poster_path ?? "")")) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .strokeBorder(.white, lineWidth: 1)
-                    )
-            } else if phase.error != nil {
-                // 대체 이미지 필요
-                Text("Error")
-            } else {
-                ProgressView()
-            }
-        }
-        .frame(width: 150, height: 200)
 
-    }
-}
 
 struct DetailView: View {
     
-    @StateObject var detailsViewModel = MovieDetailsViewModel()
+    @ObservedObject var detailsViewModel: MovieDetailsViewModel
+    @State var hasAppeared = false
     var movie: Movie
     
     var body: some View {
@@ -48,6 +21,7 @@ struct DetailView: View {
             ZStack {
                 //BackDrop
                 VStack  {
+                    #warning("이밎 url 수정")
                     LazyImage(url: URL(string: "https://image.tmdb.org/t/p/w1280/\(movie.backdrop_path ?? "")")) { phase in
                         if let image = phase.image {
                             image
@@ -72,14 +46,25 @@ struct DetailView: View {
                                 .font(.title.bold())
                                 .lineLimit(1)
                             Spacer()
+                            
+                            Button {
+                                detailsViewModel.addFavoriteMovies(movie: movie)
+                                
+                            } label: {
+                                Image(systemName: "plus.circle")
+                                    .foregroundColor(.white)
+                                    .font(.title.bold())
+                            }
                         }
                         // Poster, Details
                         HStack(alignment:.top) {
                             PosterView(movie: movie)
                             VStack(alignment: .leading) {
-                                #warning("Need to update to fetch data")
-                                Text("2023, CN, US, Action, Science, Fiction, Horror")
+                                Text("\(movie.genres!)")
                                     .font(.headline.bold())
+                                    .onAppear {
+
+                                    }
                                 
                                 HStack {
                                     Text("\(movie.vote_average.formatted())")
@@ -115,7 +100,7 @@ struct DetailView: View {
                         
                         ScrollView(.horizontal) {
                             LazyHStack {
-                                ForEach(detailsViewModel.castProfiles) { cast in
+                                ForEach(detailsViewModel.movieCast) { cast in
                                     CastView(cast: cast)
                                 }
                             }
@@ -129,7 +114,7 @@ struct DetailView: View {
                         ScrollView(.horizontal){
                             LazyHStack {
                                 ForEach(detailsViewModel.recommendations) { recommendation in
-                                    PosterView(movie: Movie(adult: false, backdrop_path: "", id: recommendation.id, original_language: "", overview: "", poster_path: recommendation.poster_path ?? "", release_date: "", title: recommendation.title, vote_average: 5.5))
+                                    PosterView(movie: Movie(adult: false, backdrop_path: "", id: recommendation.id, original_language: "", overview: "", poster_path: recommendation.poster_path ?? "", release_date: "", title: recommendation.title, vote_average: 5.5, genre_ids: []))
                                 }
                             }
                             
@@ -139,11 +124,16 @@ struct DetailView: View {
                     .padding()
                 }
                 .task {
+                    
+                    guard !hasAppeared else { return }
+                    hasAppeared = true
+                    
                     await detailsViewModel.getMovieCredits(for: movie.id)
-                    await detailsViewModel.getCastProfiles()
                     await detailsViewModel.getRecommendations(for: movie.id)
+
                 }
             }
+            
         }
     }
     
@@ -151,11 +141,39 @@ struct DetailView: View {
 }
 
 
+struct PosterView: View {
+    
+    let movie: Movie
+    
+    init(movie: Movie) {
+        self.movie = movie
+    }
+    var body: some View {
+        LazyImage(url: URL(string: "https://image.tmdb.org/t/p/w500/\(movie.poster_path ?? "")")) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .strokeBorder(.white, lineWidth: 1)
+                    )
+            } else if phase.error != nil {
+                // 대체 이미지 필요
+                Text("Error")
+            } else {
+                ProgressView()
+            }
+        }
+        .frame(width: 150, height: 200)
 
+    }
+}
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(movie: .preview)
+        DetailView(detailsViewModel: MovieDetailsViewModel(), movie: .preview)
             .preferredColorScheme(.dark)
     }
 }

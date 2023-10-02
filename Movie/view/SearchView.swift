@@ -37,7 +37,7 @@ struct SearchView: View {
                         }
 
                     }
-                    CustomSearchView(searchText: $searchText)
+                    CustomSearchBar(searchText: $searchText)
                         .onSubmit {
                             Task {
                                 await viewModel.searchMovies(text: searchText)
@@ -57,7 +57,7 @@ struct SearchView: View {
                                         } else if state.error   != nil {
                                             Text("Error")
                                         } else {
-                                            CustomProgress()
+                                            CustomProgressView()
                                         }
                                     }
                                 }

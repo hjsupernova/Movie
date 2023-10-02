@@ -11,10 +11,10 @@ import NukeUI
 
 struct CastView: View {
     
-    let cast: CastProfile
+    let cast: MovieCredits.Cast
     
     var body: some View {
-        
+    
         VStack {
             LazyImage(url: cast.photoUrl) { phase in
                 if let image = phase.image {
@@ -25,7 +25,7 @@ struct CastView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
-                                .strokeBorder(.white, lineWidth: 1)
+                                .strokeBorder(.white,   lineWidth: 1)
                         )
                 } else if phase.error != nil {
                     
