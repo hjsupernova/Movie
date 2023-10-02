@@ -60,9 +60,7 @@ struct Movie: Codable, Identifiable {
                      release_date: "2023-08-02",
                      title: "Meg 2: The Trench",
                      vote_average: 7.0,
-                     genre_ids: [28,12]
-//                     genres: []
-                     
+                     genre_ids: [28,12]                     
         )
     }
     

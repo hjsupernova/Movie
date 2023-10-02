@@ -21,8 +21,7 @@ struct DetailView: View {
             ZStack {
                 //BackDrop
                 VStack  {
-                    #warning("이밎 url 수정")
-                    LazyImage(url: URL(string: "https://image.tmdb.org/t/p/w1280/\(movie.backdrop_path ?? "")")) { phase in
+                    LazyImage(url: movie.backdropURL) { phase in
                         if let image = phase.image {
                             image
                                 .resizable()
@@ -100,7 +99,7 @@ struct DetailView: View {
                         
                         ScrollView(.horizontal) {
                             LazyHStack {
-                                ForEach(detailsViewModel.movieCast) { cast in
+                                ForEach(detailsViewModel.castList) { cast in
                                     CastView(cast: cast)
                                 }
                             }
@@ -140,36 +139,6 @@ struct DetailView: View {
     
 }
 
-
-struct PosterView: View {
-    
-    let movie: Movie
-    
-    init(movie: Movie) {
-        self.movie = movie
-    }
-    var body: some View {
-        LazyImage(url: URL(string: "https://image.tmdb.org/t/p/w500/\(movie.poster_path ?? "")")) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .strokeBorder(.white, lineWidth: 1)
-                    )
-            } else if phase.error != nil {
-                // 대체 이미지 필요
-                Text("Error")
-            } else {
-                ProgressView()
-            }
-        }
-        .frame(width: 150, height: 200)
-
-    }
-}
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {

@@ -10,27 +10,10 @@ import NukeUI
 import Nuke
 
 
-struct CustomImage: View {
-    
-    let image: Image
-    init(image: Image) {
-        self.image = image
-    }
-    var body: some View {
-        
-        image
-            .resizable()
-            .scaledToFill()
-            .frame(width: 140, height: 200)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-        
-    }
-    
-}
 
 
 struct DiscoverView: View {
-    #warning("Refactor views, NavView api call double.. api call 이름 정리")
+    #warning("Need to fix this view execute Network call twice.")
     @ObservedObject var viewModel: MovieDiscoverViewModel
     @ObservedObject var movieDetailsViewModel: MovieDetailsViewModel
     @State private var hasAppeared = false
@@ -53,15 +36,7 @@ struct DiscoverView: View {
                                     NavigationLink {
                                         DetailView(detailsViewModel: movieDetailsViewModel, movie: movie)
                                     } label: {
-                                        LazyImage(url: movie.posterURL) { state in
-                                            if let image = state.image {
-                                                CustomImage(image: image)
-                                            } else if state.error != nil {
-                                                Text("Error")
-                                            } else {
-                                                CustomProgressView()
-                                            }
-                                        }
+                                        PosterView(movie: movie)
                                     }
                                 }
                             }
@@ -102,7 +77,6 @@ struct DiscoverView: View {
                                                     }
                                                     .padding(5)
                                                     .frame(width: 365, height: 205)
-                                                    
                                                 }
                                                 
                                             } else if state.error != nil {

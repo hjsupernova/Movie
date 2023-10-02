@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomSearchBar: View {
+struct SearchBar: View {
     @Binding var searchText: String
     
     var body: some View {
@@ -22,6 +22,6 @@ struct CustomSearchBar: View {
 
 struct CustomSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomSearchBar(searchText: .constant("H"))
+        SearchBar(searchText: .constant("H"))
     }
 }

@@ -11,7 +11,7 @@ import NukeUI
 
 struct CastView: View {
     
-    let cast: MovieCredits.Cast
+    let cast: Credits.Cast
     
     var body: some View {
     

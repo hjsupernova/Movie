@@ -37,7 +37,7 @@ struct SearchView: View {
                         }
 
                     }
-                    CustomSearchBar(searchText: $searchText)
+                    SearchBar(searchText: $searchText)
                         .onSubmit {
                             Task {
                                 await viewModel.searchMovies(text: searchText)
@@ -51,15 +51,7 @@ struct SearchView: View {
                                 NavigationLink {
                                     Text("\(movie.title)")
                                 } label: {
-                                    LazyImage(url: movie.posterURL) { state in
-                                        if let image = state.image {
-                                            CustomImage(image: image)
-                                        } else if state.error   != nil {
-                                            Text("Error")
-                                        } else {
-                                            CustomProgressView()
-                                        }
-                                    }
+                                    PosterView(movie: movie)
                                 }
                             }
                         }

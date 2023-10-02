@@ -11,14 +11,14 @@ import SwiftUI
 class MovieDetailsViewModel: ObservableObject {
     
     
-    @Published var movieCredits: MovieCredits?
-    @Published var movieCast: [MovieCredits.Cast] = []
-    
+    @Published var credits: Credits?
+    @Published var castList: [Credits.Cast] = []
     @Published var recommendations: [Recommendation] = []
-
     @Published var favoriteMovies: [Movie]  =  []
+    
     let savePath = FileManager.documentsDirectory.appendingPathComponent("FavoriteMovies")
     
+    //이거 음... 계속 불러오는 게 맞나?
     init() {
         do {
             let data = try Data(contentsOf: savePath )
@@ -35,7 +35,6 @@ class MovieDetailsViewModel: ObservableObject {
         
         save()
     }
-    //이거 음... 계속 불러오는 게 맞나?
 
     func save() {
         do {
@@ -56,9 +55,9 @@ class MovieDetailsViewModel: ObservableObject {
         let decoder = JSONDecoder()
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
-            let decodedData = try decoder.decode(MovieCredits.self, from: data)
-            self.movieCredits = decodedData
-            self.movieCast = decodedData.cast
+            let decodedData = try decoder.decode(Credits.self, from: data)
+            self.credits = decodedData
+            self.castList = decodedData.cast
             
                 print("Get Movie Credits")
             
@@ -82,46 +81,6 @@ class MovieDetailsViewModel: ObservableObject {
             
         }
         
-        
-    }
-    
-}
-
-
-struct MovieCredits: Decodable {
-    let id: Int
-    let cast: [Cast]
-    
-    struct Cast: Decodable, Identifiable {
-        let id: Int
-        let name: String
-        let profile_path: String?
-        
-        var photoUrl: URL? {
-            let baseURL = URL(string: "https://image.tmdb.org/t/p/w185")
-            return baseURL?.appending(path: profile_path ?? "")
-        }
-        
-        
-        static var preview: Cast {
-            return Cast(id: 3, name: "Harrison Ford", profile_path: "/5M7oN3sznp99hWYQ9sX0xheswWX.jpg")
-        }
-    }
-}
-
-struct RecommendationsResponses: Decodable {
-    let results: [Recommendation]
-}
-
-struct Recommendation: Decodable, Identifiable {
-    let title: String
-    let id: Int
-    let poster_path: String?
-    
-    
-    var posterUrl: URL? {
-        let baseURL = URL(string: "https://image.tmdb.org/t/p/w500")
-        return baseURL?.appending(path: poster_path ?? "")
     }
     
 }
