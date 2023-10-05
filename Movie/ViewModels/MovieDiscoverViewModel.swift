@@ -19,7 +19,7 @@ class MovieDiscoverViewModel: ObservableObject {
     static let apiKey = "4516ab9bf50f2aa091aeea5f2f5ca6a5"
     
     func loadPopoular() async {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=\(MovieDiscoverViewModel.apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/popular?region=US&api_key=\(MovieDiscoverViewModel.apiKey)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -36,7 +36,7 @@ class MovieDiscoverViewModel: ObservableObject {
         
     }
     func loadUpcomings() async {
-        let url = URL(string: "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&page=1&region=kr&release_date.gte=2023-09-28&release_date.lte=2023-10-05&sort_by=popularity.desc&with_release_type=3&api_key=\(MovieDiscoverViewModel.apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/discover/movie?language=en-US&region=US&sort_by=popularity.desc&api_key=\(MovieDiscoverViewModel.apiKey)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -53,7 +53,7 @@ class MovieDiscoverViewModel: ObservableObject {
         
     }
     func searchMovies(text: String) async {
-        let url = URL(string: "https://api.themoviedb.org/3/search/movie?query=\(text)&include_adult=false&language=en-US&page=1&api_key=\(MovieDiscoverViewModel.apiKey)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+        let url = URL(string: "https://api.themoviedb.org/3/search/movie?query=\(text)&language=en-US&page=1&api_key=\(MovieDiscoverViewModel.apiKey)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
