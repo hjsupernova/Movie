@@ -16,6 +16,40 @@ class MovieDetailsViewModel: ObservableObject {
     @Published var recommendations: [Recommendation] = []
     @Published var favoriteMovies: [Movie]  =  []
     
+    
+//MARK: - Network
+    static let apiKey = "4516ab9bf50f2aa091aeea5f2f5ca6a5"
+    
+    let apiClient = APIClient(apiKey: apiKey, baseURL: URL.tmdbAPIBaseURL)
+    
+    func getMovieCredits(for movieID: Int) async {
+        
+        do {
+            let decodedData = try await apiClient.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url, modelType: Credits.self)
+            credits = decodedData
+            castList = decodedData.cast
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    func getRecommendations(for movieID: Int) async {
+        
+        do {
+            recommendations = try await apiClient.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: RecommendationsResponses.self).results
+        } catch {
+            print("DEBUG: Failed to load recommendations: \(error)")
+
+        }
+        
+    }
+    
+    
+    
+
+//MARK: - Save Data
+    
     let savePath = FileManager.documentsDirectory.appendingPathComponent("FavoriteMovies")
     
     //이거 음... 계속 불러오는 게 맞나?
@@ -23,7 +57,7 @@ class MovieDetailsViewModel: ObservableObject {
         do {
             let data = try Data(contentsOf: savePath )
             favoriteMovies = try JSONDecoder().decode([Movie].self, from: data)
-            print("Complete load data from Documents Directory")
+            print("DEBUG: Complete load data from Documents Directory")
         } catch {
             favoriteMovies = []
         }
@@ -43,42 +77,6 @@ class MovieDetailsViewModel: ObservableObject {
             print("Save complete")
         } catch {
             print("Unable to save data")
-        }
-    }
-    
-    func getMovieCredits(for movieID: Int) async {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)/credits?api_key=\(MovieDiscoverViewModel.apiKey)&language=en-US")!
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let decoder = JSONDecoder()
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let decodedData = try decoder.decode(Credits.self, from: data)
-            self.credits = decodedData
-            self.castList = decodedData.cast
-            
-                print("Get Movie Credits")
-            
-        } catch {
-            
-        }
-    }
-    
-    func getRecommendations(for movieID: Int) async {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)/recommendations?api_key=\(MovieDiscoverViewModel.apiKey)&language=en-US")!
-        var request = URLRequest(url: url)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let decoder = JSONDecoder()
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let decodedData = try decoder.decode(RecommendationsResponses.self, from: data)
-            recommendations = decodedData.results
-            
-        } catch {
-            
         }
         
     }

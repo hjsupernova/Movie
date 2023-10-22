@@ -10,10 +10,7 @@ import NukeUI
 import Nuke
 
 
-
-
 struct DiscoverView: View {
-    #warning("Need to fix this view execute Network call twice.")
     @ObservedObject var viewModel: MovieDiscoverViewModel
     @ObservedObject var movieDetailsViewModel: MovieDetailsViewModel
     @State private var hasAppeared = false
