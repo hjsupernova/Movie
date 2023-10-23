@@ -13,7 +13,7 @@ class MovieDetailsViewModel: ObservableObject {
     
     @Published var credits: Credits?
     @Published var castList: [Credits.Cast] = []
-    @Published var recommendations: [Recommendation] = []
+    @Published var recommendations: [Movie] = []
     @Published var favoriteMovies: [Movie]  =  []
     
     
@@ -28,6 +28,7 @@ class MovieDetailsViewModel: ObservableObject {
             let decodedData = try await apiClient.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url, modelType: Credits.self)
             credits = decodedData
             castList = decodedData.cast
+            print("DEBUG: Movie credits loaded successfully.")
         } catch {
             print(error.localizedDescription)
         }
@@ -37,7 +38,9 @@ class MovieDetailsViewModel: ObservableObject {
     func getRecommendations(for movieID: Int) async {
         
         do {
-            recommendations = try await apiClient.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: RecommendationsResponses.self).results
+            recommendations = try await apiClient.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: Response.self).results
+            print("DEBUG: Recommendations loaded successfully.")
+
         } catch {
             print("DEBUG: Failed to load recommendations: \(error)")
 
