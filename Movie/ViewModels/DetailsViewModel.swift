@@ -16,9 +16,8 @@ class DetailsViewModel: ObservableObject {
     @Published var recommendations: [Movie] = []
     
 //MARK: - Network
-    static let apiKey = "4516ab9bf50f2aa091aeea5f2f5ca6a5"
     
-    let apiClient = APIClient(apiKey: apiKey, baseURL: URL.tmdbAPIBaseURL)
+    let apiClient = APIClient(apiKey: Bundle.main.apiKey, baseURL: URL.tmdbAPIBaseURL)
     
     func getMovieCredits(for movieID: Int) async {
         
@@ -28,7 +27,7 @@ class DetailsViewModel: ObservableObject {
             castList = decodedData.cast
             print("DEBUG: Movie credits loaded successfully.")
         } catch {
-            print(error.localizedDescription)
+            print("DEBUG: Failed to load Movie Credits: \(error)")
         }
         
     }

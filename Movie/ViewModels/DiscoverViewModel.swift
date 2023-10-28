@@ -11,13 +11,11 @@ import SwiftUI
 class DiscoverViewModel: ObservableObject {
     
     @Published var popular: [Movie]  = []
-    @Published var upcomings: [Movie] = []
-    
+    @Published var upcomings: [Movie] = []    
     static var genreLists: [Genre] = []
+
+    let apiClient = APIClient(apiKey: Bundle.main.apiKey, baseURL: URL.tmdbAPIBaseURL)
     
-    static let apiKey = Bundle.main.apiKey
-    
-    let apiClient = APIClient(apiKey: apiKey, baseURL: URL.tmdbAPIBaseURL)
     func loadPopoular() async {
         do {
             popular = try await apiClient.fetchData(url: MoviesEndpoint.popular().url, modelType: Response.self).results
@@ -32,7 +30,7 @@ class DiscoverViewModel: ObservableObject {
             upcomings = try await apiClient.fetchData(url: MoviesEndpoint.upcoming().url, modelType: Response.self).results
             
         } catch {
-            print("Error: \(error)")
+            print("DEBUG: Failed to load upcomings: \(error)")
         }
         
     }

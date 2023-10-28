@@ -43,5 +43,6 @@ struct MovieTabView: View {
 struct MovieTapView_Previews: PreviewProvider {
     static var previews: some View {
         MovieTabView()
+            .environmentObject(LibraryViewModel())
     }
 }

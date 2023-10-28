@@ -28,7 +28,7 @@ class APIClient  {
             .appendingAPIKey(apiKey)
     }
     
-    func fetchData<T:Decodable>(url: URL, modelType: T.Type) async throws -> T {
+    func fetchData<T: Decodable>(url: URL, modelType: T.Type) async throws -> T {
         let url = urlFromPath(url)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -37,10 +37,10 @@ class APIClient  {
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(T.self, from: data)
+            let decodedData = try decoder.decode(modelType, from: data)
             return decodedData
         } catch {
-            print("Error \(error)")
+            print("DEBUG: Fetch Data failed: \(error.localizedDescription)")
             throw error
         }
     }

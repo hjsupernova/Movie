@@ -49,7 +49,7 @@ class LibraryViewModel: ObservableObject {
             try data.write(to: savePath, options: [.atomic])
             print("DEBUG: Save favorite movie successfully.")
         } catch {
-            print("Unable to save data")
+            print("DEBUG: Unable to save data")
         }
     }
 }
