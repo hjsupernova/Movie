@@ -9,25 +9,25 @@ import SwiftUI
 
 struct MovieTabView: View {
     @State private var selectedTap = 0
-    @StateObject var movieDiscoverViewModel = MovieDiscoverViewModel()
-    @StateObject var movieDetailsViewModel = MovieDetailsViewModel()
+    @StateObject var libraryViewModel = LibraryViewModel()
+    
     var body: some View {
-        TabView(selection: $selectedTap) {
-            DiscoverView(viewModel: movieDiscoverViewModel, movieDetailsViewModel: movieDetailsViewModel)
+        TabView(selection: $selectedTap) {            
+            DiscoverView()
                 .tabItem {
                     Image(systemName: "house")
                 }
                 .onAppear { selectedTap = 0 }
                 .tag(0)
             
-            LibraryView(detailsViewModel: movieDetailsViewModel)
+            LibraryView()
                 .tabItem {
                     Image(systemName: "folder")
                 }
                 .onAppear { selectedTap = 1 }
                 .tag(1)
             
-            SearchView(viewModel: movieDiscoverViewModel)
+            SearchView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                 }
@@ -35,6 +35,7 @@ struct MovieTabView: View {
                 .tag(2)
         }
         .tint(.white)
+        .environmentObject(libraryViewModel)
         
     }
 }

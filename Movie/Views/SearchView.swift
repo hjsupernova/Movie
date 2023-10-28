@@ -10,7 +10,8 @@ import NukeUI
 
 struct SearchView: View {
     
-    @ObservedObject var viewModel: MovieDiscoverViewModel
+    @StateObject var serachViewModel = SearchViewModel()
+    
     let layout = [
         GridItem(.adaptive(minimum: 300, maximum: 500)),
         GridItem(.adaptive(minimum: 300, maximum: 500))
@@ -40,16 +41,16 @@ struct SearchView: View {
                     SearchBar(searchText: $searchText)
                         .onSubmit {
                             Task {
-                                await viewModel.searchMovies(text: searchText)
+                                await serachViewModel.searchMovies(text: searchText)
                             }
                         }
                     
                     // 검색된 영화 스크롤 뷰
                     ScrollView(showsIndicators: false) {
                         LazyVGrid(columns: layout) {
-                            ForEach(viewModel.searchedMovies) { movie in
+                            ForEach(serachViewModel.searchedMovies) { movie in
                                 NavigationLink {
-                                    Text("\(movie.title)")
+                                    DetailsView(movie: movie)
                                 } label: {
                                     PosterView(movie: movie)
                                 }
@@ -72,7 +73,7 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(viewModel: MovieDiscoverViewModel())
+        SearchView(serachViewModel: SearchViewModel())
             .preferredColorScheme(.dark)
     }
 }

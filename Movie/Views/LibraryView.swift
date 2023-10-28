@@ -9,21 +9,38 @@ import SwiftUI
 import NukeUI
 struct LibraryView: View {
     
-    @ObservedObject var detailsViewModel: MovieDetailsViewModel
+    @EnvironmentObject var libraryViewModel: LibraryViewModel
     let layout = [
         GridItem(.adaptive(minimum: 300, maximum: 500)),
         GridItem(.adaptive(minimum: 300, maximum: 500))
     ]
     
+
+    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: layout) {
-                    ForEach(detailsViewModel.favoriteMovies) { movie in
+                    ForEach(libraryViewModel.favoriteMovies) { movie in
                         NavigationLink {
-                            Text("\(movie.title)")
+                            DetailsView(movie: movie)
                         } label: {
-                            PosterView(movie: movie)
+                            ZStack {
+                                PosterView(movie: movie)
+                                VStack {
+                                    HStack {
+                                        Spacer()
+                                        Button {
+                                            libraryViewModel.deleteFavoriteMovies(movie: movie)
+                                        } label: {
+                                            Image(systemName: "x.circle")
+                                                .foregroundColor(.white)
+                                        }
+                                        
+                                    }
+                                    Spacer()
+                                }
+                            }
                         }
                     }
                 }
@@ -35,7 +52,8 @@ struct LibraryView: View {
 
 struct LibraryView_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryView(detailsViewModel: MovieDetailsViewModel())
+        LibraryView()
             .preferredColorScheme(.dark)
+            .environmentObject(LibraryViewModel())
     }
 }

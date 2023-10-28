@@ -16,7 +16,7 @@ struct Response: Codable {
 }
 
 // MARK: - Result
-struct Movie: Codable, Identifiable {
+struct Movie: Codable, Identifiable, Equatable {
     let adult: Bool
     let backdrop_path: String?
     let id: Int
@@ -49,6 +49,8 @@ struct Movie: Codable, Identifiable {
         let strGenreNames = genreNames.joined(separator: " ")
         return strGenreNames
     }
+
+    
  
     static var preview: Movie {
         return Movie(adult: false,

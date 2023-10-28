@@ -11,10 +11,12 @@ import Nuke
 
 
 struct DiscoverView: View {
-    @ObservedObject var viewModel: MovieDiscoverViewModel
-    @ObservedObject var movieDetailsViewModel: MovieDetailsViewModel
+
+    @StateObject var discoverViewModel = DiscoverViewModel()
+
+
     @State private var hasAppeared = false
-    
+
     var body: some View {
         
         NavigationView {
@@ -29,9 +31,9 @@ struct DiscoverView: View {
                         
                         ScrollView(.horizontal,showsIndicators: false) {
                             LazyHStack(spacing: 10) {
-                                ForEach(viewModel.popular) { movie in
+                                ForEach(discoverViewModel.popular) { movie in
                                     NavigationLink {
-                                        DetailView(detailsViewModel: movieDetailsViewModel, movie: movie)
+                                        DetailsView(movie: movie)
                                     } label: {
                                         PosterView(movie: movie)
                                     }
@@ -47,9 +49,9 @@ struct DiscoverView: View {
                             .bold()
                         ScrollView(.horizontal,showsIndicators: false) {
                             HStack(spacing: 10) {
-                                ForEach(viewModel.upcomings) { movie in
+                                ForEach(discoverViewModel.upcomings) { movie in
                                     NavigationLink {
-                                        DetailView(detailsViewModel: movieDetailsViewModel, movie: movie)
+                                        DetailsView(movie: movie)
                                     } label: {
                                         LazyImage(url: movie.backdropURL) { state in
                                             if let image = state.image {
@@ -101,9 +103,9 @@ struct DiscoverView: View {
         .task {
             guard !hasAppeared else { return }
             hasAppeared = true
-            await viewModel.loadPopoular()
-            await viewModel.loadUpcomings()
-            await viewModel.getGenreLists()
+            await discoverViewModel.loadPopoular()
+            await discoverViewModel.loadUpcomings()
+            await discoverViewModel.getGenreLists()
 
         }
         .preferredColorScheme(.dark)
@@ -115,6 +117,6 @@ struct DiscoverView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscoverView(viewModel: MovieDiscoverViewModel(), movieDetailsViewModel: MovieDetailsViewModel())
+        DiscoverView(discoverViewModel: DiscoverViewModel())
     }
 }
