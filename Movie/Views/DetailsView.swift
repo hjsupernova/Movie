@@ -105,24 +105,26 @@ struct DetailsView: View {
                         }
                     }
                     
-                    //Recommencations View
-                    Text("Recommendations")
-                        .font(.title.bold())
-                        .padding(.top)
-                    
-                    ScrollView(.horizontal, showsIndicators: false){
-                        LazyHStack {
-                            ForEach(detailsViewModel.recommendations) { movie in
-                                NavigationLink {
-                                    DetailsView(movie: movie, detailsViewModel: detailsViewModel)
-                                } label: {
-                                    PosterView(movie: Movie(adult: false, backdrop_path: "", id: movie.id, original_language: "", overview: "", poster_path: movie.poster_path ?? "", release_date: "", title: movie.title, vote_average: 5.5, genre_ids: []))
+                    //Recommendations View ( when existed ) 
+                    if !detailsViewModel.recommendations.isEmpty {
+                        Text("Recommendations")
+                            .font(.title.bold())
+                            .padding(.top)
+                        
+                        ScrollView(.horizontal, showsIndicators: false){
+                            LazyHStack {
+                                ForEach(detailsViewModel.recommendations) { movie in
+                                    NavigationLink {
+                                        DetailsView(movie: movie, detailsViewModel: detailsViewModel)
+                                    } label: {
+                                        PosterView(movie: Movie(adult: false, backdrop_path: "", id: movie.id, original_language: "", overview: "", poster_path: movie.poster_path ?? "", release_date: "", title: movie.title, vote_average: 5.5, genre_ids: []))
+                                        
+                                    }
                                     
                                 }
-                                
                             }
+                            
                         }
-                        
                     }
                     
                 }
@@ -149,6 +151,7 @@ struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailsView(movie: .preview, detailsViewModel: DetailsViewModel())
             .preferredColorScheme(.dark)
+            .environmentObject(LibraryViewModel())
     }
 }
 

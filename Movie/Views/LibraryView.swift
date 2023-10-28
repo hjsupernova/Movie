@@ -36,10 +36,12 @@ struct LibraryView: View {
                                             Image(systemName: "x.circle")
                                                 .foregroundColor(.white)
                                         }
+                                        .padding(5)
                                         
                                     }
                                     Spacer()
                                 }
+                                .frame(width: 140, height: 200)
                             }
                         }
                     }
