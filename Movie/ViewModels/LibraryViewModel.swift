@@ -32,7 +32,6 @@ class LibraryViewModel: ObservableObject {
         save()
     }
     
-    #warning("Delete Movies")
     func deleteFavoriteMovies(movie: Movie) {
         if let index = favoriteMovies.firstIndex(where: { moive in
             moive == movie
@@ -51,5 +50,9 @@ class LibraryViewModel: ObservableObject {
         } catch {
             print("DEBUG: Unable to save data")
         }
+    }
+    
+    func isFavorite(movie: Movie) -> Bool {
+        return favoriteMovies.contains { $0.id == movie.id}
     }
 }

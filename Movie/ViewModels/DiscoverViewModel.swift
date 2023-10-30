@@ -14,11 +14,10 @@ class DiscoverViewModel: ObservableObject {
     @Published var upcomings: [Movie] = []    
     static var genreLists: [Genre] = []
 
-    let apiClient = APIClient(apiKey: Bundle.main.apiKey, baseURL: URL.tmdbAPIBaseURL)
     
     func loadPopoular() async {
         do {
-            popular = try await apiClient.fetchData(url: MoviesEndpoint.popular().url, modelType: Response.self).results
+            popular = try await APIClient.shared.fetchData(url: MoviesEndpoint.popular().url, modelType: Response.self).results
         } catch {
             print("DEBUG: Failed to load popular: \(error)")
         }
@@ -27,7 +26,7 @@ class DiscoverViewModel: ObservableObject {
     func loadUpcomings() async {
         
         do {
-            upcomings = try await apiClient.fetchData(url: MoviesEndpoint.upcoming().url, modelType: Response.self).results
+            upcomings = try await APIClient.shared.fetchData(url: MoviesEndpoint.upcoming().url, modelType: Response.self).results
             
         } catch {
             print("DEBUG: Failed to load upcomings: \(error)")
@@ -39,7 +38,7 @@ class DiscoverViewModel: ObservableObject {
     
     func getGenreLists() async {
         do {
-            DiscoverViewModel.genreLists = try await apiClient.fetchData(url: GenresEndpoint.movie.url, modelType: GenreLists.self).genres
+            DiscoverViewModel.genreLists = try await APIClient.shared.fetchData(url: GenresEndpoint.movie.url, modelType: GenreLists.self).genres
         } catch {
             print("Error: \(error)")
         }
