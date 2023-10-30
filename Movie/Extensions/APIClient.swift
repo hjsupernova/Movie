@@ -10,32 +10,40 @@ import Foundation
 class APIClient  {
     private let apiKey: String
     private let baseURL: URL
-
+    
+    static let shared = APIClient(apiKey: Bundle.main.apiKey, baseURL: .tmdbAPIBaseURL)
     init(apiKey: String, baseURL: URL){
         self.apiKey = apiKey
         self.baseURL = baseURL
     }
-    private func urlFromPath(_ path: URL) -> URL {
+    
+    func fetchData<T: Decodable>(url: URL, modelType: T.Type) async throws -> T {
+        let request = urlRequestFromPath(url)
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try parseResponse(data: data, modelType: modelType)
+    }
+    
+    func urlRequestFromPath(_ path: URL) -> URLRequest {
         guard var urlComponents = URLComponents(url: path, resolvingAgainstBaseURL: true) else {
-            return path
+            return URLRequest(url: path)
         }
         
         urlComponents.scheme = baseURL.scheme
         urlComponents.host = baseURL.host
         urlComponents.path = "\(baseURL.path)\(urlComponents.path)"
         
-        return urlComponents.url!
+        let url = urlComponents.url!
             .appendingAPIKey(apiKey)
-    }
-    
-    func fetchData<T: Decodable>(url: URL, modelType: T.Type) async throws -> T {
-        let url = urlFromPath(url)
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        return request
         
+    }
+    
+    func parseResponse<T: Decodable>(data: Data, modelType: T.Type) throws -> T {
         do {
-            let (data, _) = try await URLSession.shared.data(for: request)
             let decoder = JSONDecoder()
             let decodedData = try decoder.decode(modelType, from: data)
             return decodedData
@@ -44,4 +52,6 @@ class APIClient  {
             throw error
         }
     }
+    
+
 }

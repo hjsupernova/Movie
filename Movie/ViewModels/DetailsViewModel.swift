@@ -16,13 +16,11 @@ class DetailsViewModel: ObservableObject {
     @Published var recommendations: [Movie] = []
     
 //MARK: - Network
-    
-    let apiClient = APIClient(apiKey: Bundle.main.apiKey, baseURL: URL.tmdbAPIBaseURL)
-    
+        
     func getMovieCredits(for movieID: Int) async {
         
         do {
-            let decodedData = try await apiClient.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url, modelType: Credits.self)
+            let decodedData = try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url, modelType: Credits.self)
             credits = decodedData
             castList = decodedData.cast
             print("DEBUG: Movie credits loaded successfully.")
@@ -35,7 +33,7 @@ class DetailsViewModel: ObservableObject {
     func getRecommendations(for movieID: Int) async {   
         
         do {
-            recommendations = try await apiClient.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: Response.self).results
+            recommendations = try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: Response.self).results
             print("DEBUG: Recommendations loaded successfully.")
 
         } catch {
