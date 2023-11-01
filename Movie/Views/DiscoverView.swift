@@ -96,9 +96,7 @@ struct DiscoverView: View {
                 .padding()
                 
             }
-            .navigationTitle("Home")
-            .navigationBarTitleDisplayMode(.inline)
-            
+            .navigationTitle("🍿 MOVIE")
         }
         .task {
             guard !hasAppeared else { return }
@@ -106,7 +104,6 @@ struct DiscoverView: View {
             await discoverViewModel.loadPopoular()
             await discoverViewModel.loadUpcomings()
             await discoverViewModel.getGenreLists()
-
         }
         .preferredColorScheme(.dark)
         

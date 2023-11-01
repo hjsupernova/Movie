@@ -12,7 +12,7 @@ struct MovieTabView: View {
     @StateObject var libraryViewModel = LibraryViewModel()
     
     var body: some View {
-        TabView(selection: $selectedTap) {            
+        TabView(selection: $selectedTap) {
             DiscoverView()
                 .tabItem {
                     Image(systemName: "house")
@@ -36,7 +36,6 @@ struct MovieTabView: View {
         }
         .tint(.white)
         .environmentObject(libraryViewModel)
-        
     }
 }
 

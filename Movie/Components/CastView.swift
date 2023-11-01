@@ -14,7 +14,6 @@ struct CastView: View {
     let cast: Credits.Cast
     
     var body: some View {
-    
         VStack {
             LazyImage(url: cast.photoUrl) { phase in
                 if let image = phase.image {
@@ -25,37 +24,29 @@ struct CastView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
-                                .strokeBorder(.white,   lineWidth: 1)
+                                .strokeBorder(Color(UIColor.systemGray4), lineWidth: 1)
                         )
                 } else if phase.error != nil {
-                    
                     Image(systemName: "person")
                         .font(.system(size: 65))
                         .frame(width: 100, height: 120)
                         .overlay(RoundedRectangle(cornerRadius: 15)
-                            .strokeBorder(.white, lineWidth: 1))
-                    
-                    
+                            .strokeBorder(Color(UIColor.systemGray4), lineWidth: 1))
                 } else  {
                     ProgressView()
                         .frame(width: 100, height: 120)
-                    
                 }
-                
             }
             Text(cast.name)
                 .lineLimit(1)
                 .frame(width: 100)
-            
-            
         }
-        
-        
     }
 }
 
 struct Cast_Previews: PreviewProvider {
     static var previews: some View {
         CastView(cast: .preview)
+            .preferredColorScheme(.dark)
     }
 }

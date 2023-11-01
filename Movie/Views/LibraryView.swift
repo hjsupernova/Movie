@@ -26,7 +26,19 @@ struct LibraryView: View {
                             DetailsView(movie: movie)
                         } label: {
                             ZStack {
-                                PosterView(movie: movie)
+                                LazyImage(url: movie.posterURL) { state in
+                                    if let image = state.image {
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 140, height: 200)
+                                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                                    } else if state.error != nil {
+                                        Text("Error")
+                                    } else {
+                                        CustomProgressView()
+                                    }
+                                }
                                 VStack {
                                     HStack {
                                         Spacer()
