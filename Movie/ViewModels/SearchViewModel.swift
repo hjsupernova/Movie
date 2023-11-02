@@ -9,10 +9,7 @@ import Foundation
 
 @MainActor
 class SearchViewModel: ObservableObject {
-    
     @Published var searchedMovies: [Movie] = []
-
-    #warning("Region이 API에 안들어가는 이유??")
     func searchMovies(text: String) async {
         do {
             searchedMovies = try await APIClient.shared.fetchData(url: SearchEndpoint.movies(query: text).url, modelType: Response.self).results

@@ -101,12 +101,9 @@ struct DiscoverView: View {
         .task {
             guard !hasAppeared else { return }
             hasAppeared = true
-            await discoverViewModel.loadPopoular()
-            await discoverViewModel.loadUpcomings()
-            await discoverViewModel.getGenreLists()
+            await discoverViewModel.loadDiscoverElements()
         }
         .preferredColorScheme(.dark)
-        
     }
     
     

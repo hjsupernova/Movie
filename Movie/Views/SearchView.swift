@@ -9,15 +9,12 @@ import SwiftUI
 import NukeUI
 
 struct SearchView: View {
-    
     @StateObject var serachViewModel = SearchViewModel()
-    
     let layout = [
         GridItem(.adaptive(minimum: 300, maximum: 500)),
         GridItem(.adaptive(minimum: 300, maximum: 500))
                          
     ]
-    
     @State private var searchText = ""
     var body: some View {
         NavigationView {
@@ -58,16 +55,11 @@ struct SearchView: View {
                         }
                     }
                     .padding(.vertical)
-                    
-                    
+
                 }
                 .padding()
-
-                
             }
-            
         }
-        
     }
 }
 

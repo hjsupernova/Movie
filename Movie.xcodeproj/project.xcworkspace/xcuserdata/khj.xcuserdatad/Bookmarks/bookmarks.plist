@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>top-level-items</key>
+	<array>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>40</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>39</string>
+					<key>Timestamp</key>
+					<string>720611859.852687</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>Movie/ViewModels/DiscoverViewModel.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>            print("DEBUG: Start to load genre lists")
+</string>
+				<key>leading</key>
+				<string>    func getGenreLists() async -&gt; [Genre] {
+        do {
+</string>
+				<key>trailing</key>
+				<string>            return try await APIClient.shared.fetchData(url: GenresEndpoint.movie.url, modelType: GenreLists.self).genres
+        } catch {
+            print("Error: \(error)")
+</string>
+			</dict>
+			<key>title</key>
+			<string>여기 call 안됨 + error 생성해서 github처럼 임시변수만들어서 떤지기 빈값말공</string>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+	</array>
+</dict>
+</plist>

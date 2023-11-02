@@ -178,9 +178,7 @@ struct DetailsView: View {
         .task {
             guard !hasAppeared else { return }
             hasAppeared = true
-            await detailsViewModel.getMovieCredits(for: movie.id)
-            await detailsViewModel.getRecommendations(for: movie.id)
-            
+            await detailsViewModel.loadDetailsElements(for: movie.id)
         }
         
     }

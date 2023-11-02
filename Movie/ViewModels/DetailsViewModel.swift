@@ -17,30 +17,38 @@ class DetailsViewModel: ObservableObject {
     
 //MARK: - Network
         
-    func getMovieCredits(for movieID: Int) async {
-        
+    func getMovieCredits(for movieID: Int) async -> Credits? {
         do {
-            let decodedData = try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url, modelType: Credits.self)
-            credits = decodedData
-            castList = decodedData.cast
             print("DEBUG: Movie credits loaded successfully.")
+
+            return try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url, modelType: Credits.self)
+//            credits = decodedData
+//            castList = decodedData.cast
         } catch {
+            
             print("DEBUG: Failed to load Movie Credits: \(error)")
+            #warning("nil 값이 넘어오면.. 처리할 방법 해결.. 사실 nil 값이 넘어올 일이 없긴 없음.. 에러 핸들링을 찾아보자..")
+            return nil
+            
         }
-        
     }
     
-    func getRecommendations(for movieID: Int) async {   
-        
+    func getRecommendations(for movieID: Int) async -> [Movie] {
         do {
-            recommendations = try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: Response.self).results
             print("DEBUG: Recommendations loaded successfully.")
-
+            return try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: Response.self).results
         } catch {
             print("DEBUG: Failed to load recommendations: \(error)")
-
+            return []
         }
+    }
+    func loadDetailsElements(for movieID: Int) async {
+        async let credits = getMovieCredits(for: movieID)
+        async let recommendations = getRecommendations(for: movieID)
         
+        self.recommendations = await recommendations
+        self.credits = await credits
+        self.castList = await credits!.cast
     }
 
 }
