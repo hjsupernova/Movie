@@ -12,7 +12,7 @@ class DetailsViewModel: ObservableObject {
     
     
     @Published var credits: Credits?
-    @Published var castList: [Credits.Cast] = []
+    @Published var cast: [CastMember] = []
     @Published var recommendations: [Movie] = []
     
 //MARK: - Network
@@ -23,7 +23,7 @@ class DetailsViewModel: ObservableObject {
 
             return try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url, modelType: Credits.self)
 //            credits = decodedData
-//            castList = decodedData.cast
+//            cast = decodedData.cast
         } catch {
             
             print("DEBUG: Failed to load Movie Credits: \(error)")
@@ -48,7 +48,7 @@ class DetailsViewModel: ObservableObject {
         
         self.recommendations = await recommendations
         self.credits = await credits
-        self.castList = await credits!.cast
+        self.cast = await credits!.cast
     }
 
 }

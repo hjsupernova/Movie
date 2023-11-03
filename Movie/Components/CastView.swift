@@ -11,11 +11,11 @@ import NukeUI
 
 struct CastView: View {
     
-    let cast: Credits.Cast
+    let castMember: CastMember
     
     var body: some View {
         VStack {
-            LazyImage(url: cast.photoUrl) { phase in
+            LazyImage(url: castMember.photoUrl) { phase in
                 if let image = phase.image {
                     image
                         .resizable()
@@ -37,7 +37,7 @@ struct CastView: View {
                         .frame(width: 100, height: 120)
                 }
             }
-            Text(cast.name)
+            Text(castMember.name)
                 .lineLimit(1)
                 .frame(width: 100)
         }
@@ -46,7 +46,7 @@ struct CastView: View {
 
 struct Cast_Previews: PreviewProvider {
     static var previews: some View {
-        CastView(cast: .preview)
+        CastView(castMember: .preview)
             .preferredColorScheme(.dark)
     }
 }

@@ -145,8 +145,8 @@ struct DetailsView: View {
                         .font(.title2.bold())
                     ScrollView(.horizontal,showsIndicators: false) {
                         LazyHStack {
-                            ForEach(detailsViewModel.castList) { cast in
-                                CastView(cast: cast)
+                            ForEach(detailsViewModel.cast) { castMember in
+                                CastView(castMember: castMember)
                             }
                         }
                     }
