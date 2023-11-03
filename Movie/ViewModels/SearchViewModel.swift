@@ -12,7 +12,7 @@ class SearchViewModel: ObservableObject {
     @Published var searchedMovies: [Movie] = []
     func searchMovies(text: String) async {
         do {
-            searchedMovies = try await APIClient.shared.fetchData(url: SearchEndpoint.movies(query: text).url, modelType: Response.self).results
+            searchedMovies = try await APIClient.shared.fetchData(url: SearchEndpoint.movies(query: text).url, modelType: MoviePageableList.self).results
         } catch {
             print("DEBUG: Failed to searched movies: \(error)")
         }

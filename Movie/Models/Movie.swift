@@ -7,15 +7,6 @@
 
 import Foundation
 
-
-// MARK: - Response
-struct Response: Codable {
-    let page: Int
-    let results: [Movie]
-    let total_pages, total_results: Int
-}
-
-// MARK: - Result
 struct Movie: Codable, Identifiable, Equatable {
     let adult: Bool
     let backdrop_path: String?
@@ -38,7 +29,7 @@ struct Movie: Codable, Identifiable, Equatable {
     }
     
     var genres: String? {
-        let genrelists: GenreLists = Bundle.main.decode("Genrelists")
+        let genrelists: GenreList = Bundle.main.decode("Genrelists")
         var genreNames = [String]()
         for id in genre_ids {
             if let genre = genrelists.genres.first(where: { $0.id == id }) {
@@ -67,15 +58,3 @@ struct Movie: Codable, Identifiable, Equatable {
     }
     
 }
-
-// MARK: - Genres
-struct GenreLists: Codable {
-    let genres: [Genre]
-}
-
-// MARK: - Genre
-struct Genre: Codable {
-    let id: Int
-    let name: String
-}
-

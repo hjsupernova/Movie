@@ -36,7 +36,7 @@ class DetailsViewModel: ObservableObject {
     func getRecommendations(for movieID: Int) async -> [Movie] {
         do {
             print("DEBUG: Recommendations loaded successfully.")
-            return try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: Response.self).results
+            return try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url, modelType: MoviePageableList.self).results
         } catch {
             print("DEBUG: Failed to load recommendations: \(error)")
             return []
