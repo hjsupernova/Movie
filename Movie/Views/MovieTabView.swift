@@ -7,8 +7,12 @@
 
 import SwiftUI
 
+enum Views {
+    case discover, library, search
+}
+
 struct MovieTabView: View {
-    @State private var selectedTap = 0
+    @State private var selectedTap: Views = .discover
     @StateObject var libraryViewModel = LibraryViewModel()
     
     var body: some View {
@@ -17,22 +21,22 @@ struct MovieTabView: View {
                 .tabItem {
                     Image(systemName: "house")
                 }
-                .onAppear { selectedTap = 0 }
-                .tag(0)
+                .onAppear { selectedTap = .discover }
+                .tag(Views.discover)
             
             LibraryView()
                 .tabItem {
                     Image(systemName: "folder")
                 }
-                .onAppear { selectedTap = 1 }
-                .tag(1)
+                .onAppear { selectedTap = .library }
+                .tag(Views.library)
             
             SearchView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                 }
-                .onAppear { selectedTap = 2 }
-                .tag(2)
+                .onAppear { selectedTap = .search }
+                .tag(Views.search)
         }
         .tint(.white)
         .environmentObject(libraryViewModel)
