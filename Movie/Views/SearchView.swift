@@ -13,14 +13,14 @@ struct SearchView: View {
     let layout = [
         GridItem(.adaptive(minimum: 300, maximum: 500)),
         GridItem(.adaptive(minimum: 300, maximum: 500))
-                         
+        
     ]
     @State private var searchText = ""
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    //NavBar
+                    // NavBar
                     HStack {
                         Text("Search")
                             .font(.largeTitle.bold())
@@ -31,9 +31,8 @@ struct SearchView: View {
                         } label: {
                             Image(systemName: "person.crop.circle")
                                 .font(.largeTitle)
-                                .foregroundColor(.white)
                         }
-
+                        
                     }
                     SearchBar(searchText: $searchText)
                         .onSubmit {
@@ -41,8 +40,7 @@ struct SearchView: View {
                                 await serachViewModel.searchMovies(text: searchText)
                             }
                         }
-                    
-                    // 검색된 영화 스크롤 뷰
+                    // Searched Movies
                     ScrollView(showsIndicators: false) {
                         LazyVGrid(columns: layout) {
                             ForEach(serachViewModel.searchedMovies) { movie in
@@ -55,10 +53,22 @@ struct SearchView: View {
                         }
                     }
                     .padding(.vertical)
-
                 }
                 .padding()
             }
+        }
+    }
+}
+
+struct SearchBar: View {
+    @Binding var searchText: String
+    
+    var body: some View {
+        VStack {
+            TextField("\(Image(systemName:"magnifyingglass")) Shows, Movies and More", text: $searchText)
+                .padding(10)
+                .background(Color(.systemGray5))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
 }
@@ -67,5 +77,7 @@ struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(serachViewModel: SearchViewModel())
             .preferredColorScheme(.dark)
+            .tint(.white)
+
     }
 }

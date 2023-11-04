@@ -34,9 +34,8 @@ struct LibraryView: View {
                                             .frame(width: 140, height: 200)
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                     } else if state.error != nil {
-                                        Text("Error")
                                     } else {
-                                        CustomProgressView()
+                                        CustomProgressView(width: 140, height: 200)
                                     }
                                 }
                                 VStack {

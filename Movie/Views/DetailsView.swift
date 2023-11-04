@@ -22,7 +22,7 @@ struct DetailsView: View {
         
         ScrollView(showsIndicators: false) {
             ZStack {
-                //BackDrop
+                // BackDrop
                 VStack  {
                     LazyImage(url: movie.backdropURL) { phase in
                         if let image = phase.image {
@@ -30,7 +30,6 @@ struct DetailsView: View {
                                 .resizable()
                                 .scaledToFit()
                         } else if phase.error != nil {
-                            Text("Error")
                         } else {
                             ProgressView()
                         }
@@ -38,39 +37,17 @@ struct DetailsView: View {
                     .opacity(0.5)
                     Spacer()
                 }
-                // 전부 다 들은 VStack
+                // Title ~ Recommendations
                 VStack(alignment:.leading) {
                     //title
                     Text(movie.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.title)
-                        .bold()
+                        .font(.title.bold())
                         .padding(.top, 80)
-                    // 점수 장르 년도
-                    VStack(alignment: .leading) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            HStack {
-                                Image("tmdbLogo")
-                                    .resizable()
-                                    .frame(width: 20, height: 8)
-                                Text(String(format: "%.1f", movie.vote_average))
-                                    .bold()
-                            }
-                            HStack {
-                                Text(movie.original_language.uppercased())
-                                    .padding(2)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 2)
-                                            .strokeBorder(.gray, lineWidth: 1)
-                                    )
-                                Text("\(movie.genres!)")
-                            }
-                            Text(movie.release_date.split(separator: "-").first ?? "N/A")
-                        }
-                        
-                    }
-                    .padding(.bottom, 16)
-                    // 오버뷰
+                    // Score, Genre, Release date
+                    MovieInformationView(movie: movie)
+                        .padding(.bottom, 16)
+                    // Overview
                     Text(movie.overview)
                         .lineLimit(lineLimit)
                         .onTapGesture {
@@ -81,9 +58,7 @@ struct DetailsView: View {
                     // Buttons
                     HStack {
                         Spacer()
-                        // 라이브러리 추가 + 삭제 버튼
-                        // extension으로 이나 view로 빼기
-                        // 버튼 리팩토링 하기
+                        // Save
                         if libraryViewModel.isFavorite(movie: movie) {
                             Button {
                                 withAnimation {
@@ -112,8 +87,9 @@ struct DetailsView: View {
                             }
                         }
                         Spacer()
+                        // Trailer
                         Button() {
-                            
+
                         } label: {
                             VStack {
                                 Image(systemName: "play.circle")
@@ -123,6 +99,7 @@ struct DetailsView: View {
                             }
                         }
                         Spacer()
+                        // Share
                         Button() {
                             
                         } label: {
@@ -137,44 +114,20 @@ struct DetailsView: View {
                     }
                     .font(.system(size: 50))
                     .fontWeight(.light)
-                    .foregroundColor(.white)
                     .padding(.vertical)
                     
                     // Cast View
-                    Text("Cast")
-                        .font(.title2.bold())
-                    ScrollView(.horizontal,showsIndicators: false) {
-                        LazyHStack {
-                            ForEach(detailsViewModel.cast) { castMember in
-                                CastView(castMember: castMember)
-                            }
-                        }
-                    }
-                    .frame(height: 150)
-                    .padding(.bottom, 20)
+                    CastListView(cast: detailsViewModel.cast)
+
                     //Recommendations View ( when existed )
                     if !detailsViewModel.recommendations.isEmpty {
-                        Text("Recommendations")
-                            .font(.title2.bold())
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack {
-                                ForEach(detailsViewModel.recommendations) { movie in
-                                    NavigationLink {
-                                        DetailsView(movie: movie, detailsViewModel: detailsViewModel)
-                                    } label: {
-                                        PosterView(movie: Movie(adult: false, backdrop_path: "", id: movie.id, original_language: "", overview: "", poster_path: movie.poster_path ?? "", release_date: "", title: movie.title, vote_average: movie.vote_average, genre_ids: []))
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.bottom, 100)
+                        PosterListView(title: "Recommendations", movies: detailsViewModel.recommendations)
                     }
-                    
                 }
-                .padding()
+                .padding(.horizontal)
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .ignoresSafeArea()
         .task {
             guard !hasAppeared else { return }
             hasAppeared = true
@@ -182,9 +135,52 @@ struct DetailsView: View {
         }
         
     }
-    
-    
 }
+
+struct CastListView: View {
+    let cast: [CastMember]
+    var body: some View {
+        Text("Cast")
+            .font(.title2.bold())
+        ScrollView(.horizontal,showsIndicators: false) {
+            LazyHStack {
+                ForEach(cast) { castMember in
+                    CastView(castMember: castMember)
+                }
+            }
+        }
+        .frame(height: 150)
+        .padding(.bottom, 20)
+    }
+}
+
+struct MovieInformationView: View {
+    let movie: Movie
+    var body: some View {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Image("tmdbLogo")
+                        .resizable()
+                        .frame(width: 20, height: 8)
+                    Text(movie.formattedVoteAverage)
+                        .bold()
+                }
+                HStack {
+                    Text(movie.original_language.uppercased())
+                        .padding(2)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 2)
+                                .strokeBorder(.gray, lineWidth: 1)
+                        )
+                    Text("\(movie.genres!)")
+                }
+                Text(movie.release_date.split(separator: "-").first ?? "N/A")
+            }
+        }
+    }
+}
+
 
 
 struct DetailView_Previews: PreviewProvider {
@@ -195,7 +191,9 @@ struct DetailView_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
                 .environmentObject(LibraryViewModel())
         }
+        .tint(.white)
     }
 }
+
 
 

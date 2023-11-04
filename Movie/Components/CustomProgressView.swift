@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct CustomProgressView : View {
+    let width: CGFloat
+    let height: CGFloat
     var body: some View {
         ProgressView()
-            .frame(width: 140, height: 200)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .frame(width: width, height: height)
     }
 }
 
 struct CustomProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomProgressView()
+        CustomProgressView(width: 100, height: 100)
     }
 }

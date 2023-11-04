@@ -27,7 +27,6 @@ struct Movie: Codable, Identifiable, Equatable {
         return baseURL?.appending(path: backdrop_path ?? "")
     
     }
-    
     var genres: String? {
         let genrelists: GenreList = Bundle.main.decode("Genrelists")
         var genreNames = [String]()
@@ -40,9 +39,10 @@ struct Movie: Codable, Identifiable, Equatable {
         let strGenreNames = genreNames.joined(separator: " ")
         return strGenreNames
     }
-
-    
- 
+    var formattedVoteAverage: String {
+        let formattedVoteAverage = String(format: "%.1f", vote_average)
+        return formattedVoteAverage
+    }
     static var preview: Movie {
         return Movie(adult: false,
                      backdrop_path: "/8pjWz2lt29KyVGoq1mXYu6Br7dE.jpg",

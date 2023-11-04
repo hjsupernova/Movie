@@ -33,8 +33,7 @@ struct CastView: View {
                         .overlay(RoundedRectangle(cornerRadius: 15)
                             .strokeBorder(Color(UIColor.systemGray4), lineWidth: 1))
                 } else  {
-                    ProgressView()
-                        .frame(width: 100, height: 120)
+                    CustomProgressView(width: 100, height: 120)
                 }
             }
             Text(castMember.name)
