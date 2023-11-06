@@ -42,6 +42,7 @@
 		CEDE6F042AB1A83E007F2B67 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE6F032AB1A83E007F2B67 /* DetailsViewModel.swift */; };
 		CEF2369B2AE5564E001C3001 /* FileManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2369A2AE5564E001C3001 /* FileManger.swift */; };
 		CEF2FB8F2AB2E01700EA96CC /* CastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2FB8E2AB2E01700EA96CC /* CastView.swift */; };
+		CEFC7BBC2AF8C8CF0037C92A /* TMDbAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC7BBB2AF8C8CF0037C92A /* TMDbAPIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		CEDE6F032AB1A83E007F2B67 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		CEF2369A2AE5564E001C3001 /* FileManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManger.swift; sourceTree = "<group>"; };
 		CEF2FB8E2AB2E01700EA96CC /* CastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastView.swift; sourceTree = "<group>"; };
+		CEFC7BBB2AF8C8CF0037C92A /* TMDbAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDbAPIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				CE8A729D2AE41D5D00A13EE1 /* Endpoints */,
 				CE8A72922AE4025300A13EE1 /* Extensions */,
 				CE6868062ACAB9CB00CCD6CD /* Models */,
+				CEFC7BBA2AF8C8890037C92A /* Networking */,
 				CEDE6F052AB1CBB3007F2B67 /* Views */,
 				CEDE6F002AB1A35E007F2B67 /* ViewModels */,
 				CE29CA312AF5ED3700CC4AA4 /* ViewModifiers */,
@@ -173,7 +176,6 @@
 		CE8A72922AE4025300A13EE1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				CE8A72992AE40DCA00A13EE1 /* APIClient.swift */,
 				CE0C3C802AC82F4800925583 /* Bundle.swift */,
 				CEF2369A2AE5564E001C3001 /* FileManger.swift */,
 				CE8A72932AE4025F00A13EE1 /* URL.swift */,
@@ -212,6 +214,15 @@
 				CEC6E7512AC56D6800E5AC3E /* SearchView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CEFC7BBA2AF8C8890037C92A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				CE8A72992AE40DCA00A13EE1 /* APIClient.swift */,
+				CEFC7BBB2AF8C8CF0037C92A /* TMDbAPIError.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,6 +317,7 @@
 				CE034FB32AF5033B00E9F820 /* Genre.swift in Sources */,
 				CE8A72942AE4025F00A13EE1 /* URL.swift in Sources */,
 				CE6868032ACA927F00CCD6CD /* LibraryView.swift in Sources */,
+				CEFC7BBC2AF8C8CF0037C92A /* TMDbAPIError.swift in Sources */,
 				CE7F0AC92AADF262002EBD6F /* MovieApp.swift in Sources */,
 				CE8A729F2AE41DAC00A13EE1 /* GenresEndpoint.swift in Sources */,
 				CEC6E7522AC56D6800E5AC3E /* SearchView.swift in Sources */,

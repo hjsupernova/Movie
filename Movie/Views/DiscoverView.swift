@@ -42,6 +42,9 @@ struct DiscoverView: View {
             hasAppeared = true
             await discoverViewModel.loadDiscoverElements()
         }
+        .alert(isPresented: $discoverViewModel.showAlert, content: {
+            Alert(title: Text("Error"), message: Text(discoverViewModel.errorMsg))
+        })
         .preferredColorScheme(.dark)
     }
 }

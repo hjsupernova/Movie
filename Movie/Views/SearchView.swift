@@ -56,6 +56,9 @@ struct SearchView: View {
                 }
                 .padding()
             }
+            .alert(isPresented: $serachViewModel.showAlert, content: {
+                Alert(title: Text("Error"), message: Text(serachViewModel.errorMsg))
+            })
         }
     }
 }

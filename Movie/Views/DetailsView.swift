@@ -133,6 +133,9 @@ struct DetailsView: View {
             hasAppeared = true
             await detailsViewModel.loadDetailsElements(for: movie.id)
         }
+        .alert(isPresented: $detailsViewModel.showAlert, content: {
+            Alert(title: Text("Error"), message: Text(detailsViewModel.errorMsg))
+        })
         
     }
 }
