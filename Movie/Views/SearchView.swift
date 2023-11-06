@@ -60,6 +60,7 @@ struct SearchView: View {
     }
 }
 
+// MARK: - Subviews
 struct SearchBar: View {
     @Binding var searchText: String
     

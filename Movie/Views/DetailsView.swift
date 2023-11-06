@@ -137,6 +137,7 @@ struct DetailsView: View {
     }
 }
 
+// MARK: - Subviews
 struct CastListView: View {
     let cast: [CastMember]
     var body: some View {
@@ -153,7 +154,6 @@ struct CastListView: View {
         .padding(.bottom, 20)
     }
 }
-
 struct MovieInformationView: View {
     let movie: Movie
     var body: some View {

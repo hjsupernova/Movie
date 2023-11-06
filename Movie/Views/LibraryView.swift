@@ -14,9 +14,7 @@ struct LibraryView: View {
         GridItem(.adaptive(minimum: 300, maximum: 500)),
         GridItem(.adaptive(minimum: 300, maximum: 500))
     ]
-    
 
-    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {

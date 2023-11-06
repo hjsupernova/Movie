@@ -46,6 +46,7 @@ struct DiscoverView: View {
     }
 }
 
+// MARK: - Subviews
 struct BackdropListView: View {
     let title: String
     let movies: [Movie]
