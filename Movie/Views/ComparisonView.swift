@@ -9,96 +9,90 @@ import SwiftUI
 import NukeUI
 
 struct ComparisonView: View {
-    @State var movies: [Movie]
-    @State private var showSheet = false
-    @State private var selectedMovie: Movie?
+    @StateObject var comparisonViewModel: ComparisonViewModel
+    init(movies: [Movie]) {
+        _comparisonViewModel = StateObject(wrappedValue: ComparisonViewModel(movies: movies))
+    }
+
     var body: some View {
-        // Posters
-        ZStack {
-            if movies.count == 1 {
-                Link(destination: movies[0].homepageURL) {
-                    LazyImage(url: movies[0].posterURL) { state in
-                        if let image = state.image {
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } else if state.error != nil {
-                        } else {
-                            CustomProgressView(width: 140, height: 240)
-                        }
-                    }
-                    .frame(width: 140, height: 240)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    
-                }
-            } else
-            {
-                ForEach(movies) { movie in
-                    NavigationLink {
-                        DetailsView(movie: movie)
-                    } label: {
-                        StackedPosterView(movie: movie) { isSaved in
-                            //  true 왼쪽으로 (save한 경우 )
-                            if isSaved {
-                                withAnimation {
-                                    let savedMovie = movies.remove(at: getIndex(of: movie))
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        movies.insert(savedMovie, at: 0)
-                                    }
-                                }
+        VStack {
+            // Posters
+            ZStack {
+                if comparisonViewModel.hasSingleMovie {
+                    Link(destination: comparisonViewModel.lastMovieHomepageURL) {
+                        LazyImage(url: comparisonViewModel.lastMoviePosterURL) { state in
+                            if let image = state.image {
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                            } else if state.error != nil {
                             } else {
-                                withAnimation { _ = movies.remove(at: getIndex(of: movie))}
+                                CustomProgressView(width: 250, height: 375)
                             }
                         }
-                        .stacked(at: getIndex(of: movie), in: movies.count)
+                        .frame(width: 250, height: 375)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        
+                    }
+                } else {
+                    ForEach(comparisonViewModel.movies) { movie in
+                        NavigationLink {
+                            DetailsView(movie: movie)
+                        } label: {
+                            StackedPosterView(movie: movie) { isSaved in
+                                //  true 왼쪽으로 (save한 경우 )
+                                withAnimation {
+                                    if isSaved {
+                                        comparisonViewModel.saveMoive()
+                                    } else {
+                                        comparisonViewModel.removeMovie()
+                                    }
+                                }
+                            }
+                            .stacked(at: comparisonViewModel.getIndex(of: movie), in: comparisonViewModel.movies.count)
+                        }
+                    
                     }
                 }
             }
-        }
-        // Buttons
-        HStack {
-            Button {
-                save(movie: movies[movies.count - 1] )
-            } label: {
-                Label("", systemImage: "heart")
+            Text(comparisonViewModel.currentMovieTitle)
+                .font(.title2.bold())
+                .padding()
+            // Buttons
+            HStack {
+                actionButtons()
             }
-            Button {
-                remove()
-            } label: {
-                Label("", systemImage: "x.circle")
-            }
+            .font(.largeTitle)
+            .disabled(comparisonViewModel.hasSingleMovie)
+
         }
-        .font(.largeTitle)
-        .disabled(movies.count == 1)
-    }
-    
-    func getIndex(of movie: Movie) -> Int {
-        for i in 0...movies.count {
-            if movies[i].id == movie.id {
-                return i
-            }
-        }
-        return -1
-    }
-    func save(movie: Movie) {
-        let savedMovie = movies.remove(at: getIndex(of: movie))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            movies.insert(savedMovie, at: 0)
-        }
-    }
-    func remove() {
-        withAnimation { _ = movies.remove(at: getIndex(of: movies[movies.count - 1]))}
+        .padding(.top, 50)
+        .navigationTitle("Now Playing")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-extension View {
-    func stacked(at position: Int, in total: Int) -> some View {
-        let offset = Double(total - position)
-        return self.offset(x:0, y: offset * -5)
+extension ComparisonView {
+    @ViewBuilder func actionButtons() -> some View {
+        Button {
+            withAnimation {
+                comparisonViewModel.saveMoive()
+            }
+            
+        } label: {
+            Label("", systemImage: "heart")
+        }
+        Button {
+            withAnimation {
+                comparisonViewModel.removeMovie()
+            }
+        } label: {
+            Label("", systemImage: "x.circle")
+        }
     }
 }
 
-struct StackedPosterView: View  {
+struct StackedPosterView: View {
     let movie: Movie
     var removal: ( (_ correct: Bool) -> Void)? = nil
     @State private var offset = CGSize.zero
@@ -111,10 +105,10 @@ struct StackedPosterView: View  {
                     .scaledToFill()
             } else if state.error != nil {
             } else {
-                CustomProgressView(width: 140, height: 240)
+                CustomProgressView(width: 250, height: 375)
             }
         }
-        .frame(width: 140, height: 240)
+        .frame(width: 250, height: 375)
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .rotationEffect(.degrees(Double(offset.width / 5 )))
         .offset(x: offset.width * 5, y: 0)
@@ -145,7 +139,13 @@ struct StackedPosterView: View  {
                 })
         )
         .animation(.spring(), value: offset)
-        
+    }
+}
+
+extension View {
+    func stacked(at position: Int, in total: Int) -> some View {
+        let offset = Double(total - position)
+        return self.offset(x:0, y: offset * -5)
     }
 }
 
