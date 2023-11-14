@@ -23,19 +23,29 @@ struct DiscoverView: View {
             ScrollView(.vertical, showsIndicators: false) {
                
                 VStack {
-                    //Popular Movies
+                    // Popular Movies
                     VStack(alignment:.leading) {
                         PosterListView(title: "Popular", movies: discoverViewModel.popular)
                     }
                     // Upcomings
                     VStack(alignment: .leading) {
                         BackdropListView(title: "Upcomings", movies: discoverViewModel.upcomings)
-                        
+                    }
+                    
+                    VStack(alignment:.leading) {
+                        PosterListView(title: "Now Playing", movies: discoverViewModel.nowplaying)
                     }
                 }
                 .padding()
             }
             .navigationTitle("🍿 MOVIE")
+            .toolbar {
+                NavigationLink {
+                    ComparisonView(movies: discoverViewModel.nowplaying)
+                } label: {
+                    Image(systemName: "square.stack.fill")
+                }
+            }
         }
         .task {
             guard !hasAppeared else { return }
@@ -45,6 +55,7 @@ struct DiscoverView: View {
         .alert(isPresented: $discoverViewModel.showAlert, content: {
             Alert(title: Text("Error"), message: Text(discoverViewModel.errorMsg))
         })
+
         .preferredColorScheme(.dark)
     }
 }
@@ -101,5 +112,6 @@ struct BackdropListView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         DiscoverView(discoverViewModel: DiscoverViewModel())
+            .tint(.white)
     }
 }

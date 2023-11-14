@@ -33,6 +33,7 @@
 		CE8A729A2AE40DCA00A13EE1 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A72992AE40DCA00A13EE1 /* APIClient.swift */; };
 		CE8A729C2AE41C1F00A13EE1 /* SearchEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A729B2AE41C1F00A13EE1 /* SearchEndpoint.swift */; };
 		CE8A729F2AE41DAC00A13EE1 /* GenresEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A729E2AE41DAC00A13EE1 /* GenresEndpoint.swift */; };
+		CEACAFD82AF9065400BC108E /* ComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEACAFD72AF9065400BC108E /* ComparisonView.swift */; };
 		CEB4AC182AEB6893001FDFAB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CEB4AC172AEB6893001FDFAB /* .gitignore */; };
 		CEB4AC1C2AEB68DD001FDFAB /* SecureAPIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB4AC1B2AEB68DD001FDFAB /* SecureAPIKeys.plist */; };
 		CEC6E7522AC56D6800E5AC3E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC6E7512AC56D6800E5AC3E /* SearchView.swift */; };
@@ -73,6 +74,7 @@
 		CE8A72992AE40DCA00A13EE1 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		CE8A729B2AE41C1F00A13EE1 /* SearchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEndpoint.swift; sourceTree = "<group>"; };
 		CE8A729E2AE41DAC00A13EE1 /* GenresEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresEndpoint.swift; sourceTree = "<group>"; };
+		CEACAFD72AF9065400BC108E /* ComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonView.swift; sourceTree = "<group>"; };
 		CEB4AC172AEB6893001FDFAB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		CEB4AC1B2AEB68DD001FDFAB /* SecureAPIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecureAPIKeys.plist; sourceTree = "<group>"; };
 		CEC6E7512AC56D6800E5AC3E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				CE6868022ACA927F00CCD6CD /* LibraryView.swift */,
 				CE0C3C7E2AC8081100925583 /* MovieTabView.swift */,
 				CEC6E7512AC56D6800E5AC3E /* SearchView.swift */,
+				CEACAFD72AF9065400BC108E /* ComparisonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				CE034FB12AF502CC00E9F820 /* MoviePageableList.swift in Sources */,
 				CE29D1502AB06D8600587C72 /* DetailsView.swift in Sources */,
 				CE0C3C7F2AC8081100925583 /* MovieTabView.swift in Sources */,
+				CEACAFD82AF9065400BC108E /* ComparisonView.swift in Sources */,
 				CE8A729A2AE40DCA00A13EE1 /* APIClient.swift in Sources */,
 				CE6868052ACAB50600CCD6CD /* PosterView.swift in Sources */,
 				CE034FB32AF5033B00E9F820 /* Genre.swift in Sources */,
@@ -462,6 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Movie/Preview Content\"";
+				DEVELOPMENT_TEAM = C9D4D98Z8R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Movie/Info.plist;
@@ -491,6 +496,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Movie/Preview Content\"";
+				DEVELOPMENT_TEAM = C9D4D98Z8R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Movie/Info.plist;

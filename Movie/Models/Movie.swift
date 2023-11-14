@@ -17,6 +17,7 @@ struct Movie: Codable, Identifiable, Equatable {
     let release_date, title: String
     let vote_average: Double
     let genre_ids: [Int]
+    let homepage: String?
     
     var posterURL: URL? {
         let baseURL = URL(string: "https://image.tmdb.org/t/p/w500/")
@@ -43,6 +44,9 @@ struct Movie: Codable, Identifiable, Equatable {
         let formattedVoteAverage = String(format: "%.1f", vote_average)
         return formattedVoteAverage
     }
+    var homepageURL: URL {
+        URL(string: homepage ?? "https://www.themoviedb.org/movie/\(id)")!
+    }
     static var preview: Movie {
         return Movie(adult: false,
                      backdrop_path: "/8pjWz2lt29KyVGoq1mXYu6Br7dE.jpg",
@@ -53,8 +57,33 @@ struct Movie: Codable, Identifiable, Equatable {
                      release_date: "2023-08-02",
                      title: "Meg 2: The Trench",
                      vote_average: 7.0,
-                     genre_ids: [28,12]                     
+                     genre_ids: [28,12], homepage: "https://www.themeg.movie"
         )
     }
-    
+    static var preview2: Movie {
+        return Movie(adult: false,
+                     backdrop_path: "//t5zCBSB5xMDKcDqe91qahCOUYVV.jpg",
+                     id: 507089,
+                     original_language: "en",
+                     overview: "Recently fired and desperate for work, a troubled young man named Mike agrees to take a position as a night security guard at an abandoned theme restaurant: Freddy Fazbear's Pizzeria. But he soon discovers that nothing at Freddy's is what it seems.",
+                     poster_path: "/A4j8S6moJS2zNtRR8oWF08gRnL5.jpg",
+                     release_date: "2023-08-02",
+                     title: "Five",
+                     vote_average: 7.0,
+                     genre_ids: [28,12], homepage: "https://www.themeg.movie"
+        )
+    }
+    static var preview3: Movie {
+        return Movie(adult: false,
+                     backdrop_path: "//t5zCBSB5xMDKcDqe91qahCOUYVV.jpg",
+                     id: 1234234,
+                     original_language: "en",
+                     overview: "Recently fired and desperate for work, a troubled young man named Mike agrees to take a position as a night security guard at an abandoned theme restaurant: Freddy Fazbear's Pizzeria. But he soon discovers that nothing at Freddy's is what it seems.",
+                     poster_path: "aQPeznSu7XDTrrdCtT5eLiu52Yu.jpg",
+                     release_date: "2023-08-02",
+                     title: "SA",
+                     vote_average: 7.0,
+                     genre_ids: [28,12], homepage: "https://www.themeg.movie"
+        )
+    }
 }

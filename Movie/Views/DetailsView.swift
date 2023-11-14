@@ -18,8 +18,8 @@ struct DetailsView: View {
     @State private var lineLimit = 3
     // TabView에서 왔다갔다 할 때도 이게 network ( .task) 발생 방지.
     @State private var hasAppeared = false
+    
     var body: some View {
-        
         ScrollView(showsIndicators: false) {
             ZStack {
                 // BackDrop

@@ -13,6 +13,7 @@ enum MoviesEndpoint {
     case upcoming(page: Int? = nil)
     case recommendations(movieID: Movie.ID, page: Int? = nil)
     case credits(movieID: Movie.ID)
+    case nowplaying(page: Int? = nil)
 }
 
 extension MoviesEndpoint {
@@ -38,6 +39,10 @@ extension MoviesEndpoint {
                 .appendingPathComponent(movieID)
                 .appendingPathComponent("credits")
                 
+        case .nowplaying(page: let page):
+            return Self.basePath
+                .appending(path: "now_playing")
+                .appendingPage(page)
         }
     }
 }
