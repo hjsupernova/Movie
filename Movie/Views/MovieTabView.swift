@@ -14,7 +14,7 @@ enum Views {
 struct MovieTabView: View {
     @State private var selectedTap: Views = .discover
     @StateObject var libraryViewModel = LibraryViewModel()
-    
+    @State private var showSignInView: Bool = false
     var body: some View {
         TabView(selection: $selectedTap) {
             DiscoverView()
@@ -40,6 +40,15 @@ struct MovieTabView: View {
         }
         .tint(.white)
         .environmentObject(libraryViewModel)
+        .onAppear {
+            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
+            self.showSignInView = authUser == nil
+        }
+        .fullScreenCover(isPresented: $showSignInView, content: {
+            NavigationStack {
+                AuthenticationView(showSignInView: $showSignInView)
+            }
+        })
     }
 }
 

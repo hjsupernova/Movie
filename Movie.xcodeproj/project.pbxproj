@@ -45,6 +45,11 @@
 		CEC7EA4B2AC1731F00EFB712 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = CEC7EA4A2AC1731F00EFB712 /* NukeUI */; };
 		CEDE6F022AB1A377007F2B67 /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE6F012AB1A377007F2B67 /* DiscoverViewModel.swift */; };
 		CEDE6F042AB1A83E007F2B67 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE6F032AB1A83E007F2B67 /* DetailsViewModel.swift */; };
+		CEDF616A2B08C8BB00EA11CF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEDF61692B08C8BB00EA11CF /* FirebaseAuth */; };
+		CEDF616C2B08CA2900EA11CF /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDF616B2B08CA2900EA11CF /* AuthenticationView.swift */; };
+		CEDF616F2B08CCB500EA11CF /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDF616E2B08CCB500EA11CF /* SignInEmailView.swift */; };
+		CEDF61722B08CCEC00EA11CF /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDF61712B08CCEC00EA11CF /* SignInEmailViewModel.swift */; };
+		CEDF61762B08CDB100EA11CF /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDF61752B08CDB100EA11CF /* AuthenticationManager.swift */; };
 		CEF2369B2AE5564E001C3001 /* FileManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2369A2AE5564E001C3001 /* FileManger.swift */; };
 		CEF2FB8F2AB2E01700EA96CC /* CastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2FB8E2AB2E01700EA96CC /* CastView.swift */; };
 		CEFC7BBC2AF8C8CF0037C92A /* TMDbAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC7BBB2AF8C8CF0037C92A /* TMDbAPIError.swift */; };
@@ -86,6 +91,10 @@
 		CEC6E7512AC56D6800E5AC3E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		CEDE6F012AB1A377007F2B67 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		CEDE6F032AB1A83E007F2B67 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		CEDF616B2B08CA2900EA11CF /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		CEDF616E2B08CCB500EA11CF /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
+		CEDF61712B08CCEC00EA11CF /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
+		CEDF61752B08CDB100EA11CF /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		CEF2369A2AE5564E001C3001 /* FileManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManger.swift; sourceTree = "<group>"; };
 		CEF2FB8E2AB2E01700EA96CC /* CastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastView.swift; sourceTree = "<group>"; };
 		CEFC7BBB2AF8C8CF0037C92A /* TMDbAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDbAPIError.swift; sourceTree = "<group>"; };
@@ -97,6 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE5DE0DB2B08B7D100D7A1DF /* FirebaseAnalyticsSwift in Frameworks */,
+				CEDF616A2B08C8BB00EA11CF /* FirebaseAuth in Frameworks */,
 				CEC7EA492AC1731F00EFB712 /* Nuke in Frameworks */,
 				CEC7EA4B2AC1731F00EFB712 /* NukeUI in Frameworks */,
 				CE5DE0D92B08B7D100D7A1DF /* FirebaseAnalytics in Frameworks */,
@@ -145,6 +155,7 @@
 				CEB4AC1B2AEB68DD001FDFAB /* SecureAPIKeys.plist */,
 				CE7F0AC72AADF262002EBD6F /* Movie */,
 				CE7F0AC62AADF262002EBD6F /* Products */,
+				CEDF61682B08C8BB00EA11CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,6 +172,7 @@
 			children = (
 				CE5DE0D52B08B6EF00D7A1DF /* GoogleService-Info.plist */,
 				CE7F0AC82AADF262002EBD6F /* MovieApp.swift */,
+				CEDF61732B08CD6500EA11CF /* Authentication */,
 				CE0C3C842AC82FDF00925583 /* Components */,
 				CE8A729D2AE41D5D00A13EE1 /* Endpoints */,
 				CE8A72922AE4025300A13EE1 /* Extensions */,
@@ -207,6 +219,7 @@
 		CEDE6F002AB1A35E007F2B67 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				CEDF61702B08CCDA00EA11CF /* Authentication */,
 				CE0E75172B030A7300CE8F5D /* ComparisonViewModel.swift */,
 				CEDE6F032AB1A83E007F2B67 /* DetailsViewModel.swift */,
 				CEDE6F012AB1A377007F2B67 /* DiscoverViewModel.swift */,
@@ -219,6 +232,7 @@
 		CEDE6F052AB1CBB3007F2B67 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEDF616D2B08CCA400EA11CF /* Authentication */,
 				CEACAFD72AF9065400BC108E /* ComparisonView.swift */,
 				CE29D14F2AB06D8600587C72 /* DetailsView.swift */,
 				CE7F0ACA2AADF262002EBD6F /* DiscoverView.swift */,
@@ -227,6 +241,38 @@
 				CEC6E7512AC56D6800E5AC3E /* SearchView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CEDF61682B08C8BB00EA11CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEDF616D2B08CCA400EA11CF /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF616B2B08CA2900EA11CF /* AuthenticationView.swift */,
+				CEDF616E2B08CCB500EA11CF /* SignInEmailView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		CEDF61702B08CCDA00EA11CF /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF61712B08CCEC00EA11CF /* SignInEmailViewModel.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		CEDF61732B08CD6500EA11CF /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF61752B08CDB100EA11CF /* AuthenticationManager.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		CEFC7BBA2AF8C8890037C92A /* Networking */ = {
@@ -259,6 +305,7 @@
 				CEC7EA4A2AC1731F00EFB712 /* NukeUI */,
 				CE5DE0D82B08B7D100D7A1DF /* FirebaseAnalytics */,
 				CE5DE0DA2B08B7D100D7A1DF /* FirebaseAnalyticsSwift */,
+				CEDF61692B08C8BB00EA11CF /* FirebaseAuth */,
 			);
 			productName = Movie;
 			productReference = CE7F0AC52AADF262002EBD6F /* Movie.app */;
@@ -326,6 +373,7 @@
 				CEDE6F042AB1A83E007F2B67 /* DetailsViewModel.swift in Sources */,
 				CE7F0ACB2AADF262002EBD6F /* DiscoverView.swift in Sources */,
 				CE8A729C2AE41C1F00A13EE1 /* SearchEndpoint.swift in Sources */,
+				CEDF616F2B08CCB500EA11CF /* SignInEmailView.swift in Sources */,
 				CE0C3C882AC8376600925583 /* CustomProgressView.swift in Sources */,
 				CE034FB12AF502CC00E9F820 /* MoviePageableList.swift in Sources */,
 				CE29D1502AB06D8600587C72 /* DetailsView.swift in Sources */,
@@ -336,12 +384,15 @@
 				CE034FB32AF5033B00E9F820 /* Genre.swift in Sources */,
 				CE8A72942AE4025F00A13EE1 /* URL.swift in Sources */,
 				CE6868032ACA927F00CCD6CD /* LibraryView.swift in Sources */,
+				CEDF616C2B08CA2900EA11CF /* AuthenticationView.swift in Sources */,
 				CEFC7BBC2AF8C8CF0037C92A /* TMDbAPIError.swift in Sources */,
 				CE7F0AC92AADF262002EBD6F /* MovieApp.swift in Sources */,
 				CE8A729F2AE41DAC00A13EE1 /* GenresEndpoint.swift in Sources */,
 				CEC6E7522AC56D6800E5AC3E /* SearchView.swift in Sources */,
 				CEDE6F022AB1A377007F2B67 /* DiscoverViewModel.swift in Sources */,
+				CEDF61722B08CCEC00EA11CF /* SignInEmailViewModel.swift in Sources */,
 				CE497EA22AE689C900B2EEF0 /* SearchViewModel.swift in Sources */,
+				CEDF61762B08CDB100EA11CF /* AuthenticationManager.swift in Sources */,
 				CE0C3C812AC82F4800925583 /* Bundle.swift in Sources */,
 				CE2076782AAF3474003ABEA7 /* Movie.swift in Sources */,
 				CE6868082ACABAB000CCD6CD /* Credits.swift in Sources */,
@@ -595,6 +646,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CEC7EA472AC1731F00EFB712 /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = NukeUI;
+		};
+		CEDF61692B08C8BB00EA11CF /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE5DE0D72B08B7D100D7A1DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
