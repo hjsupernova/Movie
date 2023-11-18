@@ -17,7 +17,7 @@ struct MovieTabView: View {
     @State private var showSignInView: Bool = false
     var body: some View {
         TabView(selection: $selectedTap) {
-            DiscoverView()
+            DiscoverView(showSignInView: $showSignInView)
                 .tabItem {
                     Image(systemName: "house")
                 }
@@ -42,7 +42,8 @@ struct MovieTabView: View {
         .environmentObject(libraryViewModel)
         .onAppear {
             let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
-            self.showSignInView = authUser == nil
+//            self.showSignInView = authUser == nil
+            self.showSignInView = true
         }
         .fullScreenCover(isPresented: $showSignInView, content: {
             NavigationStack {

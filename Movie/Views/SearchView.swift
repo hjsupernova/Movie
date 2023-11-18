@@ -25,14 +25,12 @@ struct SearchView: View {
                         Text("Search")
                             .font(.largeTitle.bold())
                         Spacer()
-                        
-                        NavigationLink {
-                            Text("Person View")
-                        } label: {
-                            Image(systemName: "person.crop.circle")
-                                .font(.largeTitle)
-                        }
-                        
+//                        NavigationLink {
+//                            Text("Person View")
+//                        } label: {
+//                            Image(systemName: "person.crop.circle")
+//                                .font(.largeTitle)
+//                        }
                     }
                     SearchBar(searchText: $searchText)
                         .onSubmit {

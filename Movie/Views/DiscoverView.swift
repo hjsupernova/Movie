@@ -13,9 +13,8 @@ import Nuke
 struct DiscoverView: View {
 
     @StateObject var discoverViewModel = DiscoverViewModel()
-
-
     @State private var hasAppeared = false
+    @Binding var showSignInView: Bool
 
     var body: some View {
         
@@ -44,6 +43,11 @@ struct DiscoverView: View {
                     ComparisonView(movies: discoverViewModel.nowplaying)
                 } label: {
                     Image(systemName: "square.stack.fill")
+                }
+                NavigationLink {
+                    SettingsView(showSingInView: $showSignInView)
+                } label: {
+                    Image(systemName: "person.crop.circle")
                 }
             }
         }
@@ -111,7 +115,7 @@ struct BackdropListView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscoverView(discoverViewModel: DiscoverViewModel())
+        DiscoverView(discoverViewModel: DiscoverViewModel(), showSignInView: .constant(false))
             .tint(.white)
     }
 }
