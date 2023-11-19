@@ -5,15 +5,25 @@
 //  Created by KHJ on 2023/09/30.
 //
 
+import NukeUI
 import SwiftUI
 
+@MainActor
+final class MovieTabViewModel: ObservableObject {
+    @Published private(set) var user: DBUser?
+    func loadCurrentUser() async throws {
+        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
+        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+    }
+}
 enum Views {
     case discover, library, search
 }
 
 struct MovieTabView: View {
-    @State private var selectedTap: Views = .discover
     @StateObject var libraryViewModel = LibraryViewModel()
+    @StateObject var movieTabViewModel = MovieTabViewModel()
+    @State private var selectedTap: Views = .discover
     @State private var showSignInView: Bool = false
     var body: some View {
         TabView(selection: $selectedTap) {
@@ -23,7 +33,6 @@ struct MovieTabView: View {
                 }
                 .onAppear { selectedTap = .discover }
                 .tag(Views.discover)
-            
             LibraryView()
                 .tabItem {
                     Image(systemName: "folder")
@@ -40,10 +49,12 @@ struct MovieTabView: View {
         }
         .tint(.white)
         .environmentObject(libraryViewModel)
-        .onAppear {
-            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
-//            self.showSignInView = authUser == nil
-            self.showSignInView = true
+        .task {
+            do {
+                try await movieTabViewModel.loadCurrentUser()
+            } catch {
+                self.showSignInView = true
+            }
         }
         .fullScreenCover(isPresented: $showSignInView, content: {
             NavigationStack {
