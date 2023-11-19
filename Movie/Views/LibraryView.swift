@@ -40,7 +40,9 @@ struct LibraryView: View {
                                     HStack {
                                         Spacer()
                                         Button {
-                                            libraryViewModel.deleteFavoriteMovies(movie: movie)
+                                            Task {
+                                                await libraryViewModel.deleteFavoriteMovies(movie: movie)
+                                            }
                                         } label: {
                                             Image(systemName: "x.circle")
                                                 .foregroundColor(.white)

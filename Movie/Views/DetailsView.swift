@@ -61,8 +61,8 @@ struct DetailsView: View {
                         // Save
                         if libraryViewModel.isFavorite(movie: movie) {
                             Button {
-                                withAnimation {
-                                    libraryViewModel.deleteFavoriteMovies(movie: movie)
+                                Task {
+                                    await libraryViewModel.deleteFavoriteMovies(movie: movie)
                                 }
                             } label: {
                                 VStack {
@@ -74,9 +74,11 @@ struct DetailsView: View {
                             }
                         } else {
                             Button {
-                                withAnimation {
-                                    libraryViewModel.addFavoriteMovies(movie: movie)
-                                }
+                                
+                                    Task {
+                                        await libraryViewModel.addFavoriteMovies(movie: movie)
+                                    }
+                                
                             } label: {
                                 VStack {
                                     Image(systemName: "plus.circle")

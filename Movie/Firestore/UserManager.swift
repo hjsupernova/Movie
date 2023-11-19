@@ -14,12 +14,14 @@ struct DBUser: Codable {
     let email: String?
     let photoURL: String?
     let dateCreated: Date?
+    let favoriteMoives: [Movie]?
     
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
         self.email = auth.email
         self.photoURL = auth.photoURL
         self.dateCreated = Date()
+        self.favoriteMoives = nil
     }
 }
 
@@ -45,5 +47,23 @@ final class UserManager {
     }
     func getUser(userId: String) async throws -> DBUser {
         try await userDocument(userId: userId).getDocument(as: DBUser.self, decoder: decoder)
+    }
+    func addFavoriteMovie(userId: String, movie: Movie) async throws {
+        guard let data = try? encoder.encode(movie) else  {
+            throw URLError(.badURL)
+        }
+        let dict: [String: Any] = [
+            "favorite_movies": FieldValue.arrayUnion([data])
+        ]
+        try await userDocument(userId: userId).updateData(dict)
+    }
+    func removeFavoriteMovie(userId: String, movie: Movie) async throws {
+        guard let data = try? encoder.encode(movie) else  {
+            throw URLError(.badURL)
+        }
+        let dict: [String: Any] = [
+            "favorite_movies": FieldValue.arrayRemove([data])
+        ]
+        try await userDocument(userId: userId).updateData(dict)
     }
 }

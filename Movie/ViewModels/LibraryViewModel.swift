@@ -7,15 +7,17 @@
 
 import Foundation
 
+@MainActor
 class LibraryViewModel: ObservableObject {
-    
-    @Published var favoriteMovies: [Movie]  =  []
+    @Published var favoriteMovies: [Movie] = []
+    var userId: String?
     //MARK: - Save Data
     
     let savePath = FileManager.documentsDirectory.appendingPathComponent("FavoriteMovies")
     
     //이거 음... 계속 불러오는 게 맞나?
-    init() {
+    init(userId: String? = nil) {
+        self.userId = userId
         do {
             let data = try Data(contentsOf: savePath )
             favoriteMovies = try JSONDecoder().decode([Movie].self, from: data)
@@ -25,18 +27,28 @@ class LibraryViewModel: ObservableObject {
         }
     }
     
-    func addFavoriteMovies(movie: Movie) {
+    func addFavoriteMovies(movie: Movie) async  {
         let newFaovriteMovie = movie
-        
+        do {
+            try await UserManager.shared.addFavoriteMovie(userId: userId ?? "", movie: newFaovriteMovie)
+        } catch {
+            print("DEBUG: Failed to upload data to firestore")
+        }
         favoriteMovies.append(newFaovriteMovie)
         save()
     }
     
-    func deleteFavoriteMovies(movie: Movie) {
+    func deleteFavoriteMovies(movie: Movie) async {
         if let index = favoriteMovies.firstIndex(where: { moive in
             moive == movie
         }) {
             favoriteMovies.remove(at: index)
+            do {
+                try await UserManager.shared.removeFavoriteMovie(userId: userId ?? "", movie: movie)
+            } catch {
+                print("DEBUG: Failed to upload data to firestore")
+            }
+            
             save()
         }
     }

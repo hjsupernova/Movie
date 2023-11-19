@@ -52,6 +52,7 @@ struct MovieTabView: View {
         .task {
             do {
                 try await movieTabViewModel.loadCurrentUser()
+                libraryViewModel.userId = movieTabViewModel.user?.userId
             } catch {
                 self.showSignInView = true
             }
