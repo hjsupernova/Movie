@@ -49,6 +49,11 @@ struct DiscoverView: View {
                 } label: {
                     Image(systemName: "person.crop.circle")
                 }
+                NavigationLink {
+                    TasteMatchView()
+                } label: {
+                    Image(systemName: "person.2.fill")
+                }
             }
         }
         .task {

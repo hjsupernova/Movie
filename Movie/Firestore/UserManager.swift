@@ -66,4 +66,20 @@ final class UserManager {
         ]
         try await userDocument(userId: userId).updateData(dict)
     }
+    func getFavoriteMovies(email: String) async throws -> [Movie] {
+        let query = userCollection.whereField("email", isEqualTo: email)
+        let snapshot = try await query.getDocuments()
+        let document = snapshot.documents[0]
+        let userData = document.data()
+        let movieData = userData["favorite_movies"] as? [[String:Any]]
+        if let movieData = movieData {
+            do {
+                let favoriteMovies = try Firestore.Decoder().decode([Movie].self, from: movieData)
+                return favoriteMovies
+            } catch {
+                print(error)
+            }
+        }
+        return []
+    }
 }
