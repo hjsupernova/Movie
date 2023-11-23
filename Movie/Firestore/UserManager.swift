@@ -12,14 +12,14 @@ import FirebaseFirestoreSwift
 struct DBUser: Codable {
     let userId: String
     let email: String?
-    let photoURL: String?
+    let photoUrl: String?
     let dateCreated: Date?
     let favoriteMoives: [Movie]?
     
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
         self.email = auth.email
-        self.photoURL = auth.photoURL
+        self.photoUrl = auth.photoURL
         self.dateCreated = Date()
         self.favoriteMoives = nil
     }
