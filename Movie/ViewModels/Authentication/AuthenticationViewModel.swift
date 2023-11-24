@@ -15,5 +15,6 @@ final class AuthenticationViewModel: ObservableObject {
         let authDataResult = try await AuthenticationManager.shared.signInWithGoogle(credentials: tokens)
         let user = DBUser(auth: authDataResult)
         try UserManager.shared.createNewUser(user: user)
+        UserDefaults.standard.saveUser(user, forKey: .user)
     }
 }

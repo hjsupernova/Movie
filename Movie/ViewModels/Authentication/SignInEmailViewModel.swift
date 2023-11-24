@@ -19,6 +19,7 @@ final class SignInEmailViewModel: ObservableObject {
         let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
         let user = DBUser(auth: authDataResult)
         try UserManager.shared.createNewUser(user: user)
+        UserDefaults.standard.saveUser(user, forKey: .user)
     }
     func signIn() async throws {
         guard !email.isEmpty, !password.isEmpty else {

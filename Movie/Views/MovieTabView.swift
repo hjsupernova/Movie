@@ -14,16 +14,7 @@ final class MovieTabViewModel: ObservableObject {
     func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
-        saveCurrentUser(user: user)
-    }
-    func saveCurrentUser(user: DBUser?) {
-        let encoder = JSONEncoder()
-        do {
-            let encodedData = try encoder.encode(user)
-            UserDefaults.standard.set(encodedData, forKey: "user")            
-        } catch {
-            print(error)
-        }
+        UserDefaults.standard.saveUser(user, forKey: .user)
     }
 }
 enum Views {
