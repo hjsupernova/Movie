@@ -24,7 +24,7 @@ struct DBUser: Codable {
         self.favoriteMoives = nil
     }
 }
-
+    
 final class UserManager {
     static let shared = UserManager()
     private init() {}

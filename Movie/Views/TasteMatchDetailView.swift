@@ -13,8 +13,25 @@ struct TasteMatchDetailView: View {
     let movie: Movie?
     var body: some View {
         if let movie = movie {
-            LazyImage(url: movie.posterURL ?? URL(string: ""))
-            Text(String(score))
+            LazyImage(url: movie.posterURL) { state in
+                if let image = state.image {
+                    VStack(spacing: 24) {
+                        Text("\(score.formatted())% taste match")
+                            .font(.title)
+                        image.resizable()
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 250, height: 375)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                        Text("The movie that brings you two together is \"\(movie.title)\"")
+                            .multilineTextAlignment(.center)
+                            .font(.title2)
+                    }
+                    .bold()
+                }
+                
+            }
+            
         }
     }
 }

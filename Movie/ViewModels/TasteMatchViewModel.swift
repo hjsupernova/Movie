@@ -13,6 +13,17 @@ class TasteMatchViewModel: ObservableObject {
     @Published var user: DBUser?
     @Published var isVaildEmail = false
     @Published var showingSheet = false
+    var myMoviesCount: Double {
+        do {
+            let savePath = FileManager.documentsDirectory.appendingPathComponent("FavoriteMovies")
+            let data = try Data(contentsOf: savePath)
+            let favoritesMovies = try JSONDecoder().decode([Movie].self, from: data)
+            return Double(favoritesMovies.count)
+        } catch {
+            print(error)
+            return 0
+        }
+    }
     var score = 0.0
     var matchedMovies: [Movie]? = nil
     init(email: String = "") {
@@ -43,10 +54,11 @@ class TasteMatchViewModel: ObservableObject {
         matchedMovies = friendsFavMovies.filter { myMovieIds.contains($0.id) }
     }
     func calculateTasteMatchPercentage() {
-        let myMoviesCount = Double(user?.favoriteMoives?.count ?? 0)
         let matchedMoviesCount = Double(matchedMovies?.count ?? 0)
         let tasteMatchPercentage = ( matchedMoviesCount / myMoviesCount) * 100
         score = tasteMatchPercentage
+        print("My Movies count" + String(myMoviesCount))
+        print("Matced Movies count" + String(matchedMoviesCount))
         showingSheet = true
     }
 }
