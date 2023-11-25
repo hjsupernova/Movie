@@ -13,6 +13,9 @@ final class SettingsViewModel: ObservableObject {
         try AuthenticationManager.shared.signOut()
     }
     func deleteAccount() async throws {
+        guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else { return }
         try await AuthenticationManager.shared.delete()
+        try await UserManager.shared.deleteUser(userId: user.userId)
+        UserDefaults.standard.removeObject(forKey: "user")
     }
 }

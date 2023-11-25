@@ -15,7 +15,7 @@ class TasteMatchViewModel: ObservableObject {
     @Published var showingSheet = false
     var myMoviesCount: Double {
         do {
-            let savePath = FileManager.documentsDirectory.appendingPathComponent("FavoriteMovies")
+            let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "" )
             let data = try Data(contentsOf: savePath)
             let favoritesMovies = try JSONDecoder().decode([Movie].self, from: data)
             return Double(favoritesMovies.count)
@@ -46,7 +46,7 @@ class TasteMatchViewModel: ObservableObject {
         try await UserManager.shared.getFavoriteMovies(email: email)
     }
     func findMatchedMovies(friendEmail: String) async throws {
-        let savePath = FileManager.documentsDirectory.appendingPathComponent("FavoriteMovies")
+        let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "")
         let friendsFavMovies = try await getFriendFavoriteMovies(email: email)
         let data = try Data(contentsOf: savePath)
         let favoritesMovies = try JSONDecoder().decode([Movie].self, from: data)

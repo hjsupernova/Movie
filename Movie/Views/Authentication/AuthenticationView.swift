@@ -10,6 +10,7 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 struct AuthenticationView: View {
+    @EnvironmentObject var libraryVM: LibraryViewModel
     @StateObject private var viewModel = AuthenticationViewModel()
     @Binding var showSignInView: Bool
     var body: some View {
@@ -37,6 +38,9 @@ struct AuthenticationView: View {
                     Task {
                         do {
                             try await viewModel.signInGoogle()
+                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else { return }
+                            libraryVM.userId = user.userId
+                            libraryVM.getLocalFavMovies(userId: user.userId)
                             showSignInView = false
                         } catch {
                             print(error)

@@ -45,8 +45,12 @@ final class UserManager {
     func createNewUser(user: DBUser) throws {
         try userDocument(userId: user.userId).setData(from: user, merge: false, encoder: encoder)
     }
+    @discardableResult
     func getUser(userId: String) async throws -> DBUser {
         try await userDocument(userId: userId).getDocument(as: DBUser.self, decoder: decoder)
+    }
+    func deleteUser(userId: String) async throws {
+        try await userDocument(userId: userId).delete()
     }
     func addFavoriteMovie(userId: String, movie: Movie) async throws {
         guard let data = try? encoder.encode(movie) else  {

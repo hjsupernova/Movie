@@ -10,11 +10,10 @@ import SwiftUI
 
 @MainActor
 final class MovieTabViewModel: ObservableObject {
-    @Published private(set) var user: DBUser?
+    
     func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
-        UserDefaults.standard.saveUser(user, forKey: .user)
+        try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
 }
 enum Views {
@@ -22,7 +21,7 @@ enum Views {
 }
 
 struct MovieTabView: View {
-    @StateObject var libraryViewModel = LibraryViewModel()
+    @EnvironmentObject var libraryViewModel: LibraryViewModel
     @StateObject var movieTabViewModel = MovieTabViewModel()
     @State private var selectedTap: Views = .discover
     @State private var showSignInView: Bool = false
@@ -49,11 +48,9 @@ struct MovieTabView: View {
                 .tag(Views.search)
         }
         .tint(.white)
-        .environmentObject(libraryViewModel)
         .task {
             do {
                 try await movieTabViewModel.loadCurrentUser()
-                libraryViewModel.userId = movieTabViewModel.user?.userId
             } catch {
                 self.showSignInView = true
             }

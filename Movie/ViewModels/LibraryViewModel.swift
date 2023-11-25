@@ -10,15 +10,25 @@ import Foundation
 @MainActor
 class LibraryViewModel: ObservableObject {
     @Published var favoriteMovies: [Movie] = []
-    var userId: String?
+    var userId: String? = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)?.userId ?? nil
     //MARK: - Save Data
-    
-    let savePath = FileManager.documentsDirectory.appendingPathComponent("FavoriteMovies")
-    
-    //이거 음... 계속 불러오는 게 맞나?
-    init(userId: String? = nil) {
-        self.userId = userId
+    var savePath: URL {
+        FileManager.documentsDirectory.appendingPathComponent(userId ?? "")
+    }
+
+    init() {
         do {
+            let data = try Data(contentsOf: savePath )
+            favoriteMovies = try JSONDecoder().decode([Movie].self, from: data)
+            print("DEBUG: Complete load data from Documents Directory")
+        } catch {
+            favoriteMovies = []
+        }
+    }
+    
+    func getLocalFavMovies(userId: String) {
+        do {
+            let savePath = FileManager.documentsDirectory.appending(path: userId)
             let data = try Data(contentsOf: savePath )
             favoriteMovies = try JSONDecoder().decode([Movie].self, from: data)
             print("DEBUG: Complete load data from Documents Directory")

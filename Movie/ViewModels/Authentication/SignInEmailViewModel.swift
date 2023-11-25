@@ -9,8 +9,8 @@ import Foundation
 
 @MainActor
 final class SignInEmailViewModel: ObservableObject {
-    @Published var email = ""
-    @Published var password = ""
+    @Published var email = "hello@testing.com"
+    @Published var password = "123456"
     func signUp() async throws {
         guard !email.isEmpty, !password.isEmpty else {
             print("DEBUG: No email or password found.")
@@ -26,6 +26,8 @@ final class SignInEmailViewModel: ObservableObject {
             print("DEBUG: No email or password found.")
             return
         }
-        try await AuthenticationManager.shared.signInUser(email: email, password: password)
+        let authDataResult = try await AuthenticationManager.shared.signInUser(email: email, password: password)
+        let user = DBUser(auth: authDataResult)
+        UserDefaults.standard.saveUser(user, forKey: .user)
     }
 }

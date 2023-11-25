@@ -11,9 +11,12 @@ import Firebase
 @main
 struct MovieApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var libraryViewModel = LibraryViewModel()
+
     var body: some Scene {
         WindowGroup {
             MovieTabView()
+                .environmentObject(libraryViewModel)
         }
     }
 }

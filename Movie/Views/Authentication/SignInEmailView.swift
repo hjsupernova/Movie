@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SignInEmailView: View {
+    @EnvironmentObject var libraryVM: LibraryViewModel
     @StateObject private var viewModel = SignInEmailViewModel()
     @Binding var showSignInView: Bool
     var body: some View {
@@ -21,17 +22,17 @@ struct SignInEmailView: View {
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
+            // SignIn
             Button {
                 Task {
                     do {
-                        try await viewModel.signUp()
-                        showSignInView = false
-                        return
-                    } catch {
-                        print(error)
-                    }
-                    do {
                         try await viewModel.signIn()
+                        guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
+                            print("DEBUG: Failed to signUp with Email")
+                            return
+                        }
+                        libraryVM.userId = user.userId
+                        libraryVM.getLocalFavMovies(userId: user.userId)
                         showSignInView = false
                         return
                     } catch {
@@ -40,6 +41,32 @@ struct SignInEmailView: View {
                 }
             } label: {
                 Text("Sign In")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(height: 55)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+            // SignUp
+            Button {
+                Task {
+                    do {
+                        try await viewModel.signUp()
+                        guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
+                            print("DEBUG: Failed to signUp with Email")
+                            return
+                        }
+                        libraryVM.userId = user.userId
+                        libraryVM.getLocalFavMovies(userId: user.userId)
+                        showSignInView = false
+                        return
+                    } catch {
+                        print(error)
+                    }
+                }
+            } label: {
+                Text("Sign Up")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(height: 55)
@@ -57,4 +84,5 @@ struct SignInEmailView: View {
 #Preview {
     SignInEmailView(showSignInView: .constant(false))
         .preferredColorScheme(.dark)
+        .environmentObject(LibraryViewModel())
 }
