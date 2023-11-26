@@ -54,6 +54,5 @@ struct PosterView: View {
 struct PosterView_Previews: PreviewProvider {
     static var previews: some View {
         PosterView(movie: .preview)
-//            .background(.black)
     }
 }

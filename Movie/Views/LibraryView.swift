@@ -7,14 +7,11 @@
 
 import SwiftUI
 import NukeUI
-struct LibraryView: View {
-    
-    @EnvironmentObject var libraryViewModel: LibraryViewModel
-    let layout = [
-        GridItem(.adaptive(minimum: 300, maximum: 500)),
-        GridItem(.adaptive(minimum: 300, maximum: 500))
-    ]
 
+struct LibraryView: View {
+    @EnvironmentObject var libraryViewModel: LibraryViewModel
+    @State private var isEditing = false
+    let layout = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
@@ -36,30 +33,42 @@ struct LibraryView: View {
                                         CustomProgressView(width: 140, height: 200)
                                     }
                                 }
-                                VStack {
-                                    HStack {
-                                        Spacer()
-                                        Button {
-                                            Task {
-                                                await libraryViewModel.deleteFavoriteMovies(movie: movie)
-                                            }
-                                        } label: {
-                                            Image(systemName: "x.circle")
-                                                .foregroundColor(.white)
-                                        }
-                                        .padding(5)
-                                        
-                                    }
-                                    Spacer()
+                                if isEditing {
+                                    deleteButton(movie: movie)
                                 }
-                                .frame(width: 140, height: 200)
                             }
                         }
                     }
                 }
             }
-            .navigationTitle("Library") 
+            .navigationTitle("Library")
+            .toolbar {
+                Button(isEditing ? "Done" : "Edit") {
+                    isEditing.toggle()
+                }
+            }
+            .animation(.default, value: isEditing)
         }
+    }
+
+    // MARK: - Computed views
+
+    func deleteButton(movie: Movie) -> some View {
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    Task {
+                        await libraryViewModel.deleteFavoriteMovies(movie: movie)
+                    }
+                } label: {
+                    Image(systemName: "x.circle")
+                }
+                .padding(5)
+            }
+            Spacer()
+        }
+        .frame(width: 140, height: 200)
     }
 }
 
@@ -68,5 +77,6 @@ struct LibraryView_Previews: PreviewProvider {
         LibraryView()
             .preferredColorScheme(.dark)
             .environmentObject(LibraryViewModel())
+            .tint(.white)
     }
 }
