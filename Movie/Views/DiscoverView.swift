@@ -5,33 +5,29 @@
 //  Created by KHJ on 2023/09/10.
 //
 
-import SwiftUI
-import NukeUI
 import Nuke
-
+import NukeUI
+import SwiftUI
 
 struct DiscoverView: View {
-
     @StateObject var discoverViewModel = DiscoverViewModel()
     @State private var hasAppeared = false
     @Binding var showSignInView: Bool
 
     var body: some View {
-        
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
-               
                 VStack {
-                    // Popular Movies
-                    VStack(alignment:.leading) {
+                    // Popular
+                    VStack(alignment: .leading) {
                         PosterListView(title: "Popular", movies: discoverViewModel.popular)
                     }
                     // Upcomings
                     VStack(alignment: .leading) {
                         BackdropListView(title: "Upcomings", movies: discoverViewModel.upcomings)
                     }
-                    
-                    VStack(alignment:.leading) {
+                    // Now Playing
+                    VStack(alignment: .leading) {
                         PosterListView(title: "Now Playing", movies: discoverViewModel.nowplaying)
                     }
                 }
@@ -70,6 +66,7 @@ struct DiscoverView: View {
 }
 
 // MARK: - Subviews
+
 struct BackdropListView: View {
     let title: String
     let movies: [Movie]
@@ -77,7 +74,7 @@ struct BackdropListView: View {
         Text(title)
             .font(.title2)
             .bold()
-        ScrollView(.horizontal,showsIndicators: false) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 ForEach(movies) { movie in
                     NavigationLink {
@@ -85,7 +82,7 @@ struct BackdropListView: View {
                     } label: {
                         LazyImage(url: movie.backdropURL) { state in
                             if let image = state.image {
-                                ZStack(alignment: .leading ) {
+                                ZStack(alignment: .leading) {
                                     image
                                         .resizable()
                                         .scaledToFill()
@@ -95,8 +92,8 @@ struct BackdropListView: View {
                                     VStack(alignment: .leading, spacing: 10) {
                                         Spacer()
                                         Text("\(movie.title)")
-                                            .font(.title)
-                                            .bold()
+                                            .font(.title.bold())
+                                            .multilineTextAlignment(.leading)
                                             .foregroundColor(.white)
                                         Text("\(movie.overview)")
                                             .font(.caption)

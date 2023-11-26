@@ -26,7 +26,7 @@ struct PosterView: View {
                     CustomProgressView(width: 140, height: 240)
                 }
             }
-            .modifier(GroundReflectionViewModifier(offsetY: 0))
+            .refelction(offsetY: 0)
             VStack(alignment: .leading, spacing: 0) {
                 Text(movie.title)
                     .font(.caption2)

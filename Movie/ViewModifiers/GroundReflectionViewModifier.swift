@@ -27,3 +27,9 @@ struct GroundReflectionViewModifier: ViewModifier {
             )
     }
 }
+
+extension View {
+    func refelction(offsetY: CGFloat = 1) -> some View {
+        modifier(GroundReflectionViewModifier(offsetY: offsetY))
+    }
+}

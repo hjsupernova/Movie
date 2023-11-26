@@ -9,77 +9,44 @@ import SwiftUI
 import NukeUI
 
 struct SearchView: View {
-    @StateObject var serachViewModel = SearchViewModel()
-    let layout = [
-        GridItem(.adaptive(minimum: 300, maximum: 500)),
-        GridItem(.adaptive(minimum: 300, maximum: 500))
-        
-    ]
-    @State private var searchText = ""
+    @StateObject var searchViewModel = SearchViewModel()
+    let layout = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack {
-                    // NavBar
-                    HStack {
-                        Text("Search")
-                            .font(.largeTitle.bold())
-                        Spacer()
-//                        NavigationLink {
-//                            Text("Person View")
-//                        } label: {
-//                            Image(systemName: "person.crop.circle")
-//                                .font(.largeTitle)
-//                        }
-                    }
-                    SearchBar(searchText: $searchText)
-                        .onSubmit {
-                            Task {
-                                await serachViewModel.searchMovies(text: searchText)
-                            }
-                        }
-                    // Searched Movies
-                    ScrollView(showsIndicators: false) {
-                        LazyVGrid(columns: layout) {
-                            ForEach(serachViewModel.searchedMovies) { movie in
-                                NavigationLink {
-                                    DetailsView(movie: movie)
-                                } label: {
-                                    PosterView(movie: movie)
-                                }
-                            }
+            // Searched Movies
+            ScrollView(showsIndicators: false) {
+                LazyVGrid(columns: layout) {
+                    ForEach(searchViewModel.searchedMovies) { movie in
+                        NavigationLink {
+                            DetailsView(movie: movie)
+                        } label: {
+                            PosterView(movie: movie)
                         }
                     }
-                    .padding(.vertical)
                 }
-                .padding()
             }
-            .alert(isPresented: $serachViewModel.showAlert, content: {
-                Alert(title: Text("Error"), message: Text(serachViewModel.errorMsg))
+            .searchable(
+                text: $searchViewModel.searchText,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: "Shows, Movies and More"
+            )
+            .onSubmit(of: .search) {
+                Task {
+                    await searchViewModel.searchMovies()
+                }
+            }
+            .navigationTitle("Search")
+            .alert(isPresented: $searchViewModel.showAlert, content: {
+                Alert(title: Text("Error"), message: Text(searchViewModel.errorMsg))
             })
-        }
-    }
-}
-
-// MARK: - Subviews
-struct SearchBar: View {
-    @Binding var searchText: String
-    
-    var body: some View {
-        VStack {
-            TextField("\(Image(systemName:"magnifyingglass")) Shows, Movies and More", text: $searchText)
-                .padding(10)
-                .background(Color(.systemGray5))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(serachViewModel: SearchViewModel())
+        SearchView(searchViewModel: SearchViewModel())
             .preferredColorScheme(.dark)
             .tint(.white)
-
     }
 }
