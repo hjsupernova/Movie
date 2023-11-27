@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import SwiftUI
 import NukeUI
+import SwiftUI
 
 struct CastView: View {
-    
     let castMember: CastMember
-    
+
     var body: some View {
         VStack {
             LazyImage(url: castMember.photoUrl) { phase in
@@ -32,7 +31,7 @@ struct CastView: View {
                         .frame(width: 100, height: 120)
                         .overlay(RoundedRectangle(cornerRadius: 15)
                             .strokeBorder(Color(UIColor.systemGray4), lineWidth: 1))
-                } else  {
+                } else {
                     CustomProgressView(width: 100, height: 120)
                 }
             }
@@ -40,6 +39,23 @@ struct CastView: View {
                 .lineLimit(1)
                 .frame(width: 100)
         }
+    }
+}
+
+struct CastListView: View {
+    let cast: [CastMember]
+    var body: some View {
+        Text("Cast")
+            .font(.title2.bold())
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack {
+                ForEach(cast) { castMember in
+                    CastView(castMember: castMember)
+                }
+            }
+        }
+        .frame(height: 150)
+        .padding(.bottom, 20)
     }
 }
 

@@ -41,12 +41,7 @@ struct SignInEmailView: View {
                 }
             } label: {
                 Text("Sign In")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(height: 55)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                    .authenticationButton()
             }
             // SignUp
             Button {
@@ -67,12 +62,7 @@ struct SignInEmailView: View {
                 }
             } label: {
                 Text("Sign Up")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(height: 55)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                    .authenticationButton()
             }
             Spacer()
         }

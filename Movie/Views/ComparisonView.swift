@@ -60,7 +60,7 @@ struct ComparisonView: View {
                 .padding()
             // Buttons
             HStack {
-                actionButtons()
+                actionButtons
             }
             .font(.largeTitle)
             .disabled(comparisonViewModel.hasSingleMovie)
@@ -70,10 +70,9 @@ struct ComparisonView: View {
         .navigationTitle("Now Playing")
         .navigationBarTitleDisplayMode(.inline)
     }
-}
-
-extension ComparisonView {
-    @ViewBuilder func actionButtons() -> some View {
+    // MARK: - Computed views
+    
+    @ViewBuilder var actionButtons: some View {
         Button {
             withAnimation {
                 comparisonViewModel.saveMoive()

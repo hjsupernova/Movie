@@ -16,6 +16,7 @@
 		CE0C3C832AC82F6200925583 /* Genrelists.json in Resources */ = {isa = PBXBuildFile; fileRef = CE0C3C822AC82F6200925583 /* Genrelists.json */; };
 		CE0C3C882AC8376600925583 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0C3C872AC8376600925583 /* CustomProgressView.swift */; };
 		CE0E75182B030A7300CE8F5D /* ComparisonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E75172B030A7300CE8F5D /* ComparisonViewModel.swift */; };
+		CE1611552B147C0D00519408 /* AuthenticationButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1611542B147C0D00519408 /* AuthenticationButtonModifier.swift */; };
 		CE2076782AAF3474003ABEA7 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2076772AAF3474003ABEA7 /* Movie.swift */; };
 		CE29CA332AF5ED6900CC4AA4 /* GroundReflectionViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29CA322AF5ED6900CC4AA4 /* GroundReflectionViewModifier.swift */; };
 		CE29CA392AF6298000CC4AA4 /* PosterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29CA382AF6298000CC4AA4 /* PosterListView.swift */; };
@@ -23,6 +24,7 @@
 		CE3713192B09BEA4005F5E71 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CE3713182B09BEA4005F5E71 /* FirebaseFirestore */; };
 		CE37131B2B09BEA4005F5E71 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE37131A2B09BEA4005F5E71 /* FirebaseFirestoreSwift */; };
 		CE37131E2B09C13A005F5E71 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37131D2B09C13A005F5E71 /* UserManager.swift */; };
+		CE3FA7422B149D30004D0F7A /* BackdropListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FA7412B149D30004D0F7A /* BackdropListView.swift */; };
 		CE497EA02AE6816300B2EEF0 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE497E9F2AE6816300B2EEF0 /* LibraryViewModel.swift */; };
 		CE497EA22AE689C900B2EEF0 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE497EA12AE689C900B2EEF0 /* SearchViewModel.swift */; };
 		CE4F8DA42B0B29080019A4F4 /* TasteMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F8DA32B0B29080019A4F4 /* TasteMatchView.swift */; };
@@ -78,11 +80,13 @@
 		CE0C3C822AC82F6200925583 /* Genrelists.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Genrelists.json; sourceTree = "<group>"; };
 		CE0C3C872AC8376600925583 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		CE0E75172B030A7300CE8F5D /* ComparisonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonViewModel.swift; sourceTree = "<group>"; };
+		CE1611542B147C0D00519408 /* AuthenticationButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButtonModifier.swift; sourceTree = "<group>"; };
 		CE2076772AAF3474003ABEA7 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		CE29CA322AF5ED6900CC4AA4 /* GroundReflectionViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundReflectionViewModifier.swift; sourceTree = "<group>"; };
 		CE29CA382AF6298000CC4AA4 /* PosterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListView.swift; sourceTree = "<group>"; };
 		CE29D14F2AB06D8600587C72 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		CE37131D2B09C13A005F5E71 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		CE3FA7412B149D30004D0F7A /* BackdropListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropListView.swift; sourceTree = "<group>"; };
 		CE497E9F2AE6816300B2EEF0 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
 		CE497EA12AE689C900B2EEF0 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CE4F8DA32B0B29080019A4F4 /* TasteMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteMatchView.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 		CE0C3C842AC82FDF00925583 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CE3FA7412B149D30004D0F7A /* BackdropListView.swift */,
 				CEF2FB8E2AB2E01700EA96CC /* CastView.swift */,
 				CE0C3C872AC8376600925583 /* CustomProgressView.swift */,
 				CE29CA382AF6298000CC4AA4 /* PosterListView.swift */,
@@ -157,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				CE29CA322AF5ED6900CC4AA4 /* GroundReflectionViewModifier.swift */,
+				CE1611542B147C0D00519408 /* AuthenticationButtonModifier.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -427,9 +433,11 @@
 				CE29D1502AB06D8600587C72 /* DetailsView.swift in Sources */,
 				CEDF61862B08E02E00EA11CF /* SettingsViewModel.swift in Sources */,
 				CE0C3C7F2AC8081100925583 /* MovieTabView.swift in Sources */,
+				CE3FA7422B149D30004D0F7A /* BackdropListView.swift in Sources */,
 				CEEDE4E22B0F1DCA007336B1 /* TasteMatchDetailView.swift in Sources */,
 				CEACAFD82AF9065400BC108E /* ComparisonView.swift in Sources */,
 				CE8A729A2AE40DCA00A13EE1 /* APIClient.swift in Sources */,
+				CE1611552B147C0D00519408 /* AuthenticationButtonModifier.swift in Sources */,
 				CE6868052ACAB50600CCD6CD /* PosterView.swift in Sources */,
 				CE034FB32AF5033B00E9F820 /* Genre.swift in Sources */,
 				CEDF61812B08D8E200EA11CF /* SignInGoogleHelper.swift in Sources */,

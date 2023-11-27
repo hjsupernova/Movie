@@ -14,34 +14,7 @@ struct TasteMatchView: View {
         GeometryReader { _ in
             VStack(spacing: 0) {
                 if let photoURL = tasteMatchViewModel.user?.photoUrl {
-                    LazyImage(url: URL(string: photoURL)) { state in
-                        if let image = state.image {
-                            ZStack {
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 150, height: 150)
-                                    .clipShape(Circle())
-                                    .offset(x: 60)
-                                    .foregroundStyle(.gray)
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 150, height: 150)
-                                    .clipShape(Circle())
-                                    .offset(x: -60)
-                            }
-                        } else if state.error != nil {
-                            Image(systemName: "person")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 150, height: 150)
-                                .clipShape(Circle())
-                        } else {
-                            ProgressView()
-                        }
-                    }
-                    .padding(.bottom, 24)
+                    userImage(url: photoURL)
                 }
                 Text("Compare your movie taste with a friend")
                     .font(.largeTitle.bold())
@@ -85,6 +58,37 @@ struct TasteMatchView: View {
             .navigationTitle("Taste Match")
             .navigationBarTitleDisplayMode(.inline)
         }
+    }
+    // MARK: - Computed Views
+    func userImage(url: String) -> some View {
+        LazyImage(url: URL(string: url)) { state in
+            if let image = state.image {
+                ZStack {
+                    Image(systemName: "plus.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle())
+                        .offset(x: 60)
+                        .foregroundStyle(.gray)
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle())
+                        .offset(x: -60)
+                }
+            } else if state.error != nil {
+                Image(systemName: "person")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
+                    .clipShape(Circle())
+            } else {
+                ProgressView()
+            }
+        }
+        .padding(.bottom, 24)
     }
 }
 

@@ -20,7 +20,7 @@ struct SettingsView: View {
                     print(error)
                 }
             }
-            Button(role: .destructive) {
+            Button("Delete account", role: .destructive) {
                 Task {
                     do {
                         try await viewModel.deleteAccount()
@@ -29,8 +29,6 @@ struct SettingsView: View {
                         print(error)
                     }
                 }
-            } label: {
-                Text("Delete account")
             }
         }
         .navigationTitle("Settings")

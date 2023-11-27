@@ -27,12 +27,7 @@ struct AuthenticationView: View {
                     SignInEmailView(showSignInView: $showSignInView)
                 } label: {
                     Text("Sign Up With Email")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .frame(height: 55)
-                        .frame(maxWidth: .infinity)
-                        .background(.blue)
-                        .cornerRadius(10)
+                        .authenticationButton()
                 }
                 GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .standard, state: .normal)) {
                     Task {
