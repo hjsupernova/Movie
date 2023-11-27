@@ -39,7 +39,7 @@ struct DetailsView: View {
                     // Information
                     movieInformation(movie: movie)
                     // Buttons
-                    actionButtons()
+                    actionButtons(moive: movie)
                     // Cast View
                     CastListView(cast: detailsViewModel.cast)
                     // Recommendations View ( when existed )
@@ -64,7 +64,8 @@ struct DetailsView: View {
     // MARK: - Computed views
 
     @ViewBuilder
-    func actionButtons() -> some View {
+    func actionButtons(moive: Movie) -> some View {
+        
         HStack {
             Spacer()
             // Save
@@ -98,7 +99,7 @@ struct DetailsView: View {
             }
             Spacer()
             // Trailer
-            Button {} label: {
+            Link(destination: movie.homepageURL) {
                 VStack {
                     Image(systemName: "play.circle")
                     Text("Trailer")
@@ -108,7 +109,11 @@ struct DetailsView: View {
             }
             Spacer()
             // Share
-            Button {} label: {
+            Button {
+                let urlShare = movie.homepageURL
+                let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
+                UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+            } label: {
                 VStack {
                     Image(systemName: "square.and.arrow.up.circle")
                     Text("Share")
