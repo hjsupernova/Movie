@@ -10,12 +10,16 @@ import SwiftUI
 
 struct AuthenticationButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
-        content                        .font(.headline)
+        content
+            .font(.headline.bold())
             .foregroundStyle(.white)
             .frame(height: 55)
             .frame(maxWidth: .infinity)
-            .background(.blue)
-            .cornerRadius(10)
+            .background(
+                Capsule(style: .circular)
+                    .stroke(Color(UIColor.systemGray), lineWidth: 1)
+            )
+            
     }
 }
 

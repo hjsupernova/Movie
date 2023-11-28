@@ -22,48 +22,52 @@ struct SignInEmailView: View {
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
-            // SignIn
-            Button {
-                Task {
-                    do {
-                        try await viewModel.signIn()
-                        guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
-                            print("DEBUG: Failed to signUp with Email")
+            
+            VStack(spacing: 16) {
+                // SignIn
+                Button {
+                    Task {
+                        do {
+                            try await viewModel.signIn()
+                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
+                                print("DEBUG: Failed to signUp with Email")
+                                return
+                            }
+                            libraryVM.userId = user.userId
+                            libraryVM.getLocalFavMovies(userId: user.userId)
+                            showSignInView = false
                             return
+                        } catch {
+                            print(error)
                         }
-                        libraryVM.userId = user.userId
-                        libraryVM.getLocalFavMovies(userId: user.userId)
-                        showSignInView = false
-                        return
-                    } catch {
-                        print(error)
                     }
+                } label: {
+                    Text("Sign In")
+                        .authenticationButton()
                 }
-            } label: {
-                Text("Sign In")
-                    .authenticationButton()
-            }
-            // SignUp
-            Button {
-                Task {
-                    do {
-                        try await viewModel.signUp()
-                        guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
-                            print("DEBUG: Failed to signUp with Email")
+                // SignUp
+                Button {
+                    Task {
+                        do {
+                            try await viewModel.signUp()
+                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
+                                print("DEBUG: Failed to signUp with Email")
+                                return
+                            }
+                            libraryVM.userId = user.userId
+                            libraryVM.getLocalFavMovies(userId: user.userId)
+                            showSignInView = false
                             return
+                        } catch {
+                            print(error)
                         }
-                        libraryVM.userId = user.userId
-                        libraryVM.getLocalFavMovies(userId: user.userId)
-                        showSignInView = false
-                        return
-                    } catch {
-                        print(error)
                     }
+                } label: {
+                    Text("Sign Up")
+                        .authenticationButton()
                 }
-            } label: {
-                Text("Sign Up")
-                    .authenticationButton()
             }
+            .padding(.vertical)
             Spacer()
         }
         .padding()

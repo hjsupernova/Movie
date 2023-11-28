@@ -9,27 +9,28 @@ import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
 
+
 struct AuthenticationView: View {
     @EnvironmentObject var libraryVM: LibraryViewModel
     @StateObject private var viewModel = AuthenticationViewModel()
     @Binding var showSignInView: Bool
     var body: some View {
         VStack {
-            VStack {
+            VStack(spacing: 12) {
                 Text("🍿")
-                Text("Login to a reel world of movie memories")
+                Text("Login to a reel world of movie memories.")
             }
             .multilineTextAlignment(.center)
             .font(.largeTitle.bold())
             
-            VStack {
+            VStack(spacing: 16) {
                 NavigationLink {
                     SignInEmailView(showSignInView: $showSignInView)
                 } label: {
-                    Text("Sign Up With Email")
+                    Label("Sign In with Email", systemImage: "envelope")
                         .authenticationButton()
                 }
-                GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .standard, state: .normal)) {
+                Button {
                     Task {
                         do {
                             try await viewModel.signInGoogle()
@@ -41,6 +42,9 @@ struct AuthenticationView: View {
                             print(error)
                         }
                     }
+                } label: {
+                    Label("Sign in with Google", image: "Google")
+                        .authenticationButton()
                 }
             }
             .padding(.vertical)
