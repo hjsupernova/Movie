@@ -22,6 +22,14 @@ struct SearchView: View {
                         } label: {
                             PosterView(movie: movie)
                         }
+                        .onAppear {
+                            if movie == searchViewModel.searchedMovies.last {
+                                Task {
+                                    await searchViewModel.loadMore()
+                                }
+                            }
+                        }
+                        
                     }
                 }
             }
