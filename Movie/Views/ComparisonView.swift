@@ -10,8 +10,10 @@ import NukeUI
 
 struct ComparisonView: View {
     @StateObject var comparisonViewModel: ComparisonViewModel
+    let totalMovieCount: Int
     init(movies: [Movie]) {
         _comparisonViewModel = StateObject(wrappedValue: ComparisonViewModel(movies: movies))
+        totalMovieCount = movies.count
     }
 
     var body: some View {
@@ -55,6 +57,7 @@ struct ComparisonView: View {
                     }
                 }
             }
+            // Title
             Text(comparisonViewModel.currentMovieTitle)
                 .font(.title2.bold())
                 .padding()
@@ -67,7 +70,7 @@ struct ComparisonView: View {
 
         }
         .padding(.top, 50)
-        .navigationTitle("Now Playing")
+        .navigationTitle(String(totalMovieCount) + "  Upcoming movies")
         .navigationBarTitleDisplayMode(.inline)
     }
     // MARK: - Computed views
@@ -77,7 +80,6 @@ struct ComparisonView: View {
             withAnimation {
                 comparisonViewModel.saveMoive()
             }
-            
         } label: {
             Label("", systemImage: "heart")
         }
@@ -149,15 +151,17 @@ extension View {
 }
 
 #Preview {
-    ComparisonView(
-        movies: (
-            [
-                Movie.preview,
-                Movie.preview2,
-                Movie.preview3
-            ]
+    NavigationView {
+        ComparisonView(
+            movies: (
+                [
+                    Movie.preview,
+                    Movie.preview2,
+                    Movie.preview3
+                ]
+            )
         )
-    )
-    .preferredColorScheme(.dark)
-    .tint(.white)
+        .preferredColorScheme(.dark)
+        .tint(.white)
+    }
 }

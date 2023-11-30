@@ -12,8 +12,15 @@ struct BackdropListView: View {
     let title: String
     let movies: [Movie]
     var body: some View {
-        Text(title)
-            .font(.title2.bold())
+        HStack {
+            Text(title)
+                .font(.title2.bold())
+            NavigationLink {
+                ComparisonView(movies: movies)
+            } label: {
+                Image(systemName: "square.stack.fill")
+            }
+        }
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 ForEach(movies) { movie in

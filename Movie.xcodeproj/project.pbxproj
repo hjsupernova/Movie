@@ -25,6 +25,7 @@
 		CE37131B2B09BEA4005F5E71 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE37131A2B09BEA4005F5E71 /* FirebaseFirestoreSwift */; };
 		CE37131E2B09C13A005F5E71 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37131D2B09C13A005F5E71 /* UserManager.swift */; };
 		CE3FA7422B149D30004D0F7A /* BackdropListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3FA7412B149D30004D0F7A /* BackdropListView.swift */; };
+		CE484E122B17128200D90090 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE484E112B17128200D90090 /* View.swift */; };
 		CE497EA02AE6816300B2EEF0 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE497E9F2AE6816300B2EEF0 /* LibraryViewModel.swift */; };
 		CE497EA22AE689C900B2EEF0 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE497EA12AE689C900B2EEF0 /* SearchViewModel.swift */; };
 		CE4F8DA42B0B29080019A4F4 /* TasteMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F8DA32B0B29080019A4F4 /* TasteMatchView.swift */; };
@@ -87,6 +88,7 @@
 		CE29D14F2AB06D8600587C72 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		CE37131D2B09C13A005F5E71 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		CE3FA7412B149D30004D0F7A /* BackdropListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropListView.swift; sourceTree = "<group>"; };
+		CE484E112B17128200D90090 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		CE497E9F2AE6816300B2EEF0 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
 		CE497EA12AE689C900B2EEF0 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CE4F8DA32B0B29080019A4F4 /* TasteMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteMatchView.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				CEF2369A2AE5564E001C3001 /* FileManger.swift */,
 				CE8A72932AE4025F00A13EE1 /* URL.swift */,
 				CEB53F722B108487004A2C5A /* UserDefaults.swift */,
+				CE484E112B17128200D90090 /* View.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				CE8A729A2AE40DCA00A13EE1 /* APIClient.swift in Sources */,
 				CE1611552B147C0D00519408 /* AuthenticationButtonModifier.swift in Sources */,
 				CE6868052ACAB50600CCD6CD /* PosterView.swift in Sources */,
+				CE484E122B17128200D90090 /* View.swift in Sources */,
 				CE034FB32AF5033B00E9F820 /* Genre.swift in Sources */,
 				CEDF61812B08D8E200EA11CF /* SignInGoogleHelper.swift in Sources */,
 				CE8A72942AE4025F00A13EE1 /* URL.swift in Sources */,

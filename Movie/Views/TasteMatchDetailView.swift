@@ -5,8 +5,8 @@
 //  Created by KHJ on 2023/11/23.
 //
 
-import SwiftUI
 import NukeUI
+import SwiftUI
 
 struct TasteMatchDetailView: View {
     let score: Double
@@ -16,7 +16,7 @@ struct TasteMatchDetailView: View {
             LazyImage(url: movie.posterURL) { state in
                 if let image = state.image {
                     VStack(spacing: 24) {
-                        Text("\(score.formatted())% taste match")
+                        Text(String(format: "%.0f", score) + "% taste match")
                             .font(.title)
                         image.resizable()
                             .resizable()
@@ -29,13 +29,12 @@ struct TasteMatchDetailView: View {
                     }
                     .bold()
                 }
-                
             }
-            
         }
     }
 }
 
 #Preview {
-    TasteMatchDetailView(score: 5, movie: .preview)
+    TasteMatchDetailView(score: 5.53535, movie: .preview)
 }
+

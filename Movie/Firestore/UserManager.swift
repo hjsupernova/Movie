@@ -73,6 +73,7 @@ final class UserManager {
     func getFavoriteMovies(email: String) async throws -> [Movie] {
         let query = userCollection.whereField("email", isEqualTo: email)
         let snapshot = try await query.getDocuments()
+        guard !snapshot.documents.isEmpty else { return [] }
         let document = snapshot.documents[0]
         let userData = document.data()
         let movieData = userData["favorite_movies"] as? [[String:Any]]

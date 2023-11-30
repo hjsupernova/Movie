@@ -5,8 +5,8 @@
 //  Created by KHJ on 2023/09/28.
 //
 
-import SwiftUI
 import NukeUI
+import SwiftUI
 
 struct SearchView: View {
     @StateObject var searchViewModel = SearchViewModel()
@@ -29,7 +29,6 @@ struct SearchView: View {
                                 }
                             }
                         }
-                        
                     }
                 }
             }
@@ -40,13 +39,16 @@ struct SearchView: View {
             )
             .onSubmit(of: .search) {
                 Task {
-                    await searchViewModel.searchMovies()
+                    await searchViewModel.searchMoviesFirst()
                 }
             }
             .navigationTitle("Search")
             .alert(isPresented: $searchViewModel.showAlert, content: {
                 Alert(title: Text("Error"), message: Text(searchViewModel.errorMsg))
             })
+            .onTapGesture {
+                hideKeyboard()
+            }
         }
     }
 }

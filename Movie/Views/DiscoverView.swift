@@ -36,11 +36,6 @@ struct DiscoverView: View {
             .navigationTitle("🍿 MOVIE")
             .toolbar {
                 NavigationLink {
-                    ComparisonView(movies: discoverViewModel.nowplaying)
-                } label: {
-                    Image(systemName: "square.stack.fill")
-                }
-                NavigationLink {
                     SettingsView(showSingInView: $showSignInView)
                 } label: {
                     Image(systemName: "person.crop.circle")

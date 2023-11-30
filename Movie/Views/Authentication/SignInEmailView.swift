@@ -17,6 +17,7 @@ struct SignInEmailView: View {
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
+                .keyboardType(.emailAddress)
             
             SecureField("Password...", text: $viewModel.password)
                 .padding()

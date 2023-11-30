@@ -60,6 +60,7 @@ class TasteMatchViewModel: ObservableObject {
         print("My Movies count" + String(myMoviesCount))
         print("Matced Movies count" + String(matchedMoviesCount))
         showingSheet = true
+        email = ""
     }
 }
 
