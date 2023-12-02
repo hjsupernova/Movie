@@ -41,8 +41,9 @@ class DiscoverViewModel: ObservableObject {
             async let upcomings = loadUpcomings()
             async let nowplaying = loadNowplaying()
             async let genreLists = getGenreLists()
+            
             // 여기 await은 변수가 오기 전까지 오래걸릴 수 있다는 얘기
-            // 하지만 위에 async let으로 동기적으로 처리하기 때문에 여기서 줄 바이 줄로 기다리지는 않음.
+            // 하지만 위에 async let으로 동시적으로 처리하기 때문에 여기서 줄 바이 줄로 기다리지는 않음.
             self.popular = try await popular
             self.upcomings = try await upcomings
             self.nowplaying = try await nowplaying

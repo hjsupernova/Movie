@@ -34,6 +34,7 @@ class TasteMatchViewModel: ObservableObject {
             }
             let decoder = JSONDecoder()
             let decodedData = try decoder.decode(DBUser.self, from: data)
+            // 전역변수로 User를 사용하기위해서 user: DBUser? 로 변수 선언
             self.user = decodedData
             print(user?.photoUrl ?? "No photo")
             print(user?.userId ?? "No Id")

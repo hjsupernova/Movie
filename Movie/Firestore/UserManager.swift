@@ -32,6 +32,7 @@ final class UserManager {
     private func userDocument(userId: String) -> DocumentReference {
         userCollection.document(userId)
     }
+    // Return Type 추론
     private let encoder: Firestore.Encoder = {
         let encoder = Firestore.Encoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
