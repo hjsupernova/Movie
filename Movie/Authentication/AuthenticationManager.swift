@@ -24,6 +24,9 @@ enum AuthProviderOption: String {
     case google = "google.com"
 }
 
+enum FIRAuthError: Error {
+    case noAuthenticatedUser
+}
 
 final class AuthenticationManager {
     static let shared = AuthenticationManager()
@@ -31,7 +34,7 @@ final class AuthenticationManager {
     // 가입된 유저 불러오기
     func getAuthenticatedUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badURL)
+            throw FIRAuthError.noAuthenticatedUser
         }
         return AuthDataResultModel(user: user)
     }

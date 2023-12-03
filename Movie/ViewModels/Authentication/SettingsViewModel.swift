@@ -9,6 +9,7 @@ import Foundation
 
 @MainActor
 final class SettingsViewModel: ObservableObject {
+    // 뷰 단에서 에러를 처리
     func signOut() throws {
         try AuthenticationManager.shared.signOut()
     }

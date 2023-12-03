@@ -10,6 +10,7 @@ import Foundation
 @MainActor
 class LibraryViewModel: ObservableObject {
     @Published var favoriteMovies: [Movie] = []
+    // 앱을 처음 받을 경우 userID는 nil 값
     var userId: String? = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)?.userId ?? nil
     //MARK: - Save Data
     var savePath: URL {

@@ -11,6 +11,9 @@ import Foundation
 final class SignInEmailViewModel: ObservableObject {
     @Published var email = "hello@testing.com"
     @Published var password = "123456"
+    @Published var showAlert = false
+    @Published var alertMsg = ""
+    @Published var alertTitle = "" 
     func signUp() async throws {
         guard !email.isEmpty, !password.isEmpty else {
             print("DEBUG: No email or password found.")

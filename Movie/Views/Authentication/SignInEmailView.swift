@@ -4,7 +4,8 @@
 //
 //  Created by KHJ on 2023/11/18.
 //
-
+import FirebaseAuth
+import Firebase
 import SwiftUI
 
 struct SignInEmailView: View {
@@ -39,7 +40,9 @@ struct SignInEmailView: View {
                             showSignInView = false
                             return
                         } catch {
-                            print(error)
+                            viewModel.alertTitle = "SignIn Error"
+                            viewModel.alertMsg = error.localizedDescription
+                            viewModel.showAlert = true
                         }
                     }
                 } label: {
@@ -59,8 +62,10 @@ struct SignInEmailView: View {
                             libraryVM.getLocalFavMovies(userId: user.userId)
                             showSignInView = false
                             return
-                        } catch {
-                            print(error)
+                        } catch let error as NSError {
+                            viewModel.alertTitle = "SignUp Error"
+                            viewModel.alertMsg = error.localizedDescription
+                            viewModel.showAlert = true
                         }
                     }
                 } label: {
@@ -70,6 +75,11 @@ struct SignInEmailView: View {
             }
             .padding(.vertical)
             Spacer()
+        }
+        .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
+            Button("Cancle") { }
+        } message: {
+            Text(viewModel.alertMsg)
         }
         .padding()
         .navigationTitle("Sign In with Email")
