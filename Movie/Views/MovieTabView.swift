@@ -22,7 +22,6 @@ enum Views {
 }
 
 struct MovieTabView: View {
-    @EnvironmentObject var libraryViewModel: LibraryViewModel
     @StateObject var movieTabViewModel = MovieTabViewModel()
     @State private var selectedTap: Views = .discover
     @State private var showSignInView: Bool = false
@@ -67,6 +66,5 @@ struct MovieTabView: View {
 struct MovieTapView_Previews: PreviewProvider {
     static var previews: some View {
         MovieTabView()
-            .environmentObject(LibraryViewModel())
     }
 }

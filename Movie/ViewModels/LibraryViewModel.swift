@@ -16,7 +16,7 @@ class LibraryViewModel: ObservableObject {
     var savePath: URL {
         FileManager.documentsDirectory.appendingPathComponent(userId ?? "")
     }
-
+    
     init() {
         do {
             let data = try Data(contentsOf: savePath )
@@ -53,13 +53,12 @@ class LibraryViewModel: ObservableObject {
         if let index = favoriteMovies.firstIndex(where: { moive in
             moive == movie
         }) {
-            favoriteMovies.remove(at: index)
             do {
                 try await UserManager.shared.removeFavoriteMovie(userId: userId ?? "", movie: movie)
             } catch {
                 print("DEBUG: Failed to upload data to firestore")
             }
-            
+            favoriteMovies.remove(at: index)
             save()
         }
     }
