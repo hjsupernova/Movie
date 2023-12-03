@@ -65,7 +65,7 @@
 					<key>StartingLineNumber</key>
 					<string>19</string>
 					<key>Timestamp</key>
-					<string>723117606.691545</string>
+					<string>723287234.669454</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -142,6 +142,53 @@
 			</dict>
 			<key>title</key>
 			<string>에러가 절때 나지 않을 것 같은 경우에도 에러 처리? (Alert) </string>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>33</string>
+					<key>StartingColumnNumber</key>
+					<string>56</string>
+					<key>StartingLineNumber</key>
+					<string>32</string>
+					<key>Timestamp</key>
+					<string>723287167.552238</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>Movie/Views/Authentication/SignInEmailView.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>
+</string>
+				<key>leading</key>
+				<string>                    Task {
+                        do {
+                            try await viewModel.signIn()</string>
+				<key>trailing</key>
+				<string>                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
+                                print("DEBUG: Failed to signUp with Email")
+                                return
+</string>
+			</dict>
+			<key>title</key>
+			<string>차라리 이 함수에서 DBUser객체를 내뱉으면 저장된 걸 다시 불러올 필요가 없겠다.</string>
 			<key>type</key>
 			<string>bookmark</string>
 		</dict>

@@ -26,22 +26,8 @@ class TasteMatchViewModel: ObservableObject {
     }
     var score = 0.0
     var matchedMovies: [Movie]? = nil
-    init(email: String = "") {
-        self.email = email
-        do {
-            guard let data = UserDefaults.standard.data(forKey: "user") else {
-                throw URLError(.badURL)
-            }
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(DBUser.self, from: data)
-            // 전역변수로 User를 사용하기위해서 user: DBUser? 로 변수 선언
-            self.user = decodedData
-            print(user?.photoUrl ?? "No photo")
-            print(user?.userId ?? "No Id")
-            print(user?.dateCreated ?? "No date")
-        } catch {
-         print(error)
-        }
+    init() {
+        self.user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)
     }
     func getFriendFavoriteMovies(email: String) async throws -> [Movie] {
         try await UserManager.shared.getFavoriteMovies(email: email)
