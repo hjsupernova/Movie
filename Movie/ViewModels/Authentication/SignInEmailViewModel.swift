@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
 final class SignInEmailViewModel: ObservableObject {
@@ -16,7 +17,7 @@ final class SignInEmailViewModel: ObservableObject {
     @Published var alertTitle = ""
     func signUp() async throws {
         guard !email.isEmpty, !password.isEmpty else {
-            print("DEBUG: No email or password found.")
+            Logger.auth.error("DEBUG: No email or password found.")
             return
         }
         let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
@@ -26,7 +27,7 @@ final class SignInEmailViewModel: ObservableObject {
     }
     func signIn() async throws {
         guard !email.isEmpty, !password.isEmpty else {
-            print("DEBUG: No email or password found.")
+            Logger.auth.error("DEBUG: No email or password found.")
             return
         }
         let authDataResult = try await AuthenticationManager.shared.signInUser(email: email, password: password)

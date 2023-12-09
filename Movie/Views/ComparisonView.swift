@@ -123,11 +123,8 @@ struct StackedPosterView: View {
                         // 오른쪽으로 스와이프
                         if offset.width > 0 {
                             isSaved = false
-                            print("swipe to right to delete")
-                            // 왼쪽으로 스와이프
                         } else {
                             isSaved = true
-                            print("swipe to left to save")
                         }
                         removal?(isSaved)
 

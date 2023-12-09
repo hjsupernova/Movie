@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
 class SearchViewModel: ObservableObject {
@@ -26,7 +27,7 @@ class SearchViewModel: ObservableObject {
             )
             searchedMovies.append(contentsOf: moviePage.results)
         } catch {
-            print("DEBUG: Failed to load searched movies: \(error)")
+            Logger.network.info("DEBUG: Failed to load searched movies: \(error)")
             showAlert = true
             errorMsg = error.localizedDescription
         }
@@ -41,7 +42,7 @@ class SearchViewModel: ObservableObject {
             )
             searchedMovies = moviePage.results
         } catch {
-            print("DEBUG: Failed to load searched movies: \(error)")
+            Logger.network.info("DEBUG: Failed to load searched movies: \(error)")
             showAlert = true
             errorMsg = error.localizedDescription
         }

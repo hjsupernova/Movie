@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
 class LibraryViewModel: ObservableObject {
@@ -23,7 +24,7 @@ class LibraryViewModel: ObservableObject {
         do {
             let data = try Data(contentsOf: savePath)
             favoriteMovies = try JSONDecoder().decode([Movie].self, from: data)
-            print("DEBUG: Complete load data from Documents Directory")
+            Logger.fileManager.info("DEBUG: Complete load data from Documents Directory")
         } catch {
             favoriteMovies = []
         }
@@ -34,7 +35,7 @@ class LibraryViewModel: ObservableObject {
             let savePath = FileManager.documentsDirectory.appending(path: userId)
             let data = try Data(contentsOf: savePath)
             favoriteMovies = try JSONDecoder().decode([Movie].self, from: data)
-            print("DEBUG: Complete load data from Documents Directory")
+            Logger.fileManager.info("DEBUG: Complete load data from Documents Directory")
         } catch {
             favoriteMovies = []
         }
@@ -44,7 +45,7 @@ class LibraryViewModel: ObservableObject {
         do {
             try await UserManager.shared.addFavoriteMovie(userId: userId ?? "", movie: newFaovriteMovie)
         } catch {
-            print("DEBUG: Failed to upload data to firestore")
+            Logger.firestore.error("DEBUG: Failed to upload data to firestore")
         }
         favoriteMovies.append(newFaovriteMovie)
         save()
@@ -56,7 +57,7 @@ class LibraryViewModel: ObservableObject {
             do {
                 try await UserManager.shared.removeFavoriteMovie(userId: userId ?? "", movie: movie)
             } catch {
-                print("DEBUG: Failed to upload data to firestore")
+                Logger.firestore.error("DEBUG: Failed to upload data to firestore")
             }
             favoriteMovies.remove(at: index)
             save()
@@ -67,9 +68,9 @@ class LibraryViewModel: ObservableObject {
         do {
             let data = try JSONEncoder().encode(favoriteMovies)
             try data.write(to: savePath, options: [.atomic])
-            print("DEBUG: Save favorite movie successfully.")
+            Logger.fileManager.info("DEBUG: Save favorite movie successfully.")
         } catch {
-            print("DEBUG: Unable to save data")
+            Logger.fileManager.info("DEBUG: Unable to save data")
         }
     }
     func isFavorite(movie: Movie) -> Bool {

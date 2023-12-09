@@ -5,6 +5,7 @@
 //  Created by KHJ on 2023/11/18.
 //
 
+import OSLog
 import SwiftUI
 
 import FirebaseAuth
@@ -32,7 +33,7 @@ struct SignInEmailView: View {
                         do {
                             try await viewModel.signIn()
                             guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
-                                print("DEBUG: Failed to signUp with Email")
+                                Logger.auth.error("DEBUG: Failed to signUp with Email")
                                 return
                             }
                             libraryVM.userId = user.userId
@@ -55,7 +56,7 @@ struct SignInEmailView: View {
                         do {
                             try await viewModel.signUp()
                             guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
-                                print("DEBUG: Failed to signUp with Email")
+                                Logger.auth.error("DEBUG: Failed to signUp with Email")
                                 return
                             }
                             libraryVM.userId = user.userId

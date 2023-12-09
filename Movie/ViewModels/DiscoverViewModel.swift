@@ -5,6 +5,7 @@
 //  Created by KHJ on 2023/09/13.
 //
 
+import OSLog
 import SwiftUI
 
 @MainActor
@@ -16,22 +17,22 @@ class DiscoverViewModel: ObservableObject {
     @Published var errorMsg = ""
     static var genreLists: [Genre] = []
     func loadPopoular() async throws -> [Movie] {
-        print("DEBUG: Start to load popular")
+        Logger.network.info("DEBUG: Start to load popular")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.popular().url,
                                                     modelType: MoviePageableList.self).results
     }
     func loadUpcomings() async throws -> [Movie] {
-        print("DEBUG: Start to load upcomings")
+        Logger.network.info("DEBUG: Start to load upcomings")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.upcoming().url,
                                                     modelType: MoviePageableList.self).results
     }
     func loadNowplaying() async throws -> [Movie] {
-        print("DEBUG: Start to load nowplaying")
+        Logger.network.info("DEBUG: Start to load nowplaying")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.nowplaying().url,
                                                     modelType: MoviePageableList.self).results
     }
     func getGenreLists() async throws -> [Genre] {
-        print("DEBUG: Start to load genre lists")
+        Logger.network.info("DEBUG: Start to load genre lists")
         return try await APIClient.shared.fetchData(url: GenresEndpoint.movie.url,
                                                     modelType: GenreList.self).genres
     }
@@ -49,7 +50,7 @@ class DiscoverViewModel: ObservableObject {
             self.nowplaying = try await nowplaying
             DiscoverViewModel.genreLists = try await genreLists
         } catch {
-            print("DEBUG: Failed to load Discover Elements: \(error)")
+            Logger.network.error("DEBUG: Failed to load Discover Elements: \(error)")
             showAlert = true
             errorMsg = error.localizedDescription
         }

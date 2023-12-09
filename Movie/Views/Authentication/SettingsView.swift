@@ -5,6 +5,7 @@
 //  Created by KHJ on 2023/11/18.
 //
 
+import OSLog
 import SwiftUI
 
 struct SettingsView: View {
@@ -19,7 +20,7 @@ struct SettingsView: View {
                 } catch {
                     // TODO: Combine으로 에러 처리 하기 + do catch 문은 ViewModel에서 처리
                     #warning("PassthroughSubject, onReceiveError")
-                    print(error)
+                    Logger.auth.error("\(error.localizedDescription)")
                 }
             }
             Button("Delete account", role: .destructive) {
@@ -28,7 +29,7 @@ struct SettingsView: View {
                         try await viewModel.deleteAccount()
                         showSingInView = true
                     } catch {
-                        print(error)
+                        Logger.auth.error("\(error.localizedDescription)")
                     }
                 }
             }

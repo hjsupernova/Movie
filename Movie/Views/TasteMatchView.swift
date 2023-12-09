@@ -5,6 +5,7 @@
 //  Created by KHJ on 2023/11/20.
 //
 
+import OSLog
 import SwiftUI
 
 import NukeUI
@@ -41,7 +42,7 @@ struct TasteMatchView: View {
                         // 공통 영화 기반 점수 계산
                         tasteMatchViewModel.calculateTasteMatchPercentage()
                     } catch {
-                        print("Failed to fetch fmovies.")
+                        Logger.firestore.error("Failed to fetch fmovies.")
                     }
                 }
             }

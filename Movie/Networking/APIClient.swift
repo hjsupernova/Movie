@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 class APIClient {
     private let apiKey: String
@@ -48,7 +49,7 @@ extension APIClient {
             let decodedData = try decoder.decode(modelType, from: data)
             return decodedData
         } catch {
-            print("DEBUG: Fetch Data failed: \(error.localizedDescription)")
+            Logger.parser.error("DEBUG: Fail to decode data: \(error)")
             throw error
         }
     }

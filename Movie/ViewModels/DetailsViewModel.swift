@@ -5,6 +5,7 @@
 //  Created by KHJ on 2023/09/13.
 //
 
+import OSLog
 import SwiftUI
 
 @MainActor
@@ -18,12 +19,10 @@ class DetailsViewModel: ObservableObject {
     // MARK: - Network
     
     func getMovieCredits(for movieID: Int) async throws -> Credits? {
-        print("DEBUG: Movie credits loaded successfully.")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url,
                                                     modelType: Credits.self)
     }
     func getRecommendations(for movieID: Int) async throws -> [Movie] {
-        print("DEBUG: Recommendations loaded successfully.")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url,
                                                     modelType: MoviePageableList.self).results
     }
@@ -36,7 +35,7 @@ class DetailsViewModel: ObservableObject {
             self.credits = try await credits
             cast = try await credits!.cast
         } catch {
-            print("DEBUG: Failed to load Details Elements: \(error)")
+            Logger.network.info("DEBUG: Failed to load Details Elements: \(error)")
             showAlert = true
             errorMsg = error.localizedDescription
         }

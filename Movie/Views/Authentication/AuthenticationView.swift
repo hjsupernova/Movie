@@ -5,6 +5,7 @@
 //  Created by KHJ on 2023/11/18.
 //
 
+import OSLog
 import SwiftUI
 
 import GoogleSignIn
@@ -38,7 +39,7 @@ struct AuthenticationView: View {
                             libraryVM.getLocalFavMovies(userId: user.userId)
                             showSignInView = false
                         } catch {
-                            print(error)
+                            Logger.auth.error("\(error.localizedDescription)")
                         }
                     }
                 } label: {

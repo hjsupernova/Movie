@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 extension UserDefaults {
     enum UserKeys: String {
@@ -17,7 +18,7 @@ extension UserDefaults {
             let encodedData = try encoder.encode(data)
             set(encodedData, forKey: key.rawValue)
         } catch {
-            print("DEBUG: Failed to Save User to UserDefaults")
+            Logger.userDefaults.error("DEBUG: Failed to Save User to UserDefaults")
         }
     }
     func loadUser<T: Decodable>(_ type: T.Type, forKey key: UserKeys) -> T? {
@@ -26,7 +27,7 @@ extension UserDefaults {
             do {
                 return try decoder.decode(type, from: data)
             } catch {
-                print("DEBUG: Failed to load User from UserDefaults")
+                Logger.userDefaults.error("DEBUG: Failed to load User from UserDefaults")
             }
         }
         return nil

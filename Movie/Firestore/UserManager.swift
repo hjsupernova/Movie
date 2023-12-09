@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -84,7 +85,7 @@ final class UserManager {
                 let favoriteMovies = try Firestore.Decoder().decode([Movie].self, from: movieData)
                 return favoriteMovies
             } catch {
-                print(error)
+                Logger.firestore.error("\(error)")
             }
         }
         return []

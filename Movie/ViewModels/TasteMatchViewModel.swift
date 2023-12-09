@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
 class TasteMatchViewModel: ObservableObject {
@@ -20,8 +21,7 @@ class TasteMatchViewModel: ObservableObject {
             let favoritesMovies = try JSONDecoder().decode([Movie].self, from: data)
             return Double(favoritesMovies.count)
         } catch {
-            #warning("로그 찍기로 바꾸기 print")
-            print(error)
+            Logger.fileManager.error("\(error)")
             return 0
         }
     }
@@ -46,8 +46,6 @@ class TasteMatchViewModel: ObservableObject {
         let matchedMoviesCount = Double(matchedMovies?.count ?? 0)
         let tasteMatchPercentage = ( matchedMoviesCount / myMoviesCount) * 100
         score = tasteMatchPercentage
-        print("My Movies count" + String(myMoviesCount))
-        print("Matced Movies count" + String(matchedMoviesCount))
         showingSheet = true
         email = ""
     }
