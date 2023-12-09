@@ -17,7 +17,14 @@ class APIClient {
         self.apiKey = apiKey
         self.baseURL = baseURL
     }
-    /// URL타입의 path를 인풋으로 가진다. ex) /movie/popular
+
+    /// 데이터를 특정 URL에서 불러와서 특정 Model type으로 디코딩 한다.
+    /// - Parameters:
+    ///   - url: 데이터를 불러올 특정 url path
+    ///   - modelType: 불러온 데이터를 디코딩할 모델
+    /// - Returns: 지정한 모델로 데이터를 디코딩해 반환한다.
+    /// - Throws: HTTP response status code가 200이 아닌 경우 혹은 데이터 파싱에서 오류가 생긴 경우 `TMDbAPIError` 에러 타입을 던진다.
+    /// - Note: 이 함수는 비동기 함수이므로 비동기 환경에서 `await` 키워드와 함께 호출되어야 합니다.
     func fetchData<T: Decodable>(url: URL, modelType: T.Type) async throws -> T {
         let request = urlRequestFromPath(url)
         let (data, response) = try await URLSession.shared.data(for: request)
