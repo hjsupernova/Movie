@@ -16,7 +16,8 @@ struct GroundReflectionViewModifier: ViewModifier {
                 content
                     .mask(
                         LinearGradient(
-                            gradient: Gradient(stops: [.init(color: .white, location: 0.0), .init(color: .clear, location: 0.6)]),
+                            gradient: Gradient(stops: [.init(color: .white, location: 0.0),
+                                                       .init(color: .clear, location: 0.6)]),
                             startPoint: .bottom,
                             endPoint: .top)
                     )

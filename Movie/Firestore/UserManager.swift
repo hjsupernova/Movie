@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -15,7 +16,6 @@ struct DBUser: Codable {
     let photoUrl: String?
     let dateCreated: Date?
     let favoriteMoives: [Movie]?
-    
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
         self.email = auth.email
@@ -24,7 +24,7 @@ struct DBUser: Codable {
         self.favoriteMoives = nil
     }
 }
-    
+
 final class UserManager {
     static let shared = UserManager()
     private init() {}
@@ -54,7 +54,7 @@ final class UserManager {
         try await userDocument(userId: userId).delete()
     }
     func addFavoriteMovie(userId: String, movie: Movie) async throws {
-        guard let data = try? encoder.encode(movie) else  {
+        guard let data = try? encoder.encode(movie) else {
             throw URLError(.badURL)
         }
         let dict: [String: Any] = [
@@ -63,7 +63,7 @@ final class UserManager {
         try await userDocument(userId: userId).updateData(dict)
     }
     func removeFavoriteMovie(userId: String, movie: Movie) async throws {
-        guard let data = try? encoder.encode(movie) else  {
+        guard let data = try? encoder.encode(movie) else {
             throw URLError(.badURL)
         }
         let dict: [String: Any] = [
@@ -78,7 +78,7 @@ final class UserManager {
         #warning("first. last")
         let document = snapshot.documents[0]
         let userData = document.data()
-        let movieData = userData["favorite_movies"] as? [[String:Any]]
+        let movieData = userData["favorite_movies"] as? [[String: Any]]
         if let movieData = movieData {
             do {
                 let favoriteMovies = try Firestore.Decoder().decode([Movie].self, from: movieData)

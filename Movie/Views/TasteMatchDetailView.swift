@@ -5,8 +5,9 @@
 //  Created by KHJ on 2023/11/23.
 //
 
-import NukeUI
 import SwiftUI
+
+import NukeUI
 
 struct TasteMatchDetailView: View {
     let score: Double
@@ -37,4 +38,3 @@ struct TasteMatchDetailView: View {
 #Preview {
     TasteMatchDetailView(score: 5.53535, movie: .preview)
 }
-

@@ -13,14 +13,15 @@ class LibraryViewModel: ObservableObject {
     @Published var favoriteMovies: [Movie] = []
     // 앱을 처음 받을 경우 userID는 nil 값
     var userId: String? = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)?.userId ?? nil
-    //MARK: - Save Data
+    
+    // MARK: - Save Data
+    
     var savePath: URL {
         FileManager.documentsDirectory.appendingPathComponent(userId ?? "")
     }
-    
     init() {
         do {
-            let data = try Data(contentsOf: savePath )
+            let data = try Data(contentsOf: savePath)
             favoriteMovies = try JSONDecoder().decode([Movie].self, from: data)
             print("DEBUG: Complete load data from Documents Directory")
         } catch {
@@ -31,15 +32,14 @@ class LibraryViewModel: ObservableObject {
     func getLocalFavMovies(userId: String) {
         do {
             let savePath = FileManager.documentsDirectory.appending(path: userId)
-            let data = try Data(contentsOf: savePath )
+            let data = try Data(contentsOf: savePath)
             favoriteMovies = try JSONDecoder().decode([Movie].self, from: data)
             print("DEBUG: Complete load data from Documents Directory")
         } catch {
             favoriteMovies = []
         }
     }
-    
-    func addFavoriteMovies(movie: Movie) async  {
+    func addFavoriteMovies(movie: Movie) async {
         let newFaovriteMovie = movie
         do {
             try await UserManager.shared.addFavoriteMovie(userId: userId ?? "", movie: newFaovriteMovie)
@@ -49,7 +49,6 @@ class LibraryViewModel: ObservableObject {
         favoriteMovies.append(newFaovriteMovie)
         save()
     }
-    
     func deleteFavoriteMovies(movie: Movie) async {
         if let index = favoriteMovies.firstIndex(where: { moive in
             moive == movie
@@ -63,7 +62,6 @@ class LibraryViewModel: ObservableObject {
             save()
         }
     }
-    
     #warning("함수 네이밍 정확히? ")
     // 데이터를 외부에서 수정하고 저장하는 걸 방지
     private func save() {
@@ -75,8 +73,7 @@ class LibraryViewModel: ObservableObject {
             print("DEBUG: Unable to save data")
         }
     }
-    
     func isFavorite(movie: Movie) -> Bool {
-        return favoriteMovies.contains { $0.id == movie.id}
+        return favoriteMovies.contains { $0.id == movie.id }
     }
 }

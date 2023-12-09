@@ -19,7 +19,6 @@ struct AuthenticationButtonModifier: ViewModifier {
                 Capsule(style: .circular)
                     .stroke(Color(UIColor.systemGray), lineWidth: 1)
             )
-            
     }
 }
 

@@ -5,8 +5,9 @@
 //  Created by KHJ on 2023/11/20.
 //
 
-import NukeUI
 import SwiftUI
+
+import NukeUI
 
 struct TasteMatchView: View {
     @StateObject var tasteMatchViewModel = TasteMatchViewModel()

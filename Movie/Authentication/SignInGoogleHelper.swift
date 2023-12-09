@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import UIKit
+
 import GoogleSignIn
 import GoogleSignInSwift
-import UIKit
 
 struct GoogleSignInResult {
     let idToken: String
@@ -28,11 +29,9 @@ final class SignInGoogleHelper {
         let accessToken = gidSignInResult.user.accessToken.tokenString
         return GoogleSignInResult(idToken: idToken, accessToken: accessToken)
     }
-    
     @MainActor
     func topViewController(controller: UIViewController? = nil) -> UIViewController? {
         let controller = controller ?? UIApplication.shared.keyWindow?.rootViewController
-        
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)
         }

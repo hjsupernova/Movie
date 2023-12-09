@@ -18,7 +18,6 @@ struct Movie: Codable, Identifiable, Equatable {
     let vote_average: Double
     let genre_ids: [Int]
     let homepage: String?
-    
     var posterURL: URL? {
         let baseURL = URL(string: "https://image.tmdb.org/t/p/w500/")
         return baseURL?.appending(path: poster_path ?? "")
@@ -26,7 +25,6 @@ struct Movie: Codable, Identifiable, Equatable {
     var backdropURL: URL? {
         let baseURL = URL(string: "https://image.tmdb.org/t/p/w1280/")
         return baseURL?.appending(path: backdrop_path ?? "")
-    
     }
     var genres: String? {
         let genrelists: GenreList = Bundle.main.decode("Genrelists")
@@ -52,12 +50,14 @@ struct Movie: Codable, Identifiable, Equatable {
                      backdrop_path: "/8pjWz2lt29KyVGoq1mXYu6Br7dE.jpg",
                      id: 615656,
                      original_language: "en",
+                     // swiftlint:disable line_length
                      overview: "An exploratory dive into the deepest depths of the ocean of a daring research team spirals into chaos when a malevolent mining operation threatens their mission and forces them into a high-stakes battle for survival.",
                      poster_path: "/4m1Au3YkjqsxF8iwQy0fPYSxE0h.jpg",
                      release_date: "2023-08-02",
                      title: "Meg 2: The Trench",
                      vote_average: 7.0,
-                     genre_ids: [28,12], homepage: "https://www.themeg.movie"
+                     genre_ids: [28, 12],
+                     homepage: "https://www.themeg.movie"
         )
     }
     static var preview2: Movie {
@@ -70,7 +70,8 @@ struct Movie: Codable, Identifiable, Equatable {
                      release_date: "2023-08-02",
                      title: "Five",
                      vote_average: 7.0,
-                     genre_ids: [28,12], homepage: "https://www.themeg.movie"
+                     genre_ids: [28, 12],
+                     homepage: "https://www.themeg.movie"
         )
     }
     static var preview3: Movie {
@@ -83,7 +84,8 @@ struct Movie: Codable, Identifiable, Equatable {
                      release_date: "2023-08-02",
                      title: "SA",
                      vote_average: 7.0,
-                     genre_ids: [28,12], homepage: "https://www.themeg.movie"
+                     genre_ids: [28, 12],
+                     homepage: "https://www.themeg.movie"
         )
     }
 }

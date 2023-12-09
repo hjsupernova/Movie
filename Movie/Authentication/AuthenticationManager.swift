@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 import FirebaseAuth
 
 struct AuthDataResultModel {
@@ -30,7 +31,7 @@ enum FIRAuthError: Error {
 
 final class AuthenticationManager {
     static let shared = AuthenticationManager()
-    private init() { }
+    private init() {}
     // 가입된 유저 불러오기
     func getAuthenticatedUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else {
@@ -38,13 +39,10 @@ final class AuthenticationManager {
         }
         return AuthDataResultModel(user: user)
     }
-    #warning("문서화 주석")
-    // TODO: 로그아웃
     /// 로그아웃
     func signOut() throws {
         try Auth.auth().signOut()
     }
-    
     // 회원탈퇴
     func delete() async throws {
         guard let user = Auth.auth().currentUser else {
@@ -55,9 +53,10 @@ final class AuthenticationManager {
 }
 
 // MARK: - SIGN IN EMAIL
+
 extension AuthenticationManager {
     @discardableResult
-    func createUser(email: String, password: String) async throws -> AuthDataResultModel { 
+    func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
         return AuthDataResultModel(user: authDataResult.user)
     }
@@ -69,13 +68,14 @@ extension AuthenticationManager {
 }
 
 // MARK: - SIGN IN SSO
+
 extension AuthenticationManager {
     @discardableResult
     func signInWithGoogle(credentials: GoogleSignInResult) async throws -> AuthDataResultModel {
-        let credential = GoogleAuthProvider.credential(withIDToken: credentials.idToken, accessToken: credentials.accessToken)
+        let credential = GoogleAuthProvider.credential(withIDToken: credentials.idToken,
+                                                       accessToken: credentials.accessToken)
         return try await signIn(credentials: credential)
     }
-            
     func signIn(credentials: AuthCredential) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().signIn(with: credentials)
         return AuthDataResultModel(user: authDataResult.user)

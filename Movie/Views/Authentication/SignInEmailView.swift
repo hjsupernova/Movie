@@ -4,9 +4,11 @@
 //
 //  Created by KHJ on 2023/11/18.
 //
+
+import SwiftUI
+
 import FirebaseAuth
 import Firebase
-import SwiftUI
 
 struct SignInEmailView: View {
     @EnvironmentObject var libraryVM: LibraryViewModel
@@ -19,12 +21,10 @@ struct SignInEmailView: View {
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
                 .keyboardType(.emailAddress)
-            
             SecureField("Password...", text: $viewModel.password)
                 .padding()
                 .background(Color.gray.opacity(0.4))
                 .cornerRadius(10)
-            
             VStack(spacing: 16) {
                 // SignIn
                 Button {

@@ -16,7 +16,6 @@ enum TMDbAPIError: Error, LocalizedError {
     case unknown
     var errorDescription: String? {
         switch self {
-            
         case .internalServerError:
             "Internal error: Something went wrong, contact TMDB."
         case .invalidService:
@@ -38,16 +37,12 @@ extension TMDbAPIError {
         switch statusCode {
         case 500:
             self = .internalServerError
-            
         case 501:
             self = .invalidService
-            
         case 502:
             self = .badGateway
-            
         case 503:
             self = .serviceUnavailable
-            
         case 504:
             self = .gatewayTimeout
         default:

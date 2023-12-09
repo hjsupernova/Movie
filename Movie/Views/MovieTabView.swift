@@ -5,12 +5,12 @@
 //  Created by KHJ on 2023/09/30.
 //
 
-import NukeUI
 import SwiftUI
+
+import NukeUI
 
 @MainActor
 final class MovieTabViewModel: ObservableObject {
-    
     func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         // Firestore에도 유저정보 저장되어 있는지 확인.
@@ -39,7 +39,6 @@ struct MovieTabView: View {
                 }
                 .onAppear { selectedTap = .library }
                 .tag(Views.library)
-            
             SearchView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")

@@ -5,15 +5,15 @@
 //  Created by KHJ on 2023/09/10.
 //
 
+import SwiftUI
+
 import Nuke
 import NukeUI
-import SwiftUI
 
 struct DiscoverView: View {
     @StateObject var discoverViewModel = DiscoverViewModel()
     @State private var hasAppeared = false
     @Binding var showSignInView: Bool
-
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
@@ -59,8 +59,6 @@ struct DiscoverView: View {
         .preferredColorScheme(.dark)
     }
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

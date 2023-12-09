@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+
 import NukeUI
 
 struct PosterView: View {
-    
     let movie: Movie
     init(movie: Movie) {
         self.movie = movie
@@ -32,7 +32,7 @@ struct PosterView: View {
                     .font(.caption2)
                     .fontWeight(.semibold)
                     .lineLimit(1)
-                HStack() {
+                HStack {
                     Image("tmdbLogo")
                         .resizable()
                         .frame(width: 20, height: 8)

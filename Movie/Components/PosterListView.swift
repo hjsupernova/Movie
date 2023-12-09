@@ -14,7 +14,7 @@ struct PosterListView: View {
         Text(title)
             .font(.title2)
             .bold()
-        ScrollView(.horizontal,showsIndicators: false) {
+        ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 10) {
                 ForEach(movies) { movie in
                     NavigationLink {

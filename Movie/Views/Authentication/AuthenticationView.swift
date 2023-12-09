@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
+
 import GoogleSignIn
 import GoogleSignInSwift
-
 
 struct AuthenticationView: View {
     @EnvironmentObject var libraryVM: LibraryViewModel
@@ -22,7 +22,6 @@ struct AuthenticationView: View {
             }
             .multilineTextAlignment(.center)
             .font(.largeTitle.bold())
-            
             VStack(spacing: 16) {
                 NavigationLink {
                     SignInEmailView(showSignInView: $showSignInView)

@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import NukeUI
 import SwiftUI
+
+import NukeUI
 
 struct CastView: View {
     let castMember: CastMember
-
     var body: some View {
         VStack {
             LazyImage(url: castMember.photoUrl) { phase in

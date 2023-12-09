@@ -5,8 +5,9 @@
 //  Created by KHJ on 2023/09/12.
 //
 
-import NukeUI
 import SwiftUI
+
+import NukeUI
 
 struct DetailsView: View {
     var movie: Movie
@@ -15,7 +16,6 @@ struct DetailsView: View {
     @State private var lineLimit = 3
     // TabView에서 왔다갔다 할 때도 이게 network ( .task) 발생 방지.
     @State private var hasAppeared = false
-
     var body: some View {
         ScrollView(showsIndicators: false) {
             ZStack {
@@ -65,7 +65,6 @@ struct DetailsView: View {
 
     @ViewBuilder
     func actionButtons(moive: Movie) -> some View {
-        
         HStack {
             Spacer()
             // Save
@@ -128,7 +127,6 @@ struct DetailsView: View {
         .fontWeight(.light)
         .padding(.vertical)
     }
-
     @ViewBuilder
     func movieInformation(movie: Movie) -> some View {
         // title

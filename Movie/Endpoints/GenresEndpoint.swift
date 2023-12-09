@@ -13,16 +13,13 @@ enum GenresEndpoint {
 }
 
 extension GenresEndpoint {
-
     private static let basePath = URL(string: "/genre")!
-
     var url: URL {
         switch self {
         case .movie:
             return Self.basePath
                 .appendingPathComponent("movie")
                 .appendingPathComponent("list")
-
         case .tvSeries:
             return Self.basePath
                 .appendingPathComponent("tv")

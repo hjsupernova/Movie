@@ -9,10 +9,9 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var searchText: String
-    
     var body: some View {
         VStack {
-            TextField("\(Image(systemName:"magnifyingglass")) Shows, Movies and More", text: $searchText)
+            TextField("\(Image(systemName: "magnifyingglass")) Shows, Movies and More", text: $searchText)
                 .padding(10)
                 .background(Color(.systemGray5))
                 .clipShape(RoundedRectangle(cornerRadius: 10))

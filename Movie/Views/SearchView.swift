@@ -5,8 +5,9 @@
 //  Created by KHJ on 2023/09/28.
 //
 
-import NukeUI
 import SwiftUI
+
+import NukeUI
 
 struct SearchView: View {
     @StateObject var searchViewModel = SearchViewModel()

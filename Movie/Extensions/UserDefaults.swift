@@ -16,7 +16,7 @@ extension UserDefaults {
         do {
             let encodedData = try encoder.encode(data)
             set(encodedData, forKey: key.rawValue)
-        } catch { 
+        } catch {
             print("DEBUG: Failed to Save User to UserDefaults")
         }
     }

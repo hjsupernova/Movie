@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomProgressView : View {
+struct CustomProgressView: View {
     let width: CGFloat
     let height: CGFloat
     var body: some View {

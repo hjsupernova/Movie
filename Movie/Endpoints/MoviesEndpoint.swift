@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum MoviesEndpoint {
     case popular(page: Int? = nil)
     case upcoming(page: Int? = nil)
@@ -17,9 +16,8 @@ enum MoviesEndpoint {
 }
 
 extension MoviesEndpoint {
-    
     private static let basePath = URL(string: "/movie")!
-    var url: URL  {
+    var url: URL {
         switch self {
         case .popular(let page):
             return Self.basePath
@@ -38,7 +36,6 @@ extension MoviesEndpoint {
             return Self.basePath
                 .appendingPathComponent(movieID)
                 .appendingPathComponent("credits")
-                
         case .nowplaying(page: let page):
             return Self.basePath
                 .appending(path: "now_playing")

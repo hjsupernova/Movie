@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 import NukeUI
 
 struct ComparisonView: View {
@@ -15,7 +16,6 @@ struct ComparisonView: View {
         _comparisonViewModel = StateObject(wrappedValue: ComparisonViewModel(movies: movies))
         totalMovieCount = movies.count
     }
-
     var body: some View {
         VStack {
             // Posters
@@ -34,7 +34,6 @@ struct ComparisonView: View {
                         }
                         .frame(width: 250, height: 375)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
-                        
                     }
                 } else {
                     ForEach(comparisonViewModel.movies) { movie in
@@ -53,7 +52,6 @@ struct ComparisonView: View {
                             }
                             .stacked(at: comparisonViewModel.getIndex(of: movie), in: comparisonViewModel.movies.count)
                         }
-                    
                     }
                 }
             }
@@ -67,14 +65,14 @@ struct ComparisonView: View {
             }
             .font(.largeTitle)
             .disabled(comparisonViewModel.hasSingleMovie)
-
         }
         .padding(.top, 50)
         .navigationTitle(String(totalMovieCount) + "  Upcoming movies")
         .navigationBarTitleDisplayMode(.inline)
     }
+
     // MARK: - Computed views
-    
+
     @ViewBuilder var actionButtons: some View {
         Button {
             withAnimation {
@@ -95,9 +93,8 @@ struct ComparisonView: View {
 
 struct StackedPosterView: View {
     let movie: Movie
-    var removal: ( (_ correct: Bool) -> Void)? = nil
+    var removal: ((_ correct: Bool) -> Void)? = nil
     @State private var offset = CGSize.zero
-    
     var body: some View {
         LazyImage(url: movie.posterURL) { state in
             if let image = state.image {
@@ -111,20 +108,20 @@ struct StackedPosterView: View {
         }
         .frame(width: 250, height: 375)
         .clipShape(RoundedRectangle(cornerRadius: 15))
-        .rotationEffect(.degrees(Double(offset.width / 5 )))
+        .rotationEffect(.degrees(Double(offset.width / 5)))
         .offset(x: offset.width * 5, y: 0)
         .opacity(2 - Double(abs(offset.width / 50)))
         .gesture(
             DragGesture()
-                .onChanged({ gesture in
+                .onChanged { gesture in
                     offset = gesture.translation
-                })
-                .onEnded({ _ in
+                }
+                .onEnded { _ in
                     // 일정 스와이프 값을 넘은 경우
                     if abs(offset.width) > 100 {
                         var isSaved: Bool
                         // 오른쪽으로 스와이프
-                        if offset.width > 0  {
+                        if offset.width > 0 {
                             isSaved = false
                             print("swipe to right to delete")
                             // 왼쪽으로 스와이프
@@ -133,11 +130,11 @@ struct StackedPosterView: View {
                             print("swipe to left to save")
                         }
                         removal?(isSaved)
-                        
+
                     } else {
                         offset = .zero
                     }
-                })
+                }
         )
         .animation(.spring(), value: offset)
     }
@@ -146,20 +143,19 @@ struct StackedPosterView: View {
 extension View {
     func stacked(at position: Int, in total: Int) -> some View {
         let offset = Double(total - position)
-        return self.offset(x:0, y: offset * -5)
+        return self.offset(x: 0, y: offset * -5)
     }
 }
 
 #Preview {
     NavigationView {
         ComparisonView(
-            movies: (
-                [
-                    Movie.preview,
-                    Movie.preview2,
-                    Movie.preview3
-                ]
-            )
+            movies:
+            [
+                Movie.preview,
+                Movie.preview2,
+                Movie.preview3
+            ]
         )
         .preferredColorScheme(.dark)
         .tint(.white)
