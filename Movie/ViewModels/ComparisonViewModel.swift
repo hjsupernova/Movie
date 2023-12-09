@@ -24,7 +24,7 @@ class ComparisonViewModel: ObservableObject {
     var currentMovieTitle: String {
         movies[movies.count - 1].title
     }
-    
+    #warning("인덱스!!")
     var lastMovieHomepageURL: URL {
         movies[0].homepageURL
     }

@@ -110,6 +110,7 @@ struct DetailsView: View {
             Spacer()
             // Share
             Button {
+                #warning("Button!!!")
                 let urlShare = movie.homepageURL
                 let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
                 UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
@@ -152,6 +153,7 @@ struct DetailsView: View {
                             RoundedRectangle(cornerRadius: 2)
                                 .strokeBorder(.gray, lineWidth: 1)
                         )
+                    #warning("느낌표")
                     Text("\(movie.genres!)")
                 }
                 Text(movie.release_date.split(separator: "-").first ?? "N/A")

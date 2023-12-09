@@ -33,6 +33,7 @@ struct TasteMatchView: View {
                 .keyboardType(.emailAddress)
             Button("Compare") {
                 Task {
+                    #warning("뷰모델로 빼기,, 인덱스 접근 안하기!!")
                     do {
                         // 공통 영화 찾기
                         try await tasteMatchViewModel.findMatchedMovies(friendEmail: tasteMatchViewModel.email)

@@ -38,10 +38,13 @@ final class AuthenticationManager {
         }
         return AuthDataResultModel(user: user)
     }
-    // 로그아웃
+    #warning("문서화 주석")
+    // TODO: 로그아웃
+    /// 로그아웃
     func signOut() throws {
         try Auth.auth().signOut()
     }
+    
     // 회원탈퇴
     func delete() async throws {
         guard let user = Auth.auth().currentUser else {

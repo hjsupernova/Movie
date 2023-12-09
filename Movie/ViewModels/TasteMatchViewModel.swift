@@ -20,6 +20,7 @@ class TasteMatchViewModel: ObservableObject {
             let favoritesMovies = try JSONDecoder().decode([Movie].self, from: data)
             return Double(favoritesMovies.count)
         } catch {
+            #warning("로그 찍기로 바꾸기 print")
             print(error)
             return 0
         }
@@ -41,6 +42,7 @@ class TasteMatchViewModel: ObservableObject {
         matchedMovies = friendsFavMovies.filter { myMovieIds.contains($0.id) }
     }
     func calculateTasteMatchPercentage() {
+        #warning("연산 프로퍼티는 복잡X, 선언해서 재사용하기.. 접근할 때마다 들어옴")
         let matchedMoviesCount = Double(matchedMovies?.count ?? 0)
         let tasteMatchPercentage = ( matchedMoviesCount / myMoviesCount) * 100
         score = tasteMatchPercentage

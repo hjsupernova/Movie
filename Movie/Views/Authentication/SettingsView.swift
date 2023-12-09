@@ -17,6 +17,9 @@ struct SettingsView: View {
                     try viewModel.signOut()
                     showSingInView = true
                 } catch {
+                    // Combine - Error 처리
+                    // 에러 처리는 뷰모델 (do catch)
+                    #warning("PassthroughSubject, onReceiveError")
                     print(error)
                 }
             }

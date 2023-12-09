@@ -9,6 +9,7 @@ import Foundation
 
 @MainActor
 class LibraryViewModel: ObservableObject {
+    #warning("서버 베이스인 경우에.. 여러 곳에서 데이터를 접근하는 경우... 데이터.. ")
     @Published var favoriteMovies: [Movie] = []
     // 앱을 처음 받을 경우 userID는 nil 값
     var userId: String? = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)?.userId ?? nil
@@ -26,7 +27,7 @@ class LibraryViewModel: ObservableObject {
             favoriteMovies = []
         }
     }
-    
+    #warning("일관성")
     func getLocalFavMovies(userId: String) {
         do {
             let savePath = FileManager.documentsDirectory.appending(path: userId)
@@ -63,6 +64,7 @@ class LibraryViewModel: ObservableObject {
         }
     }
     
+    #warning("함수 네이밍 정확히? ")
     // 데이터를 외부에서 수정하고 저장하는 걸 방지
     private func save() {
         do {

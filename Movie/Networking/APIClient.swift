@@ -11,13 +11,13 @@ class APIClient  {
     private let apiKey: String
     private let baseURL: URL
     static let shared = APIClient(apiKey: Bundle.main.apiKey, baseURL: .tmdbAPIBaseURL)
-    
+    #warning("static let 앱에서 계속 살아있음..ㅠ 메모리 ")
     init(apiKey: String, baseURL: URL){
         self.apiKey = apiKey
         self.baseURL = baseURL
     }
     
-    // url이 아니라 PAth? 값이 들어오는 건 path가 들어옴 ex) /movie/popualr 
+    // url이 아니라 PAth? 값이 들어오는 건 path가 들어옴 ex) /movie/popualr
     // Path도 결국엔 url 이긴 함..
     func fetchData<T: Decodable>(url: URL, modelType: T.Type) async throws -> T {
         let request = urlRequestFromPath(url)
@@ -30,7 +30,7 @@ class APIClient  {
          
         return try parseResponse(data: data, modelType: modelType)
     }
-    
+     
 }
 
 extension APIClient {

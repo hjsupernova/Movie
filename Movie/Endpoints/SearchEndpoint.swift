@@ -14,7 +14,7 @@ enum SearchEndpoint {
 }
 
 extension SearchEndpoint {
-    
+    #warning(" ! 그냥 쓰지마세요.. ")
     static let basePath = URL(string: "/search")!
     
     private enum QueryItemName {
