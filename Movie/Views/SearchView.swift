@@ -25,7 +25,7 @@ struct SearchView: View {
                         .onAppear {
                             if movie == searchViewModel.searchedMovies.last {
                                 Task {
-                                    await searchViewModel.loadMore()
+                                    await searchViewModel.fetchMoreSearchedMovies()
                                 }
                             }
                         }
@@ -39,7 +39,7 @@ struct SearchView: View {
             )
             .onSubmit(of: .search) {
                 Task {
-                    await searchViewModel.searchMoviesFirst()
+                    await searchViewModel.fetchSearchedMoviesFirstTime()
                 }
             }
             .navigationTitle("Search")

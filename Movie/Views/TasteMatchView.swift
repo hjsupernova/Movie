@@ -36,14 +36,7 @@ struct TasteMatchView: View {
             Button("Compare") {
                 Task {
                     #warning("뷰모델로 빼기,, 인덱스 접근 안하기!!")
-                    do {
-                        // 공통 영화 찾기
-                        try await tasteMatchViewModel.findMatchedMovies(friendEmail: tasteMatchViewModel.email)
-                        // 공통 영화 기반 점수 계산
-                        tasteMatchViewModel.calculateTasteMatchPercentage()
-                    } catch {
-                        Logger.firestore.error("Failed to fetch fmovies.")
-                    }
+                    await tasteMatchViewModel.compareMovieTaste(friendEmail: tasteMatchViewModel.email)
                 }
             }
             .foregroundStyle(.black)
@@ -53,6 +46,7 @@ struct TasteMatchView: View {
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(isPresented: $tasteMatchViewModel.showingSheet, content: {
+            // TODO: 인덱스 
             TasteMatchDetailView(score: tasteMatchViewModel.score, movie: tasteMatchViewModel.matchedMovies?[0])
         })
         .padding()

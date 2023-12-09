@@ -54,7 +54,7 @@ struct DetailsView: View {
         .task {
             guard !hasAppeared else { return }
             hasAppeared = true
-            await detailsViewModel.loadDetailsElements(for: movie.id)
+            await detailsViewModel.fetchDetailsElements(for: movie.id)
         }
         .alert(isPresented: $detailsViewModel.showAlert, content: {
             Alert(title: Text("Error"), message: Text(detailsViewModel.errorMsg))

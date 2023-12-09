@@ -44,9 +44,9 @@ struct ComparisonView: View {
                                 //  true 왼쪽으로 (save한 경우 )
                                 withAnimation {
                                     if isSaved {
-                                        comparisonViewModel.saveMoive()
+                                        comparisonViewModel.moveLastMoiveToTop()
                                     } else {
-                                        comparisonViewModel.removeMovie()
+                                        comparisonViewModel.removeLastMovie()
                                     }
                                 }
                             }
@@ -76,14 +76,14 @@ struct ComparisonView: View {
     @ViewBuilder var actionButtons: some View {
         Button {
             withAnimation {
-                comparisonViewModel.saveMoive()
+                comparisonViewModel.moveLastMoiveToTop()
             }
         } label: {
             Label("", systemImage: "heart")
         }
         Button {
             withAnimation {
-                comparisonViewModel.removeMovie()
+                comparisonViewModel.removeLastMovie()
             }
         } label: {
             Label("", systemImage: "x.circle")

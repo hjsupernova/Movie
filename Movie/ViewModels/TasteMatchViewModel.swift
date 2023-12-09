@@ -30,16 +30,16 @@ class TasteMatchViewModel: ObservableObject {
     init() {
         self.user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)
     }
-    func getFriendFavoriteMovies(email: String) async throws -> [Movie] {
+    func fetchFriendFavoriteMovies(email: String) async throws -> [Movie] {
         try await UserManager.shared.getFavoriteMovies(email: email)
     }
-    func findMatchedMovies(friendEmail: String) async throws {
+    func findMatchedMovies(with friendEmail: String) async throws -> [Movie]{
+        let friendsFavMovies = try await fetchFriendFavoriteMovies(email: email)
         let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "")
-        let friendsFavMovies = try await getFriendFavoriteMovies(email: email)
         let data = try Data(contentsOf: savePath)
         let favoritesMovies = try JSONDecoder().decode([Movie].self, from: data)
         let myMovieIds = Set(favoritesMovies.map { $0.id } )
-        matchedMovies = friendsFavMovies.filter { myMovieIds.contains($0.id) }
+        return friendsFavMovies.filter { myMovieIds.contains($0.id) }
     }
     func calculateTasteMatchPercentage() {
         #warning("연산 프로퍼티는 복잡X, 선언해서 재사용하기.. 접근할 때마다 들어옴")
@@ -48,6 +48,14 @@ class TasteMatchViewModel: ObservableObject {
         score = tasteMatchPercentage
         showingSheet = true
         email = ""
+    }
+    func compareMovieTaste(friendEmail: String) async {
+        do {
+            matchedMovies = try await findMatchedMovies(with: friendEmail)
+            calculateTasteMatchPercentage()
+        } catch {
+            Logger.firestore.error("Failed to compare movie taste \(error)")
+        }
     }
 }
 

@@ -36,7 +36,7 @@ struct AuthenticationView: View {
                             try await viewModel.signInGoogle()
                             guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else { return }
                             libraryVM.userId = user.userId
-                            libraryVM.getLocalFavMovies(userId: user.userId)
+                            libraryVM.loadLocalFavoriteMovies(userId: user.userId)
                             showSignInView = false
                         } catch {
                             Logger.auth.error("\(error.localizedDescription)")

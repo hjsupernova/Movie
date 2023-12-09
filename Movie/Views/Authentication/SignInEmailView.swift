@@ -37,7 +37,7 @@ struct SignInEmailView: View {
                                 return
                             }
                             libraryVM.userId = user.userId
-                            libraryVM.getLocalFavMovies(userId: user.userId)
+                            libraryVM.loadLocalFavoriteMovies(userId: user.userId)
                             showSignInView = false
                             return
                         } catch {
@@ -60,7 +60,7 @@ struct SignInEmailView: View {
                                 return
                             }
                             libraryVM.userId = user.userId
-                            libraryVM.getLocalFavMovies(userId: user.userId)
+                            libraryVM.loadLocalFavoriteMovies(userId: user.userId)
                             showSignInView = false
                             return
                         } catch let error as NSError {

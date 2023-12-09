@@ -30,7 +30,7 @@ class LibraryViewModel: ObservableObject {
         }
     }
     #warning("일관성")
-    func getLocalFavMovies(userId: String) {
+    func loadLocalFavoriteMovies(userId: String) {
         do {
             let savePath = FileManager.documentsDirectory.appending(path: userId)
             let data = try Data(contentsOf: savePath)
@@ -48,7 +48,7 @@ class LibraryViewModel: ObservableObject {
             Logger.firestore.error("DEBUG: Failed to upload data to firestore")
         }
         favoriteMovies.append(newFaovriteMovie)
-        save()
+        saveFavoriteMovies()
     }
     func deleteFavoriteMovies(movie: Movie) async {
         if let index = favoriteMovies.firstIndex(where: { moive in
@@ -60,11 +60,11 @@ class LibraryViewModel: ObservableObject {
                 Logger.firestore.error("DEBUG: Failed to upload data to firestore")
             }
             favoriteMovies.remove(at: index)
-            save()
+            saveFavoriteMovies()
         }
     }
     #warning("함수 네이밍 정확히? ")
-    private func save() {
+    private func saveFavoriteMovies() {
         do {
             let data = try JSONEncoder().encode(favoriteMovies)
             try data.write(to: savePath, options: [.atomic])

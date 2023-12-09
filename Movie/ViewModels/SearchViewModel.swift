@@ -16,7 +16,7 @@ class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     private var currentPage = 1
     private var isSearching = false
-    func loadMore() async {
+    func fetchMoreSearchedMovies() async {
         currentPage += 1
         guard !isSearching else { return }
         isSearching = true
@@ -33,7 +33,7 @@ class SearchViewModel: ObservableObject {
         }
         isSearching = false
     }
-    func searchMoviesFirst() async {
+    func fetchSearchedMoviesFirstTime() async {
         do {
             currentPage = 1
             let moviePage = try await APIClient.shared.fetchData(

@@ -18,18 +18,18 @@ class DetailsViewModel: ObservableObject {
     
     // MARK: - Network
     
-    func getMovieCredits(for movieID: Int) async throws -> Credits? {
+    func fetchMovieCredits(for movieID: Int) async throws -> Credits? {
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url,
                                                     modelType: Credits.self)
     }
-    func getRecommendations(for movieID: Int) async throws -> [Movie] {
+    func fetchRecommendations(for movieID: Int) async throws -> [Movie] {
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url,
                                                     modelType: MoviePageableList.self).results
     }
-    func loadDetailsElements(for movieID: Int) async {
+    func fetchDetailsElements(for movieID: Int) async {
         do {
-            async let credits = getMovieCredits(for: movieID)
-            async let recommendations = getRecommendations(for: movieID)
+            async let credits = fetchMovieCredits(for: movieID)
+            async let recommendations = fetchRecommendations(for: movieID)
 
             self.recommendations = try await recommendations
             self.credits = try await credits
