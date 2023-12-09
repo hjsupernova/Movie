@@ -14,7 +14,6 @@ struct SearchView: View {
     let layout = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
         NavigationView {
-            // Searched Movies
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: layout) {
                     ForEach(searchViewModel.searchedMovies) { movie in

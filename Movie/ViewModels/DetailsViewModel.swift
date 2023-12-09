@@ -14,7 +14,9 @@ class DetailsViewModel: ObservableObject {
     @Published var recommendations: [Movie] = []
     @Published var showAlert = false
     @Published var errorMsg = ""
+    
     // MARK: - Network
+    
     func getMovieCredits(for movieID: Int) async throws -> Credits? {
         print("DEBUG: Movie credits loaded successfully.")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url,

@@ -35,15 +35,15 @@ class DiscoverViewModel: ObservableObject {
         return try await APIClient.shared.fetchData(url: GenresEndpoint.movie.url,
                                                     modelType: GenreList.self).genres
     }
-    // 비동기로 loadPopular, loadUpcomings, getGenreLists가 실행된다 (동시에)
+    /// 비동기, 동시적으로 DiscoverView에 필요한 데이터들을 불러온다.
     func loadDiscoverElements() async {
         do {
             async let popular = loadPopoular()
             async let upcomings = loadUpcomings()
             async let nowplaying = loadNowplaying()
             async let genreLists = getGenreLists()
-            // 여기 await은 변수가 오기 전까지 오래걸릴 수 있다는 얘기
-            // 하지만 위에 async let으로 동시적으로 처리하기 때문에 여기서 줄 바이 줄로 기다리지는 않음.
+            // 여기 await은 변수가 오기 전까지 오래 걸릴 수도 있다는 것을 의미
+            // 하지만 위에 함수들이 동시적으로 처리되기 때문에(async let) 여기서 줄 바이 줄로 기다리지는 않음
             self.popular = try await popular
             self.upcomings = try await upcomings
             self.nowplaying = try await nowplaying

@@ -32,7 +32,6 @@ final class UserManager {
     private func userDocument(userId: String) -> DocumentReference {
         userCollection.document(userId)
     }
-    // Return Type 추론
     private let encoder: Firestore.Encoder = {
         let encoder = Firestore.Encoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
@@ -46,6 +45,7 @@ final class UserManager {
     func createNewUser(user: DBUser) throws {
         try userDocument(userId: user.userId).setData(from: user, merge: false, encoder: encoder)
     }
+    /// Firestore에서 유저정보를 가져온다. ( 서버DB에 유저가 있는지 확인 ) .
     @discardableResult
     func getUser(userId: String) async throws -> DBUser {
         try await userDocument(userId: userId).getDocument(as: DBUser.self, decoder: decoder)

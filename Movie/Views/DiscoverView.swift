@@ -18,15 +18,12 @@ struct DiscoverView: View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    // Popular
                     VStack(alignment: .leading) {
                         PosterListView(title: "Popular", movies: discoverViewModel.popular)
                     }
-                    // Upcomings
                     VStack(alignment: .leading) {
                         BackdropListView(title: "Upcomings", movies: discoverViewModel.upcomings)
                     }
-                    // Now Playing
                     VStack(alignment: .leading) {
                         PosterListView(title: "Now Playing", movies: discoverViewModel.nowplaying)
                     }

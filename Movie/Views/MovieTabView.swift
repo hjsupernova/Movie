@@ -13,7 +13,6 @@ import NukeUI
 final class MovieTabViewModel: ObservableObject {
     func loadCurrentUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-        // Firestore에도 유저정보 저장되어 있는지 확인.
         try await UserManager.shared.getUser(userId: authDataResult.uid)
     }
 }

@@ -18,7 +18,7 @@ extension URL {
 // MARK: - Path + QueryItem appending functions
 
 extension URL {
-    // 기본 method는 stirng값을 인풋으로 받아옴. movieID등 Int 타입의 밸류를 받아오려면 이런 식으로 함수로 하나 감싸면 된다.
+    /// Int 타입의 path component를 추가 (기본 메소드는 String 타입만을 받는다.)
     func appendingPathComponent(_ value: Int) -> Self {
         appendingPathComponent(String(value))
     }

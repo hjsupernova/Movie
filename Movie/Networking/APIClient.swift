@@ -16,12 +16,10 @@ class APIClient {
         self.apiKey = apiKey
         self.baseURL = baseURL
     }
-    // url이 아니라 PAth? 값이 들어오는 건 path가 들어옴 ex) /movie/popualr
-    // Path도 결국엔 url 이긴 함..
+    /// URL타입의 path를 인풋으로 가진다. ex) /movie/popular
     func fetchData<T: Decodable>(url: URL, modelType: T.Type) async throws -> T {
         let request = urlRequestFromPath(url)
         let (data, response) = try await URLSession.shared.data(for: request)
-        // statusCode 200이 아니면 해당 코드에 맞춰서 에러를 던진다
         if let statusCode = (response as? HTTPURLResponse)?.statusCode {
             guard statusCode == 200 else { throw TMDbAPIError(statusCode: statusCode) }
         }

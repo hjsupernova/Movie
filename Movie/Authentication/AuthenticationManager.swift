@@ -32,18 +32,15 @@ enum FIRAuthError: Error {
 final class AuthenticationManager {
     static let shared = AuthenticationManager()
     private init() {}
-    // 가입된 유저 불러오기
     func getAuthenticatedUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else {
             throw FIRAuthError.noAuthenticatedUser
         }
         return AuthDataResultModel(user: user)
     }
-    /// 로그아웃
     func signOut() throws {
         try Auth.auth().signOut()
     }
-    // 회원탈퇴
     func delete() async throws {
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badURL)

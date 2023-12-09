@@ -11,7 +11,7 @@ import Foundation
 class LibraryViewModel: ObservableObject {
     #warning("서버 베이스인 경우에.. 여러 곳에서 데이터를 접근하는 경우... 데이터.. ")
     @Published var favoriteMovies: [Movie] = []
-    // 앱을 처음 받을 경우 userID는 nil 값
+    /// 사용자가 앱을 받은 후 처음 앱을 키는 경우 userId는 nil
     var userId: String? = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)?.userId ?? nil
     
     // MARK: - Save Data
@@ -63,7 +63,6 @@ class LibraryViewModel: ObservableObject {
         }
     }
     #warning("함수 네이밍 정확히? ")
-    // 데이터를 외부에서 수정하고 저장하는 걸 방지
     private func save() {
         do {
             let data = try JSONEncoder().encode(favoriteMovies)
