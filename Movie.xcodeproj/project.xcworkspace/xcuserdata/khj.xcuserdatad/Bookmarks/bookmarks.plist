@@ -14,11 +14,11 @@
 					<key>EndingLineNumber</key>
 					<string>132</string>
 					<key>StartingColumnNumber</key>
-					<string>54</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
 					<string>131</string>
 					<key>Timestamp</key>
-					<string>723113595.1944849</string>
+					<string>723899506.568326</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,12 +34,12 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>
+				<string>    func movieInformation(movie: Movie) -&gt; some View {
 </string>
 				<key>leading</key>
-				<string>
+				<string>    }
     @ViewBuilder
-    func movieInformation(movie: Movie) -&gt; some View {</string>
+</string>
 				<key>trailing</key>
 				<string>        // title
         Text(movie.title)
@@ -59,13 +59,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>20</string>
+					<string>21</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>19</string>
+					<string>20</string>
 					<key>Timestamp</key>
-					<string>723287234.669454</string>
+					<string>723802175.246121</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -90,7 +90,7 @@
 				<key>trailing</key>
 				<string>            return Double(favoritesMovies.count)
         } catch {
-            print(error)
+            Logger.fileManager.error("\(error)")
 </string>
 			</dict>
 			<key>title</key>
@@ -108,11 +108,11 @@
 					<key>EndingLineNumber</key>
 					<string>20</string>
 					<key>StartingColumnNumber</key>
-					<string>32</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
 					<string>19</string>
 					<key>Timestamp</key>
-					<string>723225609.506561</string>
+					<string>723799997.159748</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -128,16 +128,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>
+				<string>                } catch {
 </string>
 				<key>leading</key>
-				<string>                    showSingInView = true
-                } catch {
-                    print(error)</string>
+				<string>                    try viewModel.signOut()
+                    showSingInView = true
+</string>
 				<key>trailing</key>
-				<string>                }
-            }
-            Button("Delete account", role: .destructive) {
+				<string>                    // TODO: Combine으로 에러 처리 하기 + do catch 문은 ViewModel에서 처리
+                    #warning("PassthroughSubject, onReceiveError")
+                    Logger.auth.error("\(error.localizedDescription)")
 </string>
 			</dict>
 			<key>title</key>
@@ -153,13 +153,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>33</string>
+					<string>34</string>
 					<key>StartingColumnNumber</key>
-					<string>56</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>32</string>
+					<string>33</string>
 					<key>Timestamp</key>
-					<string>723287167.552238</string>
+					<string>723800033.354371</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -175,15 +175,15 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>
+				<string>                            try await viewModel.signIn()
 </string>
 				<key>leading</key>
 				<string>                    Task {
                         do {
-                            try await viewModel.signIn()</string>
+</string>
 				<key>trailing</key>
 				<string>                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
-                                print("DEBUG: Failed to signUp with Email")
+                                Logger.auth.error("DEBUG: Failed to signUp with Email")
                                 return
 </string>
 			</dict>
