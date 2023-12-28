@@ -36,7 +36,7 @@ class APIClient {
 }
 
 extension APIClient {
-    func urlRequestFromPath(_ path: URL) -> URLRequest {
+    private func urlRequestFromPath(_ path: URL) -> URLRequest {
         guard var urlComponents = URLComponents(url: path, resolvingAgainstBaseURL: true) else {
             return URLRequest(url: path)
         }
@@ -50,7 +50,7 @@ extension APIClient {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
-    func parseResponse<T: Decodable>(data: Data, modelType: T.Type) throws -> T {
+    private func parseResponse<T: Decodable>(data: Data, modelType: T.Type) throws -> T {
         do {
             let decoder = JSONDecoder()
             let decodedData = try decoder.decode(modelType, from: data)
