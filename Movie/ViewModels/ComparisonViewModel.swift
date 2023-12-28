@@ -10,7 +10,7 @@ import SwiftUI
 
 import URL
 
-// TODO: ViewModel 전부 MainActor
+@MainActor
 class ComparisonViewModel: ObservableObject {
     @Published private(set) var movies: [Movie] = []
 
