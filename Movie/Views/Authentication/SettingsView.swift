@@ -9,14 +9,14 @@ import OSLog
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject private var viewModel = SettingsViewModel()
+    @StateObject private var settingViewModel = SettingsViewModel()
     @Binding var showSingInView: Bool
     
     var body: some View {
         List {
             Button("Sign out") {
                 do {
-                    try viewModel.signOut()
+                    try settingViewModel.signOut()
                     showSingInView = true
                 } catch {
                     // TODO: Combine으로 에러 처리 하기 + do catch 문은 ViewModel에서 처리
@@ -27,7 +27,7 @@ struct SettingsView: View {
             Button("Delete account", role: .destructive) {
                 Task {
                     do {
-                        try await viewModel.deleteAccount()
+                        try await settingViewModel.deleteAccount()
                         showSingInView = true
                     } catch {
                         Logger.auth.error("\(error.localizedDescription)")

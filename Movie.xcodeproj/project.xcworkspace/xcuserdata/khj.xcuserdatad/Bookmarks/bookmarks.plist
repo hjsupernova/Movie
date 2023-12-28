@@ -128,7 +128,7 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>                            try await viewModel.signIn()
+				<string>                            try await signInEmailViewModel.signIn()
 </string>
 				<key>leading</key>
 				<string>                    Task {

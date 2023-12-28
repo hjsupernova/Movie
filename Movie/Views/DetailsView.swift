@@ -173,7 +173,7 @@ struct DetailsView: View {
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DetailsView(movie: .preview, detailsViewModel: DetailsViewModel())
+            DetailsView(detailsViewModel: DetailsViewModel(), movie: .preview)
                 .preferredColorScheme(.dark)
                 .environmentObject(LibraryViewModel())
         }
