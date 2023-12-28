@@ -21,6 +21,8 @@
 		CE29CA332AF5ED6900CC4AA4 /* GroundReflectionViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29CA322AF5ED6900CC4AA4 /* GroundReflectionViewModifier.swift */; };
 		CE29CA392AF6298000CC4AA4 /* PosterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29CA382AF6298000CC4AA4 /* PosterListView.swift */; };
 		CE29D1502AB06D8600587C72 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29D14F2AB06D8600587C72 /* DetailsView.swift */; };
+		CE2D06502B3D396B00CF5FE1 /* URL in Frameworks */ = {isa = PBXBuildFile; productRef = CE2D064F2B3D396B00CF5FE1 /* URL */; };
+		CE2D06522B3D396B00CF5FE1 /* URLClient in Frameworks */ = {isa = PBXBuildFile; productRef = CE2D06512B3D396B00CF5FE1 /* URLClient */; };
 		CE3713192B09BEA4005F5E71 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CE3713182B09BEA4005F5E71 /* FirebaseFirestore */; };
 		CE37131B2B09BEA4005F5E71 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE37131A2B09BEA4005F5E71 /* FirebaseFirestoreSwift */; };
 		CE37131E2B09C13A005F5E71 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37131D2B09C13A005F5E71 /* UserManager.swift */; };
@@ -141,9 +143,11 @@
 				CEC7EA492AC1731F00EFB712 /* Nuke in Frameworks */,
 				CEC7EA4B2AC1731F00EFB712 /* NukeUI in Frameworks */,
 				CE3713192B09BEA4005F5E71 /* FirebaseFirestore in Frameworks */,
+				CE2D06502B3D396B00CF5FE1 /* URL in Frameworks */,
 				CE5DE0D92B08B7D100D7A1DF /* FirebaseAnalytics in Frameworks */,
 				CEDF617B2B08D7F100EA11CF /* GoogleSignIn in Frameworks */,
 				CE37131B2B09BEA4005F5E71 /* FirebaseFirestoreSwift in Frameworks */,
+				CE2D06522B3D396B00CF5FE1 /* URLClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +369,8 @@
 				CEDF617C2B08D7F100EA11CF /* GoogleSignInSwift */,
 				CE3713182B09BEA4005F5E71 /* FirebaseFirestore */,
 				CE37131A2B09BEA4005F5E71 /* FirebaseFirestoreSwift */,
+				CE2D064F2B3D396B00CF5FE1 /* URL */,
+				CE2D06512B3D396B00CF5FE1 /* URLClient */,
 			);
 			productName = Movie;
 			productReference = CE7F0AC52AADF262002EBD6F /* Movie.app */;
@@ -398,6 +404,7 @@
 				CEC7EA472AC1731F00EFB712 /* XCRemoteSwiftPackageReference "Nuke" */,
 				CE5DE0D72B08B7D100D7A1DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CEDF61792B08D7F100EA11CF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				CE2D064E2B3D396B00CF5FE1 /* XCRemoteSwiftPackageReference "URL" */,
 			);
 			productRefGroup = CE7F0AC62AADF262002EBD6F /* Products */;
 			projectDirPath = "";
@@ -681,6 +688,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CE2D064E2B3D396B00CF5FE1 /* XCRemoteSwiftPackageReference "URL" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davidsteppenbeck/URL.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
 		CE5DE0D72B08B7D100D7A1DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -708,6 +723,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE2D064F2B3D396B00CF5FE1 /* URL */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE2D064E2B3D396B00CF5FE1 /* XCRemoteSwiftPackageReference "URL" */;
+			productName = URL;
+		};
+		CE2D06512B3D396B00CF5FE1 /* URLClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE2D064E2B3D396B00CF5FE1 /* XCRemoteSwiftPackageReference "URL" */;
+			productName = URLClient;
+		};
 		CE3713182B09BEA4005F5E71 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE5DE0D72B08B7D100D7A1DF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

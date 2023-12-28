@@ -7,6 +7,8 @@
 
 import Foundation
 
+import URL
+
 enum MoviesEndpoint {
     case popular(page: Int? = nil)
     case upcoming(page: Int? = nil)
@@ -16,7 +18,7 @@ enum MoviesEndpoint {
 }
 
 extension MoviesEndpoint {
-    private static let basePath = URL(string: "/movie")!
+    private static let basePath = #URL("/movie")
     var url: URL {
         switch self {
         case .popular(let page):

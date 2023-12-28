@@ -7,11 +7,13 @@
 
 import Foundation
 
+import URL
+
 // MARK: - BaseURL
 
 extension URL {
     static var tmdbAPIBaseURL: URL {
-        URL(string: "https://api.themoviedb.org/3")!
+        #URL("https://api.themoviedb.org/3")
     }
 }
 

@@ -151,8 +151,7 @@ struct DetailsView: View {
                             RoundedRectangle(cornerRadius: 2)
                                 .strokeBorder(.gray, lineWidth: 1)
                         )
-                    #warning("느낌표")
-                    Text("\(movie.genres!)")
+                    Text(movie.genres)
                 }
                 Text(movie.releaseDate.split(separator: "-").first ?? "N/A")
             }

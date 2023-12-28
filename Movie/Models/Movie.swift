@@ -7,6 +7,8 @@
 
 import Foundation
 
+import URL
+
 struct Movie: Codable, Identifiable, Equatable {
     let adult: Bool
     let backdropPath: String?
@@ -42,7 +44,7 @@ struct Movie: Codable, Identifiable, Equatable {
         let baseURL = URL(string: "https://image.tmdb.org/t/p/w1280/")
         return baseURL?.appending(path: backdropPath ?? "")
     }
-    var genres: String? {
+    var genres: String {
         let genrelists: GenreList = Bundle.main.decode("Genrelists")
         var genreNames = [String]()
         for id in genreIds {
@@ -59,7 +61,7 @@ struct Movie: Codable, Identifiable, Equatable {
         return formattedVoteAverage
     }
     var homepageURL: URL {
-        URL(string: homepage ?? "https://www.themoviedb.org/movie/\(id)")!
+        URL(string: homepage ?? "https://www.themoviedb.org/movie/\(id)") ?? #URL( "https://www.themoviedb.org/movie/")
     }
     static var preview: Movie {
         return Movie(adult: false,

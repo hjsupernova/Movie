@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+import URL
+
 // TODO: ViewModel 전부 MainActor
 class ComparisonViewModel: ObservableObject {
     @Published private(set) var movies: [Movie] = []
@@ -21,9 +23,8 @@ class ComparisonViewModel: ObservableObject {
     var currentMovieTitle: String {
         movies.last?.title ?? ""
     }
-    #warning("인덱스!!")
     var lastMovieHomepageURL: URL {
-        movies[0].homepageURL
+        movies.first?.homepageURL ?? #URL("https://www.themoviedb.org/movie/")
     }
     var lastMoviePosterURL: URL? {
         movies.first?.posterURL

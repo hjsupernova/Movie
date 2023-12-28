@@ -152,6 +152,24 @@
         "revision" : "07f7f26ded8df9645c072f220378879c4642e063",
         "version" : "1.25.1"
       }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "6ad4ea24b01559dde0773e3d091f1b9e36175036",
+        "version" : "509.0.2"
+      }
+    },
+    {
+      "identity" : "url",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/davidsteppenbeck/URL.git",
+      "state" : {
+        "revision" : "93d2526ae69ea35f222f59abfcc4298bf4e370de",
+        "version" : "1.0.2"
+      }
     }
   ],
   "version" : 2

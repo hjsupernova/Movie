@@ -76,8 +76,7 @@ final class UserManager {
         let query = userCollection.whereField("email", isEqualTo: email)
         let snapshot = try await query.getDocuments()
         guard !snapshot.documents.isEmpty else { return [] }
-        #warning("first. last")
-        let document = snapshot.documents[0]
+        guard let document = snapshot.documents.first else { return [] }
         let userData = document.data()
         let movieData = userData["favorite_movies"] as? [[String: Any]]
         if let movieData = movieData {

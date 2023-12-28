@@ -7,13 +7,15 @@
 
 import Foundation
 
+import URL
+
 enum GenresEndpoint {
     case movie
     case tvSeries
 }
 
 extension GenresEndpoint {
-    private static let basePath = URL(string: "/genre")!
+    private static let basePath = #URL("/genre")
     var url: URL {
         switch self {
         case .movie:
@@ -26,5 +28,4 @@ extension GenresEndpoint {
                 .appendingPathComponent("list")
         }
     }
-
 }

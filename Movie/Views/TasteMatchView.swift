@@ -35,7 +35,7 @@ struct TasteMatchView: View {
                 .keyboardType(.emailAddress)
             Button("Compare") {
                 Task {
-                    #warning("뷰모델로 빼기,, 인덱스 접근 안하기!!")
+                    #warning("뷰모델로 빼기")
                     await tasteMatchViewModel.compareMovieTaste(friendEmail: tasteMatchViewModel.email)
                 }
             }
@@ -46,8 +46,7 @@ struct TasteMatchView: View {
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(isPresented: $tasteMatchViewModel.showingSheet, content: {
-            // TODO: 인덱스 
-            TasteMatchDetailView(score: tasteMatchViewModel.score, movie: tasteMatchViewModel.matchedMovies?[0])
+            TasteMatchDetailView(score: tasteMatchViewModel.score, movie: tasteMatchViewModel.matchedMovies?.first)
         })
         .padding()
         .navigationTitle("Taste Match")

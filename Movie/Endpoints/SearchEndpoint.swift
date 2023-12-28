@@ -7,13 +7,14 @@
 
 import Foundation
 
+import URL
+
 enum SearchEndpoint {
     case movies(query: String, page: Int? = nil)
 }
 
 extension SearchEndpoint {
-    #warning(" ! 그냥 쓰지마세요.. ")
-    static let basePath = URL(string: "/search")!
+    static let basePath = #URL("/search")
     private enum QueryItemName {
         static let query = "query"
     }

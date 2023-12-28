@@ -33,7 +33,8 @@ class DetailsViewModel: ObservableObject {
 
             self.recommendations = try await recommendations
             self.credits = try await credits
-            cast = try await credits!.cast
+            guard let credits = try await credits else { return  }
+            cast = credits.cast
         } catch {
             Logger.network.info("DEBUG: Failed to load Details Elements: \(error)")
             showAlert = true
