@@ -34,16 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>    func movieInformation(movie: Movie) -&gt; some View {
+				<string>        // title
 </string>
 				<key>leading</key>
-				<string>    }
-    @ViewBuilder
+				<string>    @ViewBuilder
+    func movieInformation(movie: Movie) -&gt; some View {
 </string>
 				<key>trailing</key>
-				<string>        // title
-        Text(movie.title)
+				<string>        Text(movie.title)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.title.bold())
 </string>
 			</dict>
 			<key>title</key>

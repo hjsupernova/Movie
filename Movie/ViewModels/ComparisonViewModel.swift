@@ -10,9 +10,8 @@ import SwiftUI
 
 // TODO: ViewModel 전부 MainActor
 class ComparisonViewModel: ObservableObject {
-    @Published var movies: [Movie] = []
-    @Published var showingSheet = false
-    @Published var selectedMovie: Movie?
+    @Published private(set) var movies: [Movie] = []
+    
     init(movies: [Movie]) {
         self.movies = movies
     }

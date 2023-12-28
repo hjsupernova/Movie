@@ -10,9 +10,9 @@ import OSLog
 
 @MainActor
 class SearchViewModel: ObservableObject {
-    @Published var searchedMovies: [Movie] = []
+    @Published private(set) var searchedMovies: [Movie] = []
     @Published var showAlert = false
-    @Published var errorMsg = ""
+    @Published private(set) var errorMsg = ""
     @Published var searchText = ""
     private var currentPage = 1
     private var isSearching = false

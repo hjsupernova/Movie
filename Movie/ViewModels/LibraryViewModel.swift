@@ -11,13 +11,13 @@ import OSLog
 @MainActor
 class LibraryViewModel: ObservableObject {
     #warning("서버 베이스인 경우에.. 여러 곳에서 데이터를 접근하는 경우... 데이터.. ")
-    @Published var favoriteMovies: [Movie] = []
+    @Published private(set) var favoriteMovies: [Movie] = []
     /// 사용자가 앱을 받은 후 처음 앱을 키는 경우 userId는 nil
     var userId: String? = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)?.userId ?? nil
     
     // MARK: - Save Data
     
-    var savePath: URL {
+    private var savePath: URL {
         FileManager.documentsDirectory.appendingPathComponent(userId ?? "")
     }
     init() {

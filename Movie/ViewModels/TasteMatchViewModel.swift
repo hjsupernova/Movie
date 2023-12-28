@@ -11,10 +11,10 @@ import OSLog
 @MainActor
 class TasteMatchViewModel: ObservableObject {
     @Published var email = ""
-    @Published var user: DBUser?
-    @Published var isVaildEmail = false
+    @Published private(set) var user: DBUser?
+    @Published private(set) var isVaildEmail = false
     @Published var showingSheet = false
-    var myMoviesCount: Double {
+    private var myMoviesCount: Double {
         do {
             let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "" )
             let data = try Data(contentsOf: savePath)
@@ -25,15 +25,15 @@ class TasteMatchViewModel: ObservableObject {
             return 0
         }
     }
-    var score = 0.0
-    var matchedMovies: [Movie]? = nil
+    private(set) var score = 0.0
+    private(set) var matchedMovies: [Movie]? = nil
     init() {
         self.user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)
     }
-    func fetchFriendFavoriteMovies(email: String) async throws -> [Movie] {
+    private func fetchFriendFavoriteMovies(email: String) async throws -> [Movie] {
         try await UserManager.shared.getFavoriteMovies(email: email)
     }
-    func findMatchedMovies(with friendEmail: String) async throws -> [Movie]{
+    private func findMatchedMovies(with friendEmail: String) async throws -> [Movie]{
         let friendsFavMovies = try await fetchFriendFavoriteMovies(email: email)
         let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "")
         let data = try Data(contentsOf: savePath)
@@ -41,7 +41,7 @@ class TasteMatchViewModel: ObservableObject {
         let myMovieIds = Set(favoritesMovies.map { $0.id } )
         return friendsFavMovies.filter { myMovieIds.contains($0.id) }
     }
-    func calculateTasteMatchPercentage() {
+    private func calculateTasteMatchPercentage() {
         #warning("연산 프로퍼티는 복잡X, 선언해서 재사용하기.. 접근할 때마다 들어옴")
         let matchedMoviesCount = Double(matchedMovies?.count ?? 0)
         let tasteMatchPercentage = ( matchedMoviesCount / myMoviesCount) * 100

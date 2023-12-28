@@ -10,19 +10,19 @@ import SwiftUI
 
 @MainActor
 class DetailsViewModel: ObservableObject {
-    @Published var credits: Credits?
-    @Published var cast: [CastMember] = []
-    @Published var recommendations: [Movie] = []
+    @Published private(set) var credits: Credits?
+    @Published private(set) var cast: [CastMember] = []
+    @Published private(set) var recommendations: [Movie] = []
     @Published var showAlert = false
-    @Published var errorMsg = ""
+    @Published private(set) var errorMsg = ""
     
     // MARK: - Network
     
-    func fetchMovieCredits(for movieID: Int) async throws -> Credits? {
+    private func fetchMovieCredits(for movieID: Int) async throws -> Credits? {
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url,
                                                     modelType: Credits.self)
     }
-    func fetchRecommendations(for movieID: Int) async throws -> [Movie] {
+    private func fetchRecommendations(for movieID: Int) async throws -> [Movie] {
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url,
                                                     modelType: MoviePageableList.self).results
     }

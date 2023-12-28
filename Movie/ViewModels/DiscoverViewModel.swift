@@ -10,28 +10,28 @@ import SwiftUI
 
 @MainActor
 class DiscoverViewModel: ObservableObject {
-    @Published var popular: [Movie] = []
-    @Published var upcomings: [Movie] = []
-    @Published var nowplaying: [Movie] = []
+    @Published private(set) var popular: [Movie] = []
+    @Published private(set) var upcomings: [Movie] = []
+    @Published private(set) var nowplaying: [Movie] = []
     @Published var showAlert = false
-    @Published var errorMsg = ""
+    @Published private(set) var errorMsg = ""
     static var genreLists: [Genre] = []
-    func fetchPopoular() async throws -> [Movie] {
+    private func fetchPopoular() async throws -> [Movie] {
         Logger.network.info("DEBUG: Start to load popular")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.popular().url,
                                                     modelType: MoviePageableList.self).results
     }
-    func fetchUpcomings() async throws -> [Movie] {
+    private func fetchUpcomings() async throws -> [Movie] {
         Logger.network.info("DEBUG: Start to load upcomings")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.upcoming().url,
                                                     modelType: MoviePageableList.self).results
     }
-    func fetchNowplaying() async throws -> [Movie] {
+    private func fetchNowplaying() async throws -> [Movie] {
         Logger.network.info("DEBUG: Start to load nowplaying")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.nowplaying().url,
                                                     modelType: MoviePageableList.self).results
     }
-    func fetchGenreLists() async throws -> [Genre] {
+    private func fetchGenreLists() async throws -> [Genre] {
         Logger.network.info("DEBUG: Start to load genre lists")
         return try await APIClient.shared.fetchData(url: GenresEndpoint.movie.url,
                                                     modelType: GenreList.self).genres
