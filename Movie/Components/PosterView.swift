@@ -11,9 +11,11 @@ import NukeUI
 
 struct PosterView: View {
     let movie: Movie
+
     init(movie: Movie) {
         self.movie = movie
     }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             LazyImage(url: movie.posterURL) { state in

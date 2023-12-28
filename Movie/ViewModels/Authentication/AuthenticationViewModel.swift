@@ -14,6 +14,7 @@ final class AuthenticationViewModel: ObservableObject {
         let tokens = try await helper.signIn()
         let authDataResult = try await AuthenticationManager.shared.signInWithGoogle(credentials: tokens)
         let user = DBUser(auth: authDataResult)
+        
         // 구글로그인 시 날짜 값 때문에 Firestore에 유저 Document가 덮어쓰기 된다. ( Email 로그인은 덮어쓰기 x )
         // 유저가 값이 있는 경우 덮어쓰지 않도록 서버DB의 유저 정보 확인 
         do {

@@ -12,7 +12,9 @@ import NukeUI
 struct LibraryView: View {
     @EnvironmentObject var libraryViewModel: LibraryViewModel
     @State private var isEditing = false
+
     let layout = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {

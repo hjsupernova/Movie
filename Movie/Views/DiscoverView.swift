@@ -14,6 +14,7 @@ struct DiscoverView: View {
     @StateObject var discoverViewModel = DiscoverViewModel()
     @State private var hasAppeared = false
     @Binding var showSignInView: Bool
+    
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {

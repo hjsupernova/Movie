@@ -11,7 +11,9 @@ import NukeUI
 
 struct SearchView: View {
     @StateObject var searchViewModel = SearchViewModel()
+
     let layout = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {

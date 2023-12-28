@@ -10,6 +10,7 @@ import SwiftUI
 struct PosterListView: View {
     let title: String
     let movies: [Movie]
+    
     var body: some View {
         Text(title)
             .font(.title2)

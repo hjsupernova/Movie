@@ -12,10 +12,12 @@ import NukeUI
 struct ComparisonView: View {
     @StateObject var comparisonViewModel: ComparisonViewModel
     let totalMovieCount: Int
+    
     init(movies: [Movie]) {
         _comparisonViewModel = StateObject(wrappedValue: ComparisonViewModel(movies: movies))
         totalMovieCount = movies.count
     }
+
     var body: some View {
         VStack {
             // Posters

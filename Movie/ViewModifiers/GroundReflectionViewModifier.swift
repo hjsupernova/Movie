@@ -10,6 +10,7 @@ import SwiftUI
 
 struct GroundReflectionViewModifier: ViewModifier {
     let offsetY: CGFloat
+    
     func body(content: Content) -> some View {
         content
             .background(

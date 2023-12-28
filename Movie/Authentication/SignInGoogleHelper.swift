@@ -29,6 +29,7 @@ final class SignInGoogleHelper {
         let accessToken = gidSignInResult.user.accessToken.tokenString
         return GoogleSignInResult(idToken: idToken, accessToken: accessToken)
     }
+    
     @MainActor
     func topViewController(controller: UIViewController? = nil) -> UIViewController? {
         let controller = controller ?? UIApplication.shared.keyWindow?.rootViewController

@@ -13,6 +13,7 @@ struct AuthDataResultModel {
     let uid: String
     let email: String?
     let photoURL: String?
+
     init(user: User) {
         self.uid = user.uid
         self.email = user.email
@@ -32,15 +33,18 @@ enum FIRAuthError: Error {
 final class AuthenticationManager {
     static let shared = AuthenticationManager()
     private init() {}
+
     func getAuthenticatedUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else {
             throw FIRAuthError.noAuthenticatedUser
         }
         return AuthDataResultModel(user: user)
     }
+
     func signOut() throws {
         try Auth.auth().signOut()
     }
+
     func delete() async throws {
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badURL)
@@ -57,6 +61,7 @@ extension AuthenticationManager {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
         return AuthDataResultModel(user: authDataResult.user)
     }
+
     @discardableResult
     func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -73,6 +78,7 @@ extension AuthenticationManager {
                                                        accessToken: credentials.accessToken)
         return try await signIn(credentials: credential)
     }
+
     func signIn(credentials: AuthCredential) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().signIn(with: credentials)
         return AuthDataResultModel(user: authDataResult.user)

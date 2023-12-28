@@ -24,6 +24,7 @@ struct MovieTabView: View {
     @StateObject var movieTabViewModel = MovieTabViewModel()
     @State private var selectedTap: Views = .discover
     @State private var showSignInView: Bool = false
+    
     var body: some View {
         TabView(selection: $selectedTap) {
             DiscoverView(showSignInView: $showSignInView)

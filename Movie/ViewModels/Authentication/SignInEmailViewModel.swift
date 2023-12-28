@@ -15,6 +15,7 @@ final class SignInEmailViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var alertMsg = ""
     @Published var alertTitle = ""
+
     func signUp() async throws {
         guard !email.isEmpty, !password.isEmpty else {
             Logger.auth.error("DEBUG: No email or password found.")
@@ -25,6 +26,7 @@ final class SignInEmailViewModel: ObservableObject {
         try UserManager.shared.createNewUser(user: user)
         UserDefaults.standard.saveUser(user, forKey: .user)
     }
+    
     func signIn() async throws {
         guard !email.isEmpty, !password.isEmpty else {
             Logger.auth.error("DEBUG: No email or password found.")

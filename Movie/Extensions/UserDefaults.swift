@@ -12,6 +12,7 @@ extension UserDefaults {
     enum UserKeys: String {
         case user
     }
+
     func saveUser<T: Encodable>(_ data: T?, forKey key: UserKeys) {
         let encoder = JSONEncoder()
         do {
@@ -21,6 +22,7 @@ extension UserDefaults {
             Logger.userDefaults.error("DEBUG: Failed to Save User to UserDefaults")
         }
     }
+    
     func loadUser<T: Decodable>(_ type: T.Type, forKey key: UserKeys) -> T? {
         if let data = data(forKey: key.rawValue) {
             let decoder = JSONDecoder()

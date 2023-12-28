@@ -20,6 +20,7 @@ class LibraryViewModel: ObservableObject {
     private var savePath: URL {
         FileManager.documentsDirectory.appendingPathComponent(userId ?? "")
     }
+
     init() {
         do {
             let data = try Data(contentsOf: savePath)
@@ -29,6 +30,7 @@ class LibraryViewModel: ObservableObject {
             favoriteMovies = []
         }
     }
+
     #warning("일관성")
     func loadLocalFavoriteMovies(userId: String) {
         do {
@@ -40,6 +42,7 @@ class LibraryViewModel: ObservableObject {
             favoriteMovies = []
         }
     }
+
     func addFavoriteMovies(movie: Movie) async {
         let newFaovriteMovie = movie
         do {
@@ -50,6 +53,7 @@ class LibraryViewModel: ObservableObject {
         favoriteMovies.append(newFaovriteMovie)
         saveFavoriteMovies()
     }
+
     func deleteFavoriteMovies(movie: Movie) async {
         if let index = favoriteMovies.firstIndex(where: { moive in
             moive == movie
@@ -63,6 +67,7 @@ class LibraryViewModel: ObservableObject {
             saveFavoriteMovies()
         }
     }
+
     #warning("함수 네이밍 정확히? ")
     private func saveFavoriteMovies() {
         do {
@@ -73,6 +78,7 @@ class LibraryViewModel: ObservableObject {
             Logger.fileManager.info("DEBUG: Unable to save data")
         }
     }
+    
     func isFavorite(movie: Movie) -> Bool {
         return favoriteMovies.contains { $0.id == movie.id }
     }

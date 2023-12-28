@@ -39,9 +39,11 @@ extension URL {
         static let language = "language"
         static let page = "page"
     }
+
     func appendingAPIKey(_ apiKey: String) -> Self {
         appendingQueryItem(name: QueryItemName.apiKey, value: apiKey)
     }
+
     func appendingPage(_ page: Int?) -> Self {
         guard var page = page else {
             return self
@@ -50,6 +52,7 @@ extension URL {
         page = min(page, 1000)
         return appendingQueryItem(name: QueryItemName.page, value: page)
     }
+    
     func appendingLanguage(_ languageCode: String?) -> Self {
         guard let languageCode else {
             return self

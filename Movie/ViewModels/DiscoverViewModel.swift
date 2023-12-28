@@ -16,26 +16,31 @@ class DiscoverViewModel: ObservableObject {
     @Published var showAlert = false
     @Published private(set) var errorMsg = ""
     static var genreLists: [Genre] = []
+
     private func fetchPopoular() async throws -> [Movie] {
         Logger.network.info("DEBUG: Start to load popular")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.popular().url,
                                                     modelType: MoviePageableList.self).results
     }
+
     private func fetchUpcomings() async throws -> [Movie] {
         Logger.network.info("DEBUG: Start to load upcomings")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.upcoming().url,
                                                     modelType: MoviePageableList.self).results
     }
+
     private func fetchNowplaying() async throws -> [Movie] {
         Logger.network.info("DEBUG: Start to load nowplaying")
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.nowplaying().url,
                                                     modelType: MoviePageableList.self).results
     }
+
     private func fetchGenreLists() async throws -> [Genre] {
         Logger.network.info("DEBUG: Start to load genre lists")
         return try await APIClient.shared.fetchData(url: GenresEndpoint.movie.url,
                                                     modelType: GenreList.self).genres
     }
+    
     /// 비동기, 동시적으로 DiscoverView에 필요한 데이터들을 불러온다.
     func loadDiscoverElements() async {
         do {

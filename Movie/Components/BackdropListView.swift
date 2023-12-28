@@ -12,6 +12,7 @@ import NukeUI
 struct BackdropListView: View {
     let title: String
     let movies: [Movie]
+    
     var body: some View {
         HStack {
             Text(title)

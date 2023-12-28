@@ -15,6 +15,7 @@ struct AuthenticationView: View {
     @EnvironmentObject var libraryVM: LibraryViewModel
     @StateObject private var viewModel = AuthenticationViewModel()
     @Binding var showSignInView: Bool
+    
     var body: some View {
         VStack {
             VStack(spacing: 12) {

@@ -12,6 +12,7 @@ import NukeUI
 struct TasteMatchDetailView: View {
     let score: Double
     let movie: Movie?
+
     var body: some View {
         if let movie = movie {
             LazyImage(url: movie.posterURL) { state in

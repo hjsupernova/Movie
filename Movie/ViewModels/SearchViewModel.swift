@@ -16,6 +16,7 @@ class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     private var currentPage = 1
     private var isSearching = false
+
     func fetchMoreSearchedMovies() async {
         currentPage += 1
         guard !isSearching else { return }
@@ -33,6 +34,7 @@ class SearchViewModel: ObservableObject {
         }
         isSearching = false
     }
+    
     func fetchSearchedMoviesFirstTime() async {
         do {
             currentPage = 1

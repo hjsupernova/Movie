@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomProgressView: View {
     let width: CGFloat
     let height: CGFloat
+    
     var body: some View {
         ProgressView()
             .frame(width: width, height: height)

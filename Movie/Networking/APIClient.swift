@@ -12,6 +12,7 @@ class APIClient {
     private let apiKey: String
     private let baseURL: URL
     static let shared = APIClient(apiKey: Bundle.main.apiKey, baseURL: .tmdbAPIBaseURL)
+
     #warning("static let 앱에서 계속 살아있음..ㅠ 메모리 ")
     init(apiKey: String, baseURL: URL) {
         self.apiKey = apiKey
@@ -50,6 +51,7 @@ extension APIClient {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         return request
     }
+    
     private func parseResponse<T: Decodable>(data: Data, modelType: T.Type) throws -> T {
         do {
             let decoder = JSONDecoder()

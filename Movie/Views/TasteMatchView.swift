@@ -13,6 +13,7 @@ import NukeUI
 struct TasteMatchView: View {
     @StateObject var tasteMatchViewModel = TasteMatchViewModel()
     @FocusState private var isEmailFocused: Bool
+    
     var body: some View {
         VStack(spacing: 0) {
             userImage

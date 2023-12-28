@@ -15,6 +15,7 @@ struct SignInEmailView: View {
     @EnvironmentObject var libraryVM: LibraryViewModel
     @StateObject private var viewModel = SignInEmailViewModel()
     @Binding var showSignInView: Bool
+    
     var body: some View {
         VStack {
             TextField("Email...", text: $viewModel.email)

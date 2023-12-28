@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @Binding var showSingInView: Bool
+    
     var body: some View {
         List {
             Button("Sign out") {

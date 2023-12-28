@@ -13,10 +13,11 @@ import URL
 // TODO: ViewModel 전부 MainActor
 class ComparisonViewModel: ObservableObject {
     @Published private(set) var movies: [Movie] = []
-    
+
     init(movies: [Movie]) {
         self.movies = movies
     }
+
     var hasSingleMovie: Bool {
         movies.count == 1
     }
@@ -29,15 +30,18 @@ class ComparisonViewModel: ObservableObject {
     var lastMoviePosterURL: URL? {
         movies.first?.posterURL
     }
+
     func moveLastMoiveToTop() {
         let savedMovie = movies.remove(at: movies.count - 1)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.movies.insert(savedMovie, at: 0)
         }
     }
+
     func removeLastMovie() {
         movies.remove(at: movies.count - 1)
     }
+    
     func getIndex(of movie: Movie) -> Int {
         movies.firstIndex(of: movie) ?? -1
     }

@@ -16,6 +16,7 @@ struct CastMember: Decodable, Identifiable {
         case id, name
         case profilePath = "profile_path"
     }
+
     var photoUrl: URL? {
         let baseURL = URL(string: "https://image.tmdb.org/t/p/w185")
         return baseURL?.appending(path: profilePath ?? "")

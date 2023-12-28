@@ -22,10 +22,12 @@ class DetailsViewModel: ObservableObject {
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.credits(movieID: movieID).url,
                                                     modelType: Credits.self)
     }
+
     private func fetchRecommendations(for movieID: Int) async throws -> [Movie] {
         return try await APIClient.shared.fetchData(url: MoviesEndpoint.recommendations(movieID: movieID).url,
                                                     modelType: MoviePageableList.self).results
     }
+    
     func fetchDetailsElements(for movieID: Int) async {
         do {
             async let credits = fetchMovieCredits(for: movieID)
