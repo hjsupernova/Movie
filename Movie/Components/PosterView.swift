@@ -36,7 +36,7 @@ struct PosterView: View {
                     Image("tmdbLogo")
                         .resizable()
                         .frame(width: 20, height: 8)
-                    Text(String(format: "%.1f", movie.vote_average))
+                    Text(String(format: "%.1f", movie.voteAverage))
                         .font(.caption2)
                         .fontWeight(.semibold)
                 }

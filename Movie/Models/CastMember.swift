@@ -10,12 +10,17 @@ import Foundation
 struct CastMember: Decodable, Identifiable {
     let id: Int
     let name: String
-    let profile_path: String?
+    let profilePath: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case profilePath = "profile_path"
+    }
     var photoUrl: URL? {
         let baseURL = URL(string: "https://image.tmdb.org/t/p/w185")
-        return baseURL?.appending(path: profile_path ?? "")
+        return baseURL?.appending(path: profilePath ?? "")
     }
     static var preview: CastMember {
-        return CastMember(id: 3, name: "Harrison Ford", profile_path: "/5M7oN3sznp99hWYQ9sX0xheswWX.jpg")
+        return CastMember(id: 3, name: "Harrison Ford", profilePath: "/5M7oN3sznp99hWYQ9sX0xheswWX.jpg")
     }
 }

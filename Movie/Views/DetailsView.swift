@@ -145,7 +145,7 @@ struct DetailsView: View {
                         .bold()
                 }
                 HStack {
-                    Text(movie.original_language.uppercased())
+                    Text(movie.originalLanguage.uppercased())
                         .padding(2)
                         .overlay(
                             RoundedRectangle(cornerRadius: 2)
@@ -154,7 +154,7 @@ struct DetailsView: View {
                     #warning("느낌표")
                     Text("\(movie.genres!)")
                 }
-                Text(movie.release_date.split(separator: "-").first ?? "N/A")
+                Text(movie.releaseDate.split(separator: "-").first ?? "N/A")
             }
         }
         .padding(.bottom, 16)
