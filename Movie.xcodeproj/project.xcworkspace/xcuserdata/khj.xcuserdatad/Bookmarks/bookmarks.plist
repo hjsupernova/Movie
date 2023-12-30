@@ -18,7 +18,7 @@
 					<key>StartingLineNumber</key>
 					<string>133</string>
 					<key>Timestamp</key>
-					<string>725435756.754887</string>
+					<string>725596992.53708</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -106,13 +106,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>35</string>
+					<string>36</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>34</string>
+					<string>35</string>
 					<key>Timestamp</key>
-					<string>725435728.460385</string>
+					<string>725597447.640264</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -128,16 +128,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>                            try await signInEmailViewModel.signIn()
+				<string>                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
 </string>
 				<key>leading</key>
-				<string>                    Task {
-                        do {
+				<string>                        do {
+                            try await signInEmailViewModel.signIn()
 </string>
 				<key>trailing</key>
-				<string>                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
-                                Logger.auth.error("DEBUG: Failed to signUp with Email")
+				<string>                                Logger.auth.error("DEBUG: Failed to signUp with Email")
                                 return
+                            }
 </string>
 			</dict>
 			<key>title</key>

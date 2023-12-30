@@ -11,7 +11,7 @@ import NukeUI
 
 struct DetailsView: View {
     @StateObject var detailsViewModel = DetailsViewModel()
-    @EnvironmentObject var libraryViewModel: LibraryViewModel
+    @EnvironmentObject var favoriteMoviesManager: FavoriteMoviesManager
     @State private var lineLimit = 3
     // TabView에서 왔다갔다 할 때도 이게 network ( .task) 발생 방지.
     @State private var hasAppeared = false
@@ -70,10 +70,10 @@ struct DetailsView: View {
         HStack {
             Spacer()
             // Save
-            if libraryViewModel.isFavorite(movie: movie) {
+            if favoriteMoviesManager.isFavorite(movie: movie) {
                 Button {
                     Task {
-                        await libraryViewModel.deleteFavoriteMovies(movie: movie)
+                        await favoriteMoviesManager.deleteFavoriteMovies(movie: movie)
                     }
                 } label: {
                     VStack {
@@ -86,7 +86,7 @@ struct DetailsView: View {
             } else {
                 Button {
                     Task {
-                        await libraryViewModel.addFavoriteMovies(movie: movie)
+                        await favoriteMoviesManager.addFavoriteMovies(movie: movie)
                     }
 
                 } label: {
@@ -175,7 +175,7 @@ struct DetailView_Previews: PreviewProvider {
         NavigationView {
             DetailsView(detailsViewModel: DetailsViewModel(), movie: .preview)
                 .preferredColorScheme(.dark)
-                .environmentObject(LibraryViewModel())
+                .environmentObject(FavoriteMoviesManager())
         }
         .tint(.white)
     }

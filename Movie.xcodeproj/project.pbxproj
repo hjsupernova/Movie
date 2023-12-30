@@ -23,6 +23,7 @@
 		CE29D1502AB06D8600587C72 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29D14F2AB06D8600587C72 /* DetailsView.swift */; };
 		CE2D06502B3D396B00CF5FE1 /* URL in Frameworks */ = {isa = PBXBuildFile; productRef = CE2D064F2B3D396B00CF5FE1 /* URL */; };
 		CE2D06522B3D396B00CF5FE1 /* URLClient in Frameworks */ = {isa = PBXBuildFile; productRef = CE2D06512B3D396B00CF5FE1 /* URLClient */; };
+		CE36EE4C2B3FB7100029C9BC /* FavoriteMoviesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36EE4B2B3FB7100029C9BC /* FavoriteMoviesManager.swift */; };
 		CE3713192B09BEA4005F5E71 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CE3713182B09BEA4005F5E71 /* FirebaseFirestore */; };
 		CE37131B2B09BEA4005F5E71 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE37131A2B09BEA4005F5E71 /* FirebaseFirestoreSwift */; };
 		CE37131E2B09C13A005F5E71 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE37131D2B09C13A005F5E71 /* UserManager.swift */; };
@@ -89,6 +90,7 @@
 		CE29CA322AF5ED6900CC4AA4 /* GroundReflectionViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundReflectionViewModifier.swift; sourceTree = "<group>"; };
 		CE29CA382AF6298000CC4AA4 /* PosterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListView.swift; sourceTree = "<group>"; };
 		CE29D14F2AB06D8600587C72 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		CE36EE4B2B3FB7100029C9BC /* FavoriteMoviesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesManager.swift; sourceTree = "<group>"; };
 		CE37131D2B09C13A005F5E71 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		CE3FA7412B149D30004D0F7A /* BackdropListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropListView.swift; sourceTree = "<group>"; };
 		CE484E112B17128200D90090 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
@@ -175,6 +177,24 @@
 			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
+		CE36EE4D2B3FBECD0029C9BC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF61732B08CD6500EA11CF /* Authentication */,
+				CE37131C2B09C125005F5E71 /* Firestore */,
+				CEFC7BBA2AF8C8890037C92A /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CE36EE4E2B3FBED60029C9BC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CE36EE4B2B3FB7100029C9BC /* FavoriteMoviesManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		CE37131C2B09C125005F5E71 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,18 +240,15 @@
 			children = (
 				CEDF61772B08D76300EA11CF /* GoogleService-Info.plist */,
 				CE7F0AC82AADF262002EBD6F /* MovieApp.swift */,
-				CEDF61732B08CD6500EA11CF /* Authentication */,
 				CE0C3C842AC82FDF00925583 /* Components */,
-				CE8A729D2AE41D5D00A13EE1 /* Endpoints */,
 				CE8A72922AE4025300A13EE1 /* Extensions */,
-				CE37131C2B09C125005F5E71 /* Firestore */,
 				CE6868062ACAB9CB00CCD6CD /* Models */,
-				CEFC7BBA2AF8C8890037C92A /* Networking */,
+				CE36EE4D2B3FBECD0029C9BC /* Services */,
+				CE36EE4E2B3FBED60029C9BC /* Utilities */,
 				CEDE6F052AB1CBB3007F2B67 /* Views */,
 				CEDE6F002AB1A35E007F2B67 /* ViewModels */,
 				CE29CA312AF5ED3700CC4AA4 /* ViewModifiers */,
 				CE7F0ACC2AADF264002EBD6F /* Assets.xcassets */,
-				CE0C3C822AC82F6200925583 /* Genrelists.json */,
 				CE7F0ACE2AADF264002EBD6F /* Preview Content */,
 			);
 			path = Movie;
@@ -338,6 +355,8 @@
 			isa = PBXGroup;
 			children = (
 				CE8A72992AE40DCA00A13EE1 /* APIClient.swift */,
+				CE8A729D2AE41D5D00A13EE1 /* Endpoints */,
+				CE0C3C822AC82F6200925583 /* Genrelists.json */,
 				CEFC7BBB2AF8C8CF0037C92A /* TMDbAPIError.swift */,
 			);
 			path = Networking;
@@ -435,7 +454,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		CE2D06532B3D3FBF00CF5FE1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -446,7 +465,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
@@ -463,6 +482,7 @@
 				CE8A729C2AE41C1F00A13EE1 /* SearchEndpoint.swift in Sources */,
 				CEDF616F2B08CCB500EA11CF /* SignInEmailView.swift in Sources */,
 				CE0C3C882AC8376600925583 /* CustomProgressView.swift in Sources */,
+				CE36EE4C2B3FB7100029C9BC /* FavoriteMoviesManager.swift in Sources */,
 				CE034FB12AF502CC00E9F820 /* MoviePageableList.swift in Sources */,
 				CEAC9F262B3BFA79004C5423 /* Logger.swift in Sources */,
 				CE29D1502AB06D8600587C72 /* DetailsView.swift in Sources */,

@@ -10,7 +10,7 @@ import SwiftUI
 import NukeUI
 
 struct LibraryView: View {
-    @EnvironmentObject var libraryViewModel: LibraryViewModel
+    @EnvironmentObject var favoriteMoivesManager: FavoriteMoviesManager
     @State private var isEditing = false
 
     let layout = [GridItem(.flexible()), GridItem(.flexible())]
@@ -19,7 +19,7 @@ struct LibraryView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: layout) {
-                    ForEach(libraryViewModel.favoriteMovies) { movie in
+                    ForEach(favoriteMoivesManager.favoriteMovies) { movie in
                         NavigationLink {
                             DetailsView(movie: movie)
                         } label: {
@@ -62,7 +62,7 @@ struct LibraryView: View {
                 Spacer()
                 Button {
                     Task {
-                        await libraryViewModel.deleteFavoriteMovies(movie: movie)
+                        await favoriteMoivesManager.deleteFavoriteMovies(movie: movie)
                     }
                 } label: {
                     Image(systemName: "x.circle")
@@ -79,7 +79,7 @@ struct LibraryView_Previews: PreviewProvider {
     static var previews: some View {
         LibraryView()
             .preferredColorScheme(.dark)
-            .environmentObject(LibraryViewModel())
+            .environmentObject(FavoriteMoviesManager())
             .tint(.white)
     }
 }

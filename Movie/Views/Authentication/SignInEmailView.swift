@@ -12,7 +12,7 @@ import FirebaseAuth
 import Firebase
 
 struct SignInEmailView: View {
-    @EnvironmentObject var libraryVM: LibraryViewModel
+    @EnvironmentObject var favoriteMoviesManager: FavoriteMoviesManager
     @StateObject private var signInEmailViewModel = SignInEmailViewModel()
     @Binding var showSignInView: Bool
     
@@ -37,8 +37,8 @@ struct SignInEmailView: View {
                                 Logger.auth.error("DEBUG: Failed to signUp with Email")
                                 return
                             }
-                            libraryVM.userId = user.userId
-                            libraryVM.loadLocalFavoriteMovies(userId: user.userId)
+                            favoriteMoviesManager.userId = user.userId
+                            favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
                             showSignInView = false
                             return
                         } catch {
@@ -60,8 +60,8 @@ struct SignInEmailView: View {
                                 Logger.auth.error("DEBUG: Failed to signUp with Email")
                                 return
                             }
-                            libraryVM.userId = user.userId
-                            libraryVM.loadLocalFavoriteMovies(userId: user.userId)
+                            favoriteMoviesManager.userId = user.userId
+                            favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
                             showSignInView = false
                             return
                         } catch let error as NSError {
@@ -91,5 +91,5 @@ struct SignInEmailView: View {
 #Preview {
     SignInEmailView(showSignInView: .constant(false))
         .preferredColorScheme(.dark)
-        .environmentObject(LibraryViewModel())
+        .environmentObject(FavoriteMoviesManager())
 }

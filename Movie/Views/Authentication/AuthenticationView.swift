@@ -12,7 +12,7 @@ import GoogleSignIn
 import GoogleSignInSwift
 
 struct AuthenticationView: View {
-    @EnvironmentObject var libraryVM: LibraryViewModel
+    @EnvironmentObject var favoriteMoviesManager: FavoriteMoviesManager
     @StateObject private var authenticationViewModel = AuthenticationViewModel()
     @Binding var showSignInView: Bool
     
@@ -36,8 +36,8 @@ struct AuthenticationView: View {
                         do {
                             try await authenticationViewModel.signInGoogle()
                             guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else { return }
-                            libraryVM.userId = user.userId
-                            libraryVM.loadLocalFavoriteMovies(userId: user.userId)
+                            favoriteMoviesManager.userId = user.userId
+                            favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
                             showSignInView = false
                         } catch {
                             Logger.auth.error("\(error.localizedDescription)")
