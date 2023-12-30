@@ -16,24 +16,50 @@ final class SignInEmailViewModel: ObservableObject {
     @Published var alertMsg = ""
     @Published var alertTitle = ""
 
-    func signUp() async throws {
-        guard !email.isEmpty, !password.isEmpty else {
-            Logger.auth.error("DEBUG: No email or password found.")
-            return
+    func signUp(favoriteMoviesManager: FavoriteMoviesManager) async -> Bool {
+        do {
+            guard !email.isEmpty, !password.isEmpty else {
+                Logger.auth.error("DEBUG: No email or password found.")
+                return false
+            }
+
+            let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
+            let user = DBUser(auth: authDataResult)
+
+            try UserManager.shared.createNewUser(user: user)
+
+            UserDefaults.standard.saveUser(user, forKey: .user)
+
+            favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
+
+            return true
+        } catch {
+            alertTitle = "SignUp Error"
+            alertMsg = error.localizedDescription
+            showAlert = true
+
+            return false
         }
-        let authDataResult = try await AuthenticationManager.shared.createUser(email: email, password: password)
-        let user = DBUser(auth: authDataResult)
-        try UserManager.shared.createNewUser(user: user)
-        UserDefaults.standard.saveUser(user, forKey: .user)
     }
     
-    func signIn() async throws {
-        guard !email.isEmpty, !password.isEmpty else {
-            Logger.auth.error("DEBUG: No email or password found.")
-            return
+    func signIn(favoriteMoviesManager: FavoriteMoviesManager) async -> Bool {
+        do {
+            guard !email.isEmpty, !password.isEmpty else {
+                Logger.auth.error("DEBUG: No email or password found.")
+                return false
+            }
+            let authDataResult = try await AuthenticationManager.shared.signInUser(email: email, password: password)
+            let user = DBUser(auth: authDataResult)
+            UserDefaults.standard.saveUser(user, forKey: .user)
+            favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
+            return true
+        } catch {
+            alertTitle = "SignIn Error"
+            alertMsg = error.localizedDescription
+            showAlert = true
+
+            return false
         }
-        let authDataResult = try await AuthenticationManager.shared.signInUser(email: email, password: password)
-        let user = DBUser(auth: authDataResult)
-        UserDefaults.standard.saveUser(user, forKey: .user)
     }
+
 }
