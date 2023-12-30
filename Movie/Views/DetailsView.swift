@@ -13,49 +13,24 @@ struct DetailsView: View {
     @StateObject var detailsViewModel = DetailsViewModel()
     @EnvironmentObject var favoriteMoviesManager: FavoriteMoviesManager
     @State private var lineLimit = 3
-    // TabView에서 왔다갔다 할 때도 이게 network ( .task) 발생 방지.
-    @State private var hasAppeared = false
 
     var movie: Movie
 
     var body: some View {
         ScrollView(showsIndicators: false) {
             ZStack {
-                // BackDrop
-                VStack {
-                    LazyImage(url: movie.backdropURL) { phase in
-                        if let image = phase.image {
-                            image
-                                .resizable()
-                                .scaledToFit()
-                        } else if phase.error != nil {
-                        } else {
-                            ProgressView()
-                        }
-                    }
-                    .opacity(0.5)
-                    Spacer()
-                }
-                // Title ~ Recommendations
+                backdropSection
                 VStack(alignment: .leading) {
-                    // Information
-                    movieInformation(movie: movie)
-                    // Buttons
-                    actionButtons(moive: movie)
-                    // Cast View
+                    informationSection
+                    actionButtons
                     CastListView(cast: detailsViewModel.cast)
-                    // Recommendations View ( when existed )
-                    if !detailsViewModel.recommendations.isEmpty {
-                        PosterListView(title: "Recommendations", movies: detailsViewModel.recommendations)
-                    }
+                    recommendations
                 }
                 .padding(.horizontal)
             }
             .navigationBarTitleDisplayMode(.inline)
         }
         .task {
-            guard !hasAppeared else { return }
-            hasAppeared = true
             await detailsViewModel.fetchDetailsElements(for: movie.id)
         }
         .alert(isPresented: $detailsViewModel.showAlert, content: {
@@ -65,8 +40,24 @@ struct DetailsView: View {
 
     // MARK: - Computed views
 
-    @ViewBuilder
-    func actionButtons(moive: Movie) -> some View {
+    private var backdropSection: some View {
+        VStack {
+            LazyImage(url: movie.backdropURL) { phase in
+                if let image = phase.image {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                } else if phase.error != nil {
+                } else {
+                    ProgressView()
+                }
+            }
+            .opacity(0.5)
+            Spacer()
+        }
+    }
+
+    private var actionButtons: some View {
         HStack {
             Spacer()
             // Save
@@ -111,10 +102,7 @@ struct DetailsView: View {
             Spacer()
             // Share
             Button {
-                #warning("Button!!!")
-                let urlShare = movie.homepageURL
-                let activityVC = UIActivityViewController(activityItems: [urlShare], applicationActivities: nil)
-                UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
+                detailsViewModel.shareMovie(homepageURL: movie.homepageURL)
             } label: {
                 VStack {
                     Image(systemName: "square.and.arrow.up.circle")
@@ -129,14 +117,24 @@ struct DetailsView: View {
         .fontWeight(.light)
         .padding(.vertical)
     }
-    @ViewBuilder
-    func movieInformation(movie: Movie) -> some View {
-        // title
+
+
+    private var informationSection: some View {
+        Group {
+            movieTitle
+            scoreGenreAndReleaseDate
+            overviewSection
+        }
+    }
+
+    private var movieTitle: some View  {
         Text(movie.title)
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.title.bold())
             .padding(.top, 80)
-        // Score, Genre, Release date
+    }
+
+    private var scoreGenreAndReleaseDate: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
@@ -159,14 +157,24 @@ struct DetailsView: View {
             }
         }
         .padding(.bottom, 16)
-        // Overview
+    }
+
+    private var overviewSection: some View {
         Text(movie.overview)
-            .lineLimit(lineLimit)
+            .lineLimit(detailsViewModel.lineLimit)
             .onTapGesture {
                 withAnimation {
-                    lineLimit = 10
+                    detailsViewModel.increaseLineLimit()
                 }
             }
+    }
+
+    @ViewBuilder
+    private var recommendations: some View {
+        // Recommendations View ( when existed )
+        if !detailsViewModel.recommendations.isEmpty {
+            PosterListView(title: "Recommendations", movies: detailsViewModel.recommendations)
+        }
     }
 }
 

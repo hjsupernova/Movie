@@ -12,53 +12,6 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>134</string>
-					<key>StartingColumnNumber</key>
-					<string>0</string>
-					<key>StartingLineNumber</key>
-					<string>133</string>
-					<key>Timestamp</key>
-					<string>725596992.53708</string>
-				</dict>
-				<key>rebasable-url</key>
-				<dict>
-					<key>base</key>
-					<string>workspace</string>
-					<key>payload</key>
-					<dict>
-						<key>relative-path</key>
-						<string>Movie/Views/DetailsView.swift</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>text-context</key>
-			<dict>
-				<key>focused</key>
-				<string>        // title
-</string>
-				<key>leading</key>
-				<string>    @ViewBuilder
-    func movieInformation(movie: Movie) -&gt; some View {
-</string>
-				<key>trailing</key>
-				<string>        Text(movie.title)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .font(.title.bold())
-</string>
-			</dict>
-			<key>title</key>
-			<string>내부 변수 사용하고 있어서 변수 뷰로 만들어도 된다.</string>
-			<key>type</key>
-			<string>bookmark</string>
-		</dict>
-		<dict>
-			<key>destination</key>
-			<dict>
-				<key>location-parameters</key>
-				<dict>
-					<key>EndingColumnNumber</key>
-					<string>0</string>
-					<key>EndingLineNumber</key>
 					<string>21</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
