@@ -128,16 +128,15 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else {
-</string>
+				<string></string>
 				<key>leading</key>
-				<string>                        do {
-                            try await signInEmailViewModel.signIn()
-</string>
-				<key>trailing</key>
 				<string>                                Logger.auth.error("DEBUG: Failed to signUp with Email")
                                 return
-                            }
+                            }</string>
+				<key>trailing</key>
+				<string>
+                            favoriteMoviesManager.userId = user.userId
+                            favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
 </string>
 			</dict>
 			<key>title</key>

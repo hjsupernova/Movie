@@ -18,39 +18,49 @@ struct AuthenticationView: View {
     
     var body: some View {
         VStack {
-            VStack(spacing: 12) {
-                Text("🍿")
-                Text("Login to a reel world of movie memories.")
-            }
-            .multilineTextAlignment(.center)
-            .font(.largeTitle.bold())
-            VStack(spacing: 16) {
-                NavigationLink {
-                    SignInEmailView(showSignInView: $showSignInView)
-                } label: {
-                    Label("Sign In with Email", systemImage: "envelope")
-                        .authenticationButton()
-                }
-                Button {
-                    Task {
-                        do {
-                            try await authenticationViewModel.signInGoogle()
-                            guard let user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user) else { return }
-                            favoriteMoviesManager.userId = user.userId
-                            favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
-                            showSignInView = false
-                        } catch {
-                            Logger.auth.error("\(error.localizedDescription)")
-                        }
-                    }
-                } label: {
-                    Label("Sign in with Google", image: "Google")
-                        .authenticationButton()
-                }
-            }
-            .padding(.vertical)
+            headerSection
+            buttonSection
         }
         .padding()
+    }
+
+    // MARK: - Computed Views
+    private var headerSection: some View {
+        VStack(spacing: 12) {
+            Text("🍿")
+            Text("Login to a reel world of movie memories.")
+        }
+        .multilineTextAlignment(.center)
+        .font(.largeTitle.bold())
+    }
+
+    private var buttonSection: some View {
+        VStack(spacing: 16) {
+            emailSignInButton
+            googleSignInButton
+        }
+        .padding(.vertical)
+
+    }
+
+    private var emailSignInButton: some View {
+        NavigationLink {
+            SignInEmailView(showSignInView: $showSignInView)
+        } label: {
+            Label("Sign In with Email", systemImage: "envelope")
+                .authenticationButton()
+        }
+    }
+
+    private var googleSignInButton: some View {
+        Button {
+            Task {
+                showSignInView =  await !authenticationViewModel.signInGoogle(favoriteMoviesManager: favoriteMoviesManager)
+            }
+        } label: {
+            Label("Sign in with Google", image: "Google")
+                .authenticationButton()
+        }
     }
 }
 
