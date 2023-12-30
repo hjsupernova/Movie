@@ -10,63 +10,20 @@ import SwiftUI
 import NukeUI
 
 struct ComparisonView: View {
-    @StateObject var comparisonViewModel: ComparisonViewModel
+    @ObservedObject private var comparisonViewModel: ComparisonViewModel
     let totalMovieCount: Int
     
     init(movies: [Movie]) {
-        _comparisonViewModel = StateObject(wrappedValue: ComparisonViewModel(movies: movies))
         totalMovieCount = movies.count
+        comparisonViewModel = ComparisonViewModel(movies: movies)
     }
 
     var body: some View {
         VStack {
             // Posters
-            ZStack {
-                if comparisonViewModel.hasSingleMovie {
-                    Link(destination: comparisonViewModel.lastMovieHomepageURL) {
-                        LazyImage(url: comparisonViewModel.lastMoviePosterURL) { state in
-                            if let image = state.image {
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                            } else if state.error != nil {
-                            } else {
-                                CustomProgressView(width: 250, height: 375)
-                            }
-                        }
-                        .frame(width: 250, height: 375)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    }
-                } else {
-                    ForEach(comparisonViewModel.movies) { movie in
-                        NavigationLink {
-                            DetailsView(movie: movie)
-                        } label: {
-                            StackedPosterView(movie: movie) { isSaved in
-                                //  true 왼쪽으로 (save한 경우 )
-                                withAnimation {
-                                    if isSaved {
-                                        comparisonViewModel.moveLastMoiveToTop()
-                                    } else {
-                                        comparisonViewModel.removeLastMovie()
-                                    }
-                                }
-                            }
-                            .stacked(at: comparisonViewModel.getIndex(of: movie), in: comparisonViewModel.movies.count)
-                        }
-                    }
-                }
-            }
-            // Title
-            Text(comparisonViewModel.currentMovieTitle)
-                .font(.title2.bold())
-                .padding()
-            // Buttons
-            HStack {
-                actionButtons
-            }
-            .font(.largeTitle)
-            .disabled(comparisonViewModel.hasSingleMovie)
+            posterSection
+            titleSection
+            actionButtons
         }
         .padding(.top, 50)
         .navigationTitle(String(totalMovieCount) + "  Upcoming movies")
@@ -75,21 +32,69 @@ struct ComparisonView: View {
 
     // MARK: - Computed views
 
-    @ViewBuilder var actionButtons: some View {
-        Button {
-            withAnimation {
-                comparisonViewModel.moveLastMoiveToTop()
+    private var posterSection: some View {
+        ZStack {
+            if comparisonViewModel.hasSingleMovie {
+                Link(destination: comparisonViewModel.lastMovieHomepageURL) {
+                    LazyImage(url: comparisonViewModel.lastMoviePosterURL) { state in
+                        if let image = state.image {
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        } else if state.error != nil {
+                        } else {
+                            CustomProgressView(width: 250, height: 375)
+                        }
+                    }
+                    .frame(width: 250, height: 375)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                }
+            } else {
+                ForEach(comparisonViewModel.movies) { movie in
+                    NavigationLink {
+                        DetailsView(movie: movie)
+                    } label: {
+                        StackedPosterView(movie: movie) { isSaved in
+                            //  true 왼쪽으로 (save한 경우 )
+                            withAnimation {
+                                if isSaved {
+                                    comparisonViewModel.moveLastMoiveToTop()
+                                } else {
+                                    comparisonViewModel.removeLastMovie()
+                                }
+                            }
+                        }
+                        .stacked(at: comparisonViewModel.getIndex(of: movie), in: comparisonViewModel.movies.count)
+                    }
+                }
             }
-        } label: {
-            Label("", systemImage: "heart")
         }
-        Button {
-            withAnimation {
-                comparisonViewModel.removeLastMovie()
+    }
+
+    private var titleSection: some View {
+        Text(comparisonViewModel.currentMovieTitle)
+            .font(.title2.bold())
+            .padding()
+    }
+    private var actionButtons: some View {
+        HStack {
+            Button {
+                withAnimation {
+                    comparisonViewModel.moveLastMoiveToTop()
+                }
+            } label: {
+                Label("", systemImage: "heart")
             }
-        } label: {
-            Label("", systemImage: "x.circle")
+            Button {
+                withAnimation {
+                    comparisonViewModel.removeLastMovie()
+                }
+            } label: {
+                Label("", systemImage: "x.circle")
+            }
         }
+        .font(.largeTitle)
+        .disabled(comparisonViewModel.hasSingleMovie)
     }
 }
 
