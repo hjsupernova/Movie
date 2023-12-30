@@ -5,7 +5,6 @@
 //  Created by KHJ on 2023/11/18.
 //
 
-import OSLog
 import SwiftUI
 
 struct SettingsView: View {
@@ -14,28 +13,26 @@ struct SettingsView: View {
     
     var body: some View {
         List {
-            Button("Sign out") {
-                do {
-                    try settingViewModel.signOut()
-                    showSingInView = true
-                } catch {
-                    // TODO: Combine으로 에러 처리 하기 + do catch 문은 ViewModel에서 처리
-                    #warning("PassthroughSubject, onReceiveError")
-                    Logger.auth.error("\(error.localizedDescription)")
-                }
-            }
-            Button("Delete account", role: .destructive) {
-                Task {
-                    do {
-                        try await settingViewModel.deleteAccount()
-                        showSingInView = true
-                    } catch {
-                        Logger.auth.error("\(error.localizedDescription)")
-                    }
-                }
-            }
+            signOutButton
+            deleteAccountButton
         }
         .navigationTitle("Settings")
+    }
+
+    // MARK: - Computed properties
+
+    private var signOutButton: some View {
+        Button("Sign out") {
+            showSingInView =  settingViewModel.signOut()
+        }
+    }
+
+    private var deleteAccountButton: some View {
+        Button("Delete account", role: .destructive) {
+            Task {
+                showSingInView = await settingViewModel.deleteAccount()
+            }
+        }
     }
 }
 

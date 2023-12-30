@@ -5,7 +5,6 @@
 //  Created by KHJ on 2023/11/18.
 //
 
-import OSLog
 import SwiftUI
 
 import GoogleSignIn
