@@ -14,6 +14,7 @@ class TasteMatchViewModel: ObservableObject {
     @Published private(set) var user: DBUser?
     @Published private(set) var isVaildEmail = false
     @Published var showingSheet = false
+
     private var myMoviesCount: Double {
         do {
             let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "" )

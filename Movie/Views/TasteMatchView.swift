@@ -17,32 +17,9 @@ struct TasteMatchView: View {
     var body: some View {
         VStack(spacing: 0) {
             userImage
-            Text("Compare your movie taste with a friend")
-                .font(.largeTitle.bold())
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 24)
-
-            TextField("Enter your friend's email address", text: $tasteMatchViewModel.email)
-                .onChange(of: tasteMatchViewModel.email, perform: { email in
-                    tasteMatchViewModel.isValidEmailAddr(string: email)
-                })
-                .padding(10)
-                .background(Color(.systemGray5))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .padding(.bottom, 12)
-                .focused($isEmailFocused)
-                .keyboardType(.emailAddress)
-            Button("Compare") {
-                Task {
-                    #warning("뷰모델로 빼기")
-                    await tasteMatchViewModel.compareMovieTaste(friendEmail: tasteMatchViewModel.email)
-                }
-            }
-            .foregroundStyle(.black)
-            .buttonStyle(.borderedProminent)
-            .disabled(!tasteMatchViewModel.isVaildEmail)
+            titleText
+            emailTextField
+            compareButton
             Spacer()
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
@@ -52,7 +29,6 @@ struct TasteMatchView: View {
         .padding()
         .navigationTitle("Taste Match")
         .navigationBarTitleDisplayMode(.inline)
-
         .onTapGesture {
             isEmailFocused = false
         }
@@ -61,7 +37,7 @@ struct TasteMatchView: View {
     // MARK: - Computed Views
 
     @ViewBuilder
-    var userImage: some View {
+    private var userImage: some View {
         if let photoURL = tasteMatchViewModel.user?.photoUrl {
             LazyImage(url: URL(string: photoURL)) { state in
                 if let image = state.image {
@@ -120,6 +96,39 @@ struct TasteMatchView: View {
             }
             .padding(.bottom, 24)
         }
+    }
+
+    private var titleText: some View {
+        Text("Compare your movie taste with a friend")
+            .font(.largeTitle.bold())
+            .multilineTextAlignment(.center)
+            .padding(.bottom, 24)
+    }
+
+    private var emailTextField: some View {
+        TextField("Enter your friend's email address", text: $tasteMatchViewModel.email)
+            .onChange(of: tasteMatchViewModel.email) { email in
+                tasteMatchViewModel.isValidEmailAddr(string: email)
+            }
+            .padding(10)
+            .background(Color(.systemGray5))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .padding(.bottom, 12)
+            .focused($isEmailFocused)
+            .keyboardType(.emailAddress)
+    }
+
+    private var compareButton: some View {
+        Button("Compare") {
+            Task {
+                await tasteMatchViewModel.compareMovieTaste(friendEmail: tasteMatchViewModel.email)
+            }
+        }
+        .foregroundStyle(.black)
+        .buttonStyle(.borderedProminent)
+        .disabled(!tasteMatchViewModel.isVaildEmail)
     }
 }
 
