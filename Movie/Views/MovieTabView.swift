@@ -9,54 +9,41 @@ import SwiftUI
 
 import NukeUI
 
-@MainActor
-final class MovieTabViewModel: ObservableObject {
-    func loadCurrentUser() async throws {
-        let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
-        try await UserManager.shared.getUser(userId: authDataResult.uid)
-    }
-}
 enum Views {
     case discover, library, search
 }
 
 struct MovieTabView: View {
     @StateObject var movieTabViewModel = MovieTabViewModel()
-    @State private var selectedTap: Views = .discover
-    @State private var showSignInView: Bool = false
     
     var body: some View {
-        TabView(selection: $selectedTap) {
-            DiscoverView(showSignInView: $showSignInView)
+        TabView(selection: $movieTabViewModel.selectedTap) {
+            DiscoverView(showSignInView: $movieTabViewModel.showSignInView)
                 .tabItem {
                     Image(systemName: "house")
                 }
-                .onAppear { selectedTap = .discover }
+                .onAppear { movieTabViewModel.selectedTap = .discover }
                 .tag(Views.discover)
             LibraryView()
                 .tabItem {
                     Image(systemName: "folder")
                 }
-                .onAppear { selectedTap = .library }
+                .onAppear { movieTabViewModel.selectedTap = .library }
                 .tag(Views.library)
             SearchView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                 }
-                .onAppear { selectedTap = .search }
+                .onAppear { movieTabViewModel.selectedTap = .search }
                 .tag(Views.search)
         }
         .tint(.white)
         .task {
-            do {
-                try await movieTabViewModel.loadCurrentUser()
-            } catch {
-                self.showSignInView = true
-            }
+            await movieTabViewModel.loadCurrentUser()
         }
-        .fullScreenCover(isPresented: $showSignInView, content: {
+        .fullScreenCover(isPresented: $movieTabViewModel.showSignInView, content: {
             NavigationStack {
-                AuthenticationView(showSignInView: $showSignInView)
+                AuthenticationView(showSignInView: $movieTabViewModel.showSignInView)
             }
         })
     }
