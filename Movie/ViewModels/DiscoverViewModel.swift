@@ -15,7 +15,9 @@ class DiscoverViewModel: ObservableObject {
     @Published private(set) var nowplaying: [Movie] = []
     @Published var showAlert = false
     @Published private(set) var errorMsg = ""
+
     static var genreLists: [Genre] = []
+    private var hasAppeared: Bool = false
 
     private func fetchPopoular() async throws -> [Movie] {
         Logger.network.info("DEBUG: Start to load popular")
@@ -43,6 +45,9 @@ class DiscoverViewModel: ObservableObject {
     
     /// 비동기, 동시적으로 DiscoverView에 필요한 데이터들을 불러온다.
     func loadDiscoverElements() async {
+        guard !hasAppeared else { return }
+        hasAppeared = true
+
         do {
             async let popular = fetchPopoular()
             async let upcomings = fetchUpcomings()

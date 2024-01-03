@@ -106,4 +106,5 @@ struct Movie: Codable, Identifiable, Equatable {
                      homepage: "https://www.themeg.movie"
         )
     }
+
 }

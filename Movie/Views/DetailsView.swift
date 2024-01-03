@@ -12,7 +12,6 @@ import NukeUI
 struct DetailsView: View {
     @StateObject var detailsViewModel = DetailsViewModel()
     @EnvironmentObject var favoriteMoviesManager: FavoriteMoviesManager
-    @State private var lineLimit = 3
 
     var movie: Movie
 

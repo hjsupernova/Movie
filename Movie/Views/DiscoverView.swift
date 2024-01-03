@@ -12,49 +12,49 @@ import NukeUI
 
 struct DiscoverView: View {
     @StateObject var discoverViewModel = DiscoverViewModel()
-    @State private var hasAppeared = false
     @Binding var showSignInView: Bool
     
     var body: some View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack {
-                    VStack(alignment: .leading) {
-                        PosterListView(title: "Popular", movies: discoverViewModel.popular)
-                    }
-                    VStack(alignment: .leading) {
-                        BackdropListView(title: "Upcomings", movies: discoverViewModel.upcomings)
-                    }
-                    VStack(alignment: .leading) {
-                        PosterListView(title: "Now Playing", movies: discoverViewModel.nowplaying)
-                    }
+                VStack(alignment: .leading) {
+                    PosterListView(title: "Popular", movies: discoverViewModel.popular)
+                    BackdropListView(title: "Upcomings", movies: discoverViewModel.upcomings)
+                    PosterListView(title: "Now Playing", movies: discoverViewModel.nowplaying)
                 }
                 .padding()
             }
             .navigationTitle("🍿 MOVIE")
             .toolbar {
-                NavigationLink {
-                    SettingsView(showSingInView: $showSignInView)
-                } label: {
-                    Image(systemName: "person.crop.circle")
-                }
-                NavigationLink {
-                    TasteMatchView()
-                } label: {
-                    Image(systemName: "person.2.fill")
-                }
+                settingsViewLink
+                tasteMatchViewLink
             }
         }
         .task {
-            guard !hasAppeared else { return }
-            hasAppeared = true
             await discoverViewModel.loadDiscoverElements()
         }
         .alert(isPresented: $discoverViewModel.showAlert, content: {
             Alert(title: Text("Error"), message: Text(discoverViewModel.errorMsg))
         })
-
         .preferredColorScheme(.dark)
+    }
+
+    // MARK: -
+
+    private var settingsViewLink: some View {
+        NavigationLink {
+            SettingsView(showSingInView: $showSignInView)
+        } label: {
+            Image(systemName: "person.crop.circle")
+        }
+    }
+
+    private var tasteMatchViewLink: some View {
+        NavigationLink {
+            TasteMatchView()
+        } label: {
+            Image(systemName: "person.2.fill")
+        }
     }
 }
 
