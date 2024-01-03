@@ -14,13 +14,15 @@ class SearchViewModel: ObservableObject {
     @Published var showAlert = false
     @Published private(set) var errorMsg = ""
     @Published var searchText = ""
+
     private var currentPage = 1
     private var isSearching = false
 
-    func fetchMoreSearchedMovies() async {
+    func fetchMoreSearchedMovies(movie: Movie) async {
+        guard (movie == searchedMovies.last) || !isSearching else  { return }
         currentPage += 1
-        guard !isSearching else { return }
         isSearching = true
+        
         do {
             let moviePage = try await APIClient.shared.fetchData(
                 url: SearchEndpoint.movies(query: searchText, page: currentPage).url,

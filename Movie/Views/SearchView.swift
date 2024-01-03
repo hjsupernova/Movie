@@ -16,24 +16,7 @@ struct SearchView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView(showsIndicators: false) {
-                LazyVGrid(columns: layout) {
-                    ForEach(searchViewModel.searchedMovies) { movie in
-                        NavigationLink {
-                            DetailsView(movie: movie)
-                        } label: {
-                            PosterView(movie: movie)
-                        }
-                        .onAppear {
-                            if movie == searchViewModel.searchedMovies.last {
-                                Task {
-                                    await searchViewModel.fetchMoreSearchedMovies()
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            searchedMoivesVGrid
             .searchable(
                 text: $searchViewModel.searchText,
                 placement: .navigationBarDrawer(displayMode: .always),
@@ -50,6 +33,25 @@ struct SearchView: View {
             })
             .onTapGesture {
                 hideKeyboard()
+            }
+        }
+    }
+
+    // MARK: - Computed Views
+
+    private var searchedMoivesVGrid: some View {
+        ScrollView(showsIndicators: false) {
+            LazyVGrid(columns: layout) {
+                ForEach(searchViewModel.searchedMovies) { movie in
+                    NavigationLink {
+                        DetailsView(movie: movie)
+                    } label: {
+                        PosterView(movie: movie)
+                    }
+                    .task {
+                        await searchViewModel.fetchMoreSearchedMovies(movie: movie)
+                    }
+                }
             }
         }
     }
