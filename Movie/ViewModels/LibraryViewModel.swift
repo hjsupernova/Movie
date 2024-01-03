@@ -10,5 +10,5 @@ import OSLog
 
 @MainActor
 class LibraryViewModel: ObservableObject {
-
+    @Published var isEditing: Bool = false
 }

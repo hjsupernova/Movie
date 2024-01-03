@@ -11,52 +11,55 @@ import NukeUI
 
 struct LibraryView: View {
     @EnvironmentObject var favoriteMoivesManager: FavoriteMoviesManager
-    @State private var isEditing = false
+    @StateObject private var libraryViewModel = LibraryViewModel()
 
     let layout = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
         NavigationView {
-            ScrollView(showsIndicators: false) {
-                LazyVGrid(columns: layout) {
-                    ForEach(favoriteMoivesManager.favoriteMovies) { movie in
-                        NavigationLink {
-                            DetailsView(movie: movie)
-                        } label: {
-                            ZStack {
-                                LazyImage(url: movie.posterURL) { state in
-                                    if let image = state.image {
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 140, height: 200)
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                    } else if state.error != nil {
-                                    } else {
-                                        CustomProgressView(width: 140, height: 200)
-                                    }
+            favoriteMoviesVGrid
+            .navigationTitle("Library")
+            .toolbar {
+                editButton
+            }
+            .animation(.default, value: libraryViewModel.isEditing)
+
+        }
+    }
+
+    // MARK: - Computed views
+    
+    private var favoriteMoviesVGrid: some View {
+        ScrollView(showsIndicators: false) {
+            LazyVGrid(columns: layout) {
+                ForEach(favoriteMoivesManager.favoriteMovies) { movie in
+                    NavigationLink {
+                        DetailsView(movie: movie)
+                    } label: {
+                        ZStack {
+                            LazyImage(url: movie.posterURL) { state in
+                                if let image = state.image {
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 140, height: 200)
+                                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                                } else if state.error != nil {
+                                } else {
+                                    CustomProgressView(width: 140, height: 200)
                                 }
-                                if isEditing {
-                                    deleteButton(movie: movie)
-                                }
+                            }
+                            if libraryViewModel.isEditing {
+                                deleteButton(movie: movie)
                             }
                         }
                     }
                 }
             }
-            .navigationTitle("Library")
-            .toolbar {
-                Button(isEditing ? "Done" : "Edit") {
-                    isEditing.toggle()
-                }
-            }
-            .animation(.default, value: isEditing)
         }
     }
 
-    // MARK: - Computed views
-
-    func deleteButton(movie: Movie) -> some View {
+    private func deleteButton(movie: Movie) -> some View {
         VStack {
             HStack {
                 Spacer()
@@ -72,6 +75,12 @@ struct LibraryView: View {
             Spacer()
         }
         .frame(width: 140, height: 200)
+    }
+
+    private var editButton: some View {
+        Button(libraryViewModel.isEditing ? "Done" : "Edit") {
+            libraryViewModel.isEditing.toggle()
+        }
     }
 }
 
