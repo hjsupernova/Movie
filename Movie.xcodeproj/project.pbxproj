@@ -205,6 +205,218 @@
 			path = Firestore;
 			sourceTree = "<group>";
 		};
+		CE37C3052B4D380E00A58BA8 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF616D2B08CCA400EA11CF /* Authentication */,
+				CE37C3082B4D388700A58BA8 /* Comparison */,
+				CE0C3C842AC82FDF00925583 /* Components */,
+				CE37C3092B4D388E00A58BA8 /* Details */,
+				CE37C30A2B4D388F00A58BA8 /* Discover */,
+				CE37C30B2B4D389000A58BA8 /* Library */,
+				CE37C30C2B4D389100A58BA8 /* MovieTap */,
+				CE37C3172B4D395200A58BA8 /* Search */,
+				CE37C31B2B4D39B900A58BA8 /* TasteMatch */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		CE37C3062B4D383A00A58BA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF616B2B08CA2900EA11CF /* AuthenticationView.swift */,
+				CEDF61832B08DFFB00EA11CF /* SettingsView.swift */,
+				CEDF616E2B08CCB500EA11CF /* SignInEmailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE37C3072B4D383D00A58BA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF617E2B08D8BA00EA11CF /* AuthenticationViewModel.swift */,
+				CEDF61852B08E02E00EA11CF /* SettingsViewModel.swift */,
+				CEDF61712B08CCEC00EA11CF /* SignInEmailViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE37C3082B4D388700A58BA8 /* Comparison */ = {
+			isa = PBXGroup;
+			children = (
+				CE37C30E2B4D389F00A58BA8 /* ViewModels */,
+				CE37C30D2B4D389900A58BA8 /* Views */,
+			);
+			path = Comparison;
+			sourceTree = "<group>";
+		};
+		CE37C3092B4D388E00A58BA8 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				CE37C3102B4D38F900A58BA8 /* ViewModels */,
+				CE37C30F2B4D38F500A58BA8 /* Views */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		CE37C30A2B4D388F00A58BA8 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				CE37C3122B4D392000A58BA8 /* ViewModels */,
+				CE37C3112B4D391C00A58BA8 /* Views */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		CE37C30B2B4D389000A58BA8 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				CE37C3142B4D393400A58BA8 /* ViewModels */,
+				CE37C3132B4D393100A58BA8 /* Views */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		CE37C30C2B4D389100A58BA8 /* MovieTap */ = {
+			isa = PBXGroup;
+			children = (
+				CE37C3162B4D394600A58BA8 /* ViewModels */,
+				CE37C3152B4D394400A58BA8 /* Views */,
+			);
+			path = MovieTap;
+			sourceTree = "<group>";
+		};
+		CE37C30D2B4D389900A58BA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEACAFD72AF9065400BC108E /* ComparisonView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE37C30E2B4D389F00A58BA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CE0E75172B030A7300CE8F5D /* ComparisonViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE37C30F2B4D38F500A58BA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE29D14F2AB06D8600587C72 /* DetailsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE37C3102B4D38F900A58BA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CEDE6F032AB1A83E007F2B67 /* DetailsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE37C3112B4D391C00A58BA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE7F0ACA2AADF262002EBD6F /* DiscoverView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE37C3122B4D392000A58BA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CEDE6F012AB1A377007F2B67 /* DiscoverViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE37C3132B4D393100A58BA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE6868022ACA927F00CCD6CD /* LibraryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE37C3142B4D393400A58BA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CE497E9F2AE6816300B2EEF0 /* LibraryViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE37C3152B4D394400A58BA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE0C3C7E2AC8081100925583 /* MovieTabView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE37C3162B4D394600A58BA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CEFFCA322B453F2900566161 /* MovieTapViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE37C3172B4D395200A58BA8 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				CE37C3192B4D395A00A58BA8 /* ViewModels */,
+				CE37C3182B4D395700A58BA8 /* Views */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		CE37C3182B4D395700A58BA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEC6E7512AC56D6800E5AC3E /* SearchView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE37C3192B4D395A00A58BA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CE497EA12AE689C900B2EEF0 /* SearchViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CE37C31B2B4D39B900A58BA8 /* TasteMatch */ = {
+			isa = PBXGroup;
+			children = (
+				CE37C31D2B4D39E200A58BA8 /* ViewModels */,
+				CE37C31C2B4D39DF00A58BA8 /* Views */,
+			);
+			path = TasteMatch;
+			sourceTree = "<group>";
+		};
+		CE37C31C2B4D39DF00A58BA8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE4F8DA32B0B29080019A4F4 /* TasteMatchView.swift */,
+				CEEDE4E12B0F1DCA007336B1 /* TasteMatchDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE37C31D2B4D39E200A58BA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CE4F8DA52B0B51AC0019A4F4 /* TasteMatchViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		CE6868062ACAB9CB00CCD6CD /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,8 +433,10 @@
 		CE7F0ABC2AADF262002EBD6F = {
 			isa = PBXGroup;
 			children = (
+				CE7F0AC82AADF262002EBD6F /* MovieApp.swift */,
 				CEB4AC172AEB6893001FDFAB /* .gitignore */,
 				CEB4AC1B2AEB68DD001FDFAB /* SecureAPIKeys.plist */,
+				CEDF61772B08D76300EA11CF /* GoogleService-Info.plist */,
 				CE7F0AC72AADF262002EBD6F /* Movie */,
 				CE7F0AC62AADF262002EBD6F /* Products */,
 				CEDF61682B08C8BB00EA11CF /* Frameworks */,
@@ -240,15 +454,11 @@
 		CE7F0AC72AADF262002EBD6F /* Movie */ = {
 			isa = PBXGroup;
 			children = (
-				CEDF61772B08D76300EA11CF /* GoogleService-Info.plist */,
-				CE7F0AC82AADF262002EBD6F /* MovieApp.swift */,
-				CE0C3C842AC82FDF00925583 /* Components */,
+				CE37C3052B4D380E00A58BA8 /* Core */,
 				CE8A72922AE4025300A13EE1 /* Extensions */,
 				CE6868062ACAB9CB00CCD6CD /* Models */,
 				CE36EE4D2B3FBECD0029C9BC /* Services */,
 				CE36EE4E2B3FBED60029C9BC /* Utilities */,
-				CEDE6F052AB1CBB3007F2B67 /* Views */,
-				CEDE6F002AB1A35E007F2B67 /* ViewModels */,
 				CE29CA312AF5ED3700CC4AA4 /* ViewModifiers */,
 				CE7F0ACC2AADF264002EBD6F /* Assets.xcassets */,
 				CE7F0ACE2AADF264002EBD6F /* Preview Content */,
@@ -287,37 +497,6 @@
 			path = Endpoints;
 			sourceTree = "<group>";
 		};
-		CEDE6F002AB1A35E007F2B67 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				CEDF61702B08CCDA00EA11CF /* Authentication */,
-				CE0E75172B030A7300CE8F5D /* ComparisonViewModel.swift */,
-				CEDE6F032AB1A83E007F2B67 /* DetailsViewModel.swift */,
-				CEDE6F012AB1A377007F2B67 /* DiscoverViewModel.swift */,
-				CE497E9F2AE6816300B2EEF0 /* LibraryViewModel.swift */,
-				CEFFCA322B453F2900566161 /* MovieTapViewModel.swift */,
-				CE497EA12AE689C900B2EEF0 /* SearchViewModel.swift */,
-				CE4F8DA52B0B51AC0019A4F4 /* TasteMatchViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		CEDE6F052AB1CBB3007F2B67 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				CEDF616D2B08CCA400EA11CF /* Authentication */,
-				CEACAFD72AF9065400BC108E /* ComparisonView.swift */,
-				CE29D14F2AB06D8600587C72 /* DetailsView.swift */,
-				CE7F0ACA2AADF262002EBD6F /* DiscoverView.swift */,
-				CE6868022ACA927F00CCD6CD /* LibraryView.swift */,
-				CE0C3C7E2AC8081100925583 /* MovieTabView.swift */,
-				CEC6E7512AC56D6800E5AC3E /* SearchView.swift */,
-				CE4F8DA32B0B29080019A4F4 /* TasteMatchView.swift */,
-				CEEDE4E12B0F1DCA007336B1 /* TasteMatchDetailView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		CEDF61682B08C8BB00EA11CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,19 +507,8 @@
 		CEDF616D2B08CCA400EA11CF /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				CEDF616B2B08CA2900EA11CF /* AuthenticationView.swift */,
-				CEDF61832B08DFFB00EA11CF /* SettingsView.swift */,
-				CEDF616E2B08CCB500EA11CF /* SignInEmailView.swift */,
-			);
-			path = Authentication;
-			sourceTree = "<group>";
-		};
-		CEDF61702B08CCDA00EA11CF /* Authentication */ = {
-			isa = PBXGroup;
-			children = (
-				CEDF617E2B08D8BA00EA11CF /* AuthenticationViewModel.swift */,
-				CEDF61852B08E02E00EA11CF /* SettingsViewModel.swift */,
-				CEDF61712B08CCEC00EA11CF /* SignInEmailViewModel.swift */,
+				CE37C3072B4D383D00A58BA8 /* ViewModels */,
+				CE37C3062B4D383A00A58BA8 /* Views */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
