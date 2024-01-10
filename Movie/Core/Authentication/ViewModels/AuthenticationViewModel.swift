@@ -11,21 +11,22 @@ import OSLog
 
 @MainActor
 final class AuthenticationViewModel: ObservableObject {
-    var user: DBUser? {
-        UserDefaults.standard.loadUser(DBUser.self, forKey: .user) ?? nil
-    }
-    
+
     /// signIn에 성공하면 True, 실패하면 False를 Return
     func signInGoogle(favoriteMoviesManager: FavoriteMoviesManager) async -> Bool {
         do {
             let helper = SignInGoogleHelper()
             let tokens = try await helper.signIn()
             let authDataResult = try await AuthenticationManager.shared.signInWithGoogle(credentials: tokens)
-
+            
             try await createUser(authDataResult: authDataResult)
-            updateCurrentUser()
 
-            loadLocalFavoriteMovies(favoriteMoviesManager: favoriteMoviesManager )
+            let user = DBUser(auth: authDataResult)
+            updateCurrentUser(user: user)
+
+            favoriteMoviesManager.userId = user.userId
+            loadLocalFavoriteMovies(favoriteMoviesManager: favoriteMoviesManager, user: user)
+
             return true
         } catch {
             Logger.auth.error("Failed To SignIn Google: \(error)")
@@ -33,8 +34,8 @@ final class AuthenticationViewModel: ObservableObject {
         }
     }
 
-    private func loadLocalFavoriteMovies(favoriteMoviesManager: FavoriteMoviesManager) {
-        favoriteMoviesManager.loadLocalFavoriteMovies(userId: user?.userId ?? "")
+    private func loadLocalFavoriteMovies(favoriteMoviesManager: FavoriteMoviesManager, user: DBUser) {
+        favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
     }
 
     private func createUser(authDataResult: AuthDataResultModel) async throws {
@@ -50,7 +51,7 @@ final class AuthenticationViewModel: ObservableObject {
     }
 
     /// UserDefaults에 저장된 DBUser 값을 업데이트 합니다.
-    private func updateCurrentUser() {
+    private func updateCurrentUser(user: DBUser) {
         UserDefaults.standard.saveUser(user, forKey: .user)
     }
 }

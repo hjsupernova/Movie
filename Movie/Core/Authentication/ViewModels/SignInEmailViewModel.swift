@@ -29,7 +29,8 @@ final class SignInEmailViewModel: ObservableObject {
             try UserManager.shared.createNewUser(user: user)
 
             UserDefaults.standard.saveUser(user, forKey: .user)
-
+            
+            favoriteMoviesManager.userId = user.userId
             favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
 
             return true
@@ -51,6 +52,8 @@ final class SignInEmailViewModel: ObservableObject {
             let authDataResult = try await AuthenticationManager.shared.signInUser(email: email, password: password)
             let user = DBUser(auth: authDataResult)
             UserDefaults.standard.saveUser(user, forKey: .user)
+
+            favoriteMoviesManager.userId = user.userId
             favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
             return true
         } catch {
