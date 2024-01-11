@@ -8,29 +8,33 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject private var settingViewModel = SettingsViewModel()
+    @StateObject private var settingsViewModel = SettingsViewModel()
     @Binding var showSingInView: Bool
     
+
     var body: some View {
         List {
             signOutButton
             deleteAccountButton
         }
         .navigationTitle("Settings")
+        .alert(settingsViewModel.alertTitle, isPresented: $settingsViewModel.showAlert) {
+            Text(settingsViewModel.alertMsg)
+        }
     }
 
     // MARK: - Computed properties
 
     private var signOutButton: some View {
         Button("Sign out") {
-            showSingInView =  settingViewModel.signOut()
+            showSingInView =  settingsViewModel.signOut()
         }
     }
 
     private var deleteAccountButton: some View {
         Button("Delete account", role: .destructive) {
             Task {
-                showSingInView = await settingViewModel.deleteAccount()
+                showSingInView = await settingsViewModel.deleteAccount()
             }
         }
     }

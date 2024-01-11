@@ -81,7 +81,7 @@ final class SignInEmailViewModel: ObservableObject {
         alertTitle = "SignUp Error"
         showAlert = true
 
-        Logger.network.error("\(error)")
+        Logger.auth.error("\(error)")
     }
 
     private func handleSignInError(_ error: Error) {
@@ -104,7 +104,7 @@ final class SignInEmailViewModel: ObservableObject {
         alertTitle = "SignIn Error"
         showAlert = true
 
-        Logger.network.error("\(error)")
+        Logger.auth.error("\(error)")
     }
 
 }
