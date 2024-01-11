@@ -21,6 +21,9 @@ struct AuthenticationView: View {
             buttonSection
         }
         .padding()
+        .alert(authenticationViewModel.alertTitle, isPresented: $authenticationViewModel.showAlert) {
+            Text(authenticationViewModel.alertMsg)
+        }
     }
 
     // MARK: - Computed Views
@@ -54,7 +57,7 @@ struct AuthenticationView: View {
     private var googleSignInButton: some View {
         Button {
             Task {
-                showSignInView =  await !authenticationViewModel.signInGoogle(favoriteMoviesManager: favoriteMoviesManager)
+                showSignInView = await !authenticationViewModel.signInGoogle(favoriteMoviesManager: favoriteMoviesManager)
             }
         } label: {
             Label("Sign in with Google", image: "Google")
