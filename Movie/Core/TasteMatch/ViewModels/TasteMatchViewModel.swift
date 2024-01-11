@@ -14,10 +14,12 @@ class TasteMatchViewModel: ObservableObject {
     @Published private(set) var user: DBUser?
     @Published private(set) var isVaildEmail = false
     @Published var showingSheet = false
+    @Published var showErrorAlert = false
+    @Published var errorAlertMessage = ""
 
     private var myMoviesCount: Double {
         do {
-            let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "" )
+            let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "")
             let data = try Data(contentsOf: savePath)
             let favoritesMovies = try JSONDecoder().decode([Movie].self, from: data)
             return Double(favoritesMovies.count)
@@ -33,17 +35,24 @@ class TasteMatchViewModel: ObservableObject {
         self.user = UserDefaults.standard.loadUser(DBUser.self, forKey: .user)
     }
 
-    private func fetchFriendFavoriteMovies(email: String) async throws -> [Movie] {
+    /// 비교할 다른 사용자의 좋아요한 영화를 불러옵니다.
+    /// - Parameter email: 비교할 사용자의 email
+    /// - Returns: 비교할 사용자의 좋아요한 영화 목록
+    private func fetchFriendFavoriteMovies(with email: String) async throws -> [Movie] {
         try await UserManager.shared.getFavoriteMovies(email: email)
     }
 
-    private func findMatchedMovies(with friendEmail: String) async throws -> [Movie]{
-        let friendsFavMovies = try await fetchFriendFavoriteMovies(email: email)
+    
+    /// 다른 사용자의 좋아요한 영화 목록과 내 좋아요한 영화 목록의 공통 영화 목록을 반환합니다.
+    /// - Parameter friendFavoriteMovies: 비교할 다른 사용자의 좋아요한 영화 목록
+    /// - Returns: 다른 사용자와 현 유저의 공통 좋아요한 영화 목록
+    private func findMatchedMovies(with friendFavoriteMovies: [Movie]) async throws -> [Movie] {
         let savePath = FileManager.documentsDirectory.appendingPathComponent(user?.userId ?? "")
         let data = try Data(contentsOf: savePath)
-        let favoritesMovies = try JSONDecoder().decode([Movie].self, from: data)
-        let myMovieIds = Set(favoritesMovies.map { $0.id } )
-        return friendsFavMovies.filter { myMovieIds.contains($0.id) }
+        let myFavoritesMovies = try JSONDecoder().decode([Movie].self, from: data)
+        let myMovieIds = Set(myFavoritesMovies.map { $0.id } )
+
+        return friendFavoriteMovies.filter { myMovieIds.contains($0.id) }
     }
 
     private func calculateTasteMatchPercentage() {
@@ -57,9 +66,13 @@ class TasteMatchViewModel: ObservableObject {
     
     func compareMovieTaste(friendEmail: String) async {
         do {
-            matchedMovies = try await findMatchedMovies(with: friendEmail)
+            let friendFavoriteMovies = try await fetchFriendFavoriteMovies(with: friendEmail)
+            matchedMovies = try await findMatchedMovies(with: friendFavoriteMovies)
             calculateTasteMatchPercentage()
         } catch {
+            errorAlertMessage = error.localizedDescription
+            showErrorAlert = true
+
             Logger.firestore.error("Failed to compare movie taste \(error)")
         }
     }

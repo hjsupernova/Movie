@@ -22,15 +22,18 @@ struct TasteMatchView: View {
             compareButton
             Spacer()
         }
-        .ignoresSafeArea(.keyboard, edges: .bottom)
-        .sheet(isPresented: $tasteMatchViewModel.showingSheet, content: {
-            TasteMatchDetailView(score: tasteMatchViewModel.score, movie: tasteMatchViewModel.matchedMovies?.first)
-        })
         .padding()
         .navigationTitle("Taste Match")
         .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .onTapGesture {
             isEmailFocused = false
+        }
+        .sheet(isPresented: $tasteMatchViewModel.showingSheet, content: {
+            TasteMatchDetailView(score: tasteMatchViewModel.score, movie: tasteMatchViewModel.matchedMovies?.first)
+        })
+        .alert("Error", isPresented: $tasteMatchViewModel.showErrorAlert) {
+            Text("Error: \(tasteMatchViewModel.errorAlertMessage)")
         }
     }
 
