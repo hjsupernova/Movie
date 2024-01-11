@@ -26,8 +26,27 @@ enum AuthProviderOption: String {
     case google = "google.com"
 }
 
-enum FIRAuthError: Error {
+enum FIRAuthError: Error, LocalizedError {
     case noAuthenticatedUser
+    case networkError
+    case invalidEmail
+    case userDisabled
+    case wrongPassword
+
+    var errorDescription: String? {
+        switch self {
+        case .noAuthenticatedUser:
+            return "No authenticated user found. Please sign in or create an account."
+        case .networkError:
+            return "Network error. Please check your internet connection and try again."
+        case .invalidEmail:
+            return "Invalid email address. Please enter a valid email."
+        case .userDisabled:
+            return "This account has been disabled. Please contact support for assistance."
+        case .wrongPassword:
+            return "Incorrect password. Please try again."
+        }
+    }
 }
 
 final class AuthenticationManager {

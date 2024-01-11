@@ -8,6 +8,8 @@
 import Foundation
 import OSLog
 
+import FirebaseAuth
+
 @MainActor
 final class SignInEmailViewModel: ObservableObject {
     @Published var email = "hello@testing.com"
@@ -35,10 +37,7 @@ final class SignInEmailViewModel: ObservableObject {
 
             return true
         } catch {
-            alertTitle = "SignUp Error"
-            alertMsg = error.localizedDescription
-            showAlert = true
-
+            handleSignUpError(error)
             return false
         }
     }
@@ -57,12 +56,55 @@ final class SignInEmailViewModel: ObservableObject {
             favoriteMoviesManager.loadLocalFavoriteMovies(userId: user.userId)
             return true
         } catch {
-            alertTitle = "SignIn Error"
-            alertMsg = error.localizedDescription
-            showAlert = true
-
+            handleSignInError(error)
             return false
         }
+    }
+
+    private func handleSignUpError(_ error: Error) {
+        if let error = error as NSError? {
+            if let authError = AuthErrorCode.Code(rawValue: error.code) {
+                switch authError {
+                case .networkError:
+                    alertMsg = "Network error occurred. Please check your internet connection and try again."
+                case .invalidEmail:
+                    alertMsg = "Invalid email address. Please enter a valid email."
+                case .emailAlreadyInUse:
+                    alertMsg = "The email is already in use with another account."
+                case .weakPassword:
+                    alertMsg = "Your password is too weak. The password must be 6 characters long or more."
+                default:
+                    alertMsg = "An unknown authentication error occurred."
+                }
+            }
+        }
+        alertTitle = "SignUp Error"
+        showAlert = true
+
+        Logger.network.error("\(error)")
+    }
+
+    private func handleSignInError(_ error: Error) {
+        if let error = error as NSError? {
+            if let authError = AuthErrorCode.Code(rawValue: error.code) {
+                switch authError {
+                case .networkError:
+                    alertMsg = "Network error occurred. Please try again."
+                case .invalidEmail:
+                    alertMsg = "Invalid email address. Please enter a valid email."
+                case .userDisabled:
+                    alertMsg = "Your account has been disabled. Please contact support."
+                case .wrongPassword:
+                    alertMsg = "Incorrect password. Please try again or use 'Forgot password' to reset your password."
+                default:
+                    alertMsg = "An unknown authentication error occurred."
+                }
+            }
+        }
+        alertTitle = "SignIn Error"
+        showAlert = true
+
+        Logger.network.error("\(error)")
     }
 
 }

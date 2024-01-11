@@ -66,7 +66,7 @@ struct SignInEmailView: View {
     private var signUpButton: some View {
         Button {
             Task {
-                    showSignInView = await !signInEmailViewModel.signUp(favoriteMoviesManager: favoriteMoviesManager)
+                showSignInView = await !signInEmailViewModel.signUp(favoriteMoviesManager: favoriteMoviesManager)
             }
         } label: {
             Text("Sign Up")
