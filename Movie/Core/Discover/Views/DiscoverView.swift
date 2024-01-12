@@ -61,6 +61,5 @@ struct DiscoverView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         DiscoverView(discoverViewModel: DiscoverViewModel(), showSignInView: .constant(false))
-            .tint(.white)
     }
 }

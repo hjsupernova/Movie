@@ -89,6 +89,5 @@ struct LibraryView_Previews: PreviewProvider {
         LibraryView()
             .preferredColorScheme(.dark)
             .environmentObject(FavoriteMoviesManager())
-            .tint(.white)
     }
 }

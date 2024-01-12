@@ -162,6 +162,5 @@ extension View {
             ]
         )
         .preferredColorScheme(.dark)
-        .tint(.white)
     }
 }

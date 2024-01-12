@@ -61,6 +61,5 @@ struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(searchViewModel: SearchViewModel())
             .preferredColorScheme(.dark)
-            .tint(.white)
     }
 }

@@ -37,7 +37,6 @@ struct MovieTabView: View {
                 .onAppear { movieTabViewModel.selectedTap = .search }
                 .tag(Views.search)
         }
-        .tint(.white)
         .task {
             await movieTabViewModel.loadCurrentUser()
         }

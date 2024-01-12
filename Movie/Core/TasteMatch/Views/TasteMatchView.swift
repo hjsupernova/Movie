@@ -138,6 +138,5 @@ struct TasteMatchView: View {
 
 #Preview {
     TasteMatchView()
-        //        .tint(.white)
         .preferredColorScheme(.dark)
 }

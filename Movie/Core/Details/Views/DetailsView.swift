@@ -184,6 +184,5 @@ struct DetailView_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
                 .environmentObject(FavoriteMoviesManager())
         }
-        .tint(.white)
     }
 }
