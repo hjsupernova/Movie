@@ -16,14 +16,12 @@ struct DBUser: Codable {
     let email: String?
     let photoUrl: String?
     let dateCreated: Date?
-    let favoriteMoives: [Movie]?
 
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
         self.email = auth.email
         self.photoUrl = auth.photoURL
         self.dateCreated = Date()
-        self.favoriteMoives = nil
     }
 }
 
