@@ -182,19 +182,11 @@
 		CE36EE4D2B3FBECD0029C9BC /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CEDF61732B08CD6500EA11CF /* Authentication */,
-				CE37131C2B09C125005F5E71 /* Firestore */,
+				CEB799BF2B5144FA001D0606 /* Firebase */,
 				CEFC7BBA2AF8C8890037C92A /* Networking */,
+				CEB799C02B514596001D0606 /* LocalData */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		CE36EE4E2B3FBED60029C9BC /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				CE36EE4B2B3FB7100029C9BC /* FavoriteMoviesManager.swift */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		CE37131C2B09C125005F5E71 /* Firestore */ = {
@@ -435,8 +427,6 @@
 			children = (
 				CE7F0AC82AADF262002EBD6F /* MovieApp.swift */,
 				CEB4AC172AEB6893001FDFAB /* .gitignore */,
-				CEB4AC1B2AEB68DD001FDFAB /* SecureAPIKeys.plist */,
-				CEDF61772B08D76300EA11CF /* GoogleService-Info.plist */,
 				CE7F0AC72AADF262002EBD6F /* Movie */,
 				CE7F0AC62AADF262002EBD6F /* Products */,
 				CEDF61682B08C8BB00EA11CF /* Frameworks */,
@@ -458,7 +448,6 @@
 				CE8A72922AE4025300A13EE1 /* Extensions */,
 				CE6868062ACAB9CB00CCD6CD /* Models */,
 				CE36EE4D2B3FBECD0029C9BC /* Services */,
-				CE36EE4E2B3FBED60029C9BC /* Utilities */,
 				CE29CA312AF5ED3700CC4AA4 /* ViewModifiers */,
 				CE7F0ACC2AADF264002EBD6F /* Assets.xcassets */,
 				CE7F0ACE2AADF264002EBD6F /* Preview Content */,
@@ -497,6 +486,24 @@
 			path = Endpoints;
 			sourceTree = "<group>";
 		};
+		CEB799BF2B5144FA001D0606 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				CEDF61732B08CD6500EA11CF /* Authentication */,
+				CE37131C2B09C125005F5E71 /* Firestore */,
+				CEDF61772B08D76300EA11CF /* GoogleService-Info.plist */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		CEB799C02B514596001D0606 /* LocalData */ = {
+			isa = PBXGroup;
+			children = (
+				CE36EE4B2B3FB7100029C9BC /* FavoriteMoviesManager.swift */,
+			);
+			path = LocalData;
+			sourceTree = "<group>";
+		};
 		CEDF61682B08C8BB00EA11CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,9 +532,10 @@
 		CEFC7BBA2AF8C8890037C92A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				CE8A72992AE40DCA00A13EE1 /* APIClient.swift */,
 				CE8A729D2AE41D5D00A13EE1 /* Endpoints */,
+				CE8A72992AE40DCA00A13EE1 /* APIClient.swift */,
 				CE0C3C822AC82F6200925583 /* Genrelists.json */,
+				CEB4AC1B2AEB68DD001FDFAB /* SecureAPIKeys.plist */,
 				CEFC7BBB2AF8C8CF0037C92A /* TMDbAPIError.swift */,
 			);
 			path = Networking;
