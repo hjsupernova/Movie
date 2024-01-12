@@ -32,8 +32,9 @@ struct TasteMatchView: View {
         .sheet(isPresented: $tasteMatchViewModel.showingSheet, content: {
             TasteMatchDetailView(score: tasteMatchViewModel.score, movie: tasteMatchViewModel.matchedMovies?.first)
         })
-        .alert("Error", isPresented: $tasteMatchViewModel.showErrorAlert) {
-            Text("Error: \(tasteMatchViewModel.errorAlertMessage)")
+        .alert(tasteMatchViewModel.alertTitle, isPresented: $tasteMatchViewModel.showAlert) {
+        } message: {
+            Text("Error: \(tasteMatchViewModel.alertMsg)")
         }
     }
 
